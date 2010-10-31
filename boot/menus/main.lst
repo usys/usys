@@ -1,0 +1,80 @@
+timeout 10
+default 0
+debug off
+color green/black white/blue white/black black/black
+title Boot Vista/Windows 7 
+    find --set-root /bootmgr
+    chainloader +1
+
+title Boot Windows XP/2K/NT
+    find --set-root /ntldr
+    makeactive
+    chainloader +1
+
+title Boot GNU/Linux 
+    find --set-root /boot/default/vmlinuz
+    configfile /boot/default/submenu.lst
+
+title Boot XRDOS
+	find --set-root /boot/images/xrdos.img
+    map --mem /boot/images/xrdos.img (fd0)
+    map --floppies=1
+    map --hook
+    chainloader (fd0)+1
+    rootnoverify (fd0)
+
+title Boot ARDOS
+	find --set-root /boot/images/ardos.img
+    map --mem /boot/images/ardos.img (fd0)
+    map --floppies=1
+    map --hook
+    chainloader (fd0)+1
+    rootnoverify (fd0)
+
+title Boot DynPE
+	find --set-root /pe/system/dynpe.ldr
+	chainloader /pe/system/dynpe.ldr
+
+title Boot LmtPE
+    chainloader /pe/system/lmtpe.ldr
+	
+title Boot GNU/Linux Damn Small 
+	find --set-root /boot/dsl/menu.lst
+	configfile /boot/dsl/menu.lst
+		
+title Boot Debian Installer
+    configfile /boot/debian/installer/submenu.lst
+    
+title -------------------------------------------------------------------- 
+        clear
+        
+title Boot hard disk 1
+        chainloader (hd1,0)+1
+        map (hd0) (hd1)
+        map (hd1) (hd0)
+
+title Boot hard disk 2
+        chainloader (hd2,0)+1
+        map (hd0) (hd2)
+        map (hd2) (hd0)
+        
+        
+title Windows XP/2K/NT Chainlader
+find --set-root /ntldr
+makeactive
+chainloader /ntldr
+
+title Windows Vista Chanloader
+find --set-root /bootmgr
+chainloader /bootmgr
+
+			
+title -------------------------------------------------------------------- 
+        clear
+
+title REBOOT 
+        reboot
+
+title SHUTDOWN
+        halt
+		

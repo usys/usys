@@ -1,0 +1,10 @@
+default 1
+timeout 3
+hiddenmenu
+
+find --set-root /boot/tinycore/tinycore.gz
+title Tiny Core Linux
+    kernel /boot/tinycore/bzImage
+    initrd /boot/tinycore/tinycore.gz
+
+			

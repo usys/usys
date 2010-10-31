@@ -1,0 +1,118 @@
+display /boot/menus/syslinux.msg
+implicit 0
+prompt 1
+timeout 100
+default hd3
+
+F12 /boot/syslinux/syslinux.msg
+F1 /boot/menus/syslinux.msg
+F2 /boot/menus/syslinux.f2
+F3 /boot/tinycore/syslinux.msg
+
+LABEL hd1
+MENU LABEL Boot hard disk 1
+    KERNEL chain.c32
+    APPEND hd0 1
+
+LABEL hd2
+MENU LABEL Boot hard disk 2
+    KERNEL chain.c32
+    APPEND hd1 1 swap
+
+LABEL hd3
+MENU LABEL Boot hard disk 3
+    KERNEL chain.c32
+    APPEND hd2 1 swap    
+
+LABEL grub
+    LINUX /boot/grub4dos/grub.exe
+
+LABEL grub4dos
+    LINUX /boot/grub4dos/grub.exe
+
+LABEL grub2
+    LINUX   /boot/loadbin/ldgrub2.bin
+    APPEND  /boot/grub2/core.img
+
+LABEL tinycore
+MENU LABEL  Boot Tiny Core Linux (/boot/tinycore)
+    LINUX /boot/tinycore/bzImage
+    APPEND quiet tce=sda1/tinycore
+    INITRD /boot/tinycore/tinycore.gz
+
+LABEL msdos
+MENU LABEL Boot MSDOS 7.0 (/boot/images)
+    KERNEL memdisk
+    INITRD /boot/images/msd98se.img
+
+LABEL xrdos
+MENU LABEL Boot XRDOS (/boot/images)
+    KERNEL memdisk
+    INITRD /boot/images/xrdos.img
+
+LABEL debian
+MENU LABEL Boot debian (/boot/debian)
+    KERNEL /boot/debian/vmlinuz-2.6.26-2-686-bigmem
+    APPEND ro quiet root=LABEL=ULSYS video=uvesafb:mode:1024X768-16
+    INITRD /boot/debian/initrd.img-2.6.26-2-686-bigmem
+
+LABEL debian_bigmem
+MENU LABEL Boot debian (686-bigmem,/boot/debian)
+    KERNEL /boot/debian/vmlinuz-2.6.26-2-686-bigmem
+    APPEND ro quiet root=LABEL=ULSYS
+    INITRD /boot/debian/initrd.img-2.6.26-2-686-bigmem
+
+LABEL debian_486
+MENU LABEL Boot debian (486,/boot/debian)
+    KERNEL /boot/debian/vmlinuz-2.6.26-2-486
+    APPEND ro quiet root=LABEL=ULSYS
+    INITRD /boot/debian/initrd.img-2.6.26-2-486
+
+LABEL debian_686
+MENU LABEL Boot debian (686,/boot/debian)
+    KERNEL /boot/debian/vmlinuz-2.6.26-2-686
+    APPEND ro quiet root=LABEL=ULSYS
+    INITRD /boot/debian/initrd.img-2.6.26-2-686
+
+LABEL usys
+MENU LABEL Boot USYS Dos (/boot/images)
+    KERNEL memdisk
+    INITRD /boot/images/usys.img
+
+LABEL xpow98se
+MENU LABEL Boot XPOWER MS-DOS 98SE (/boot/images)
+    KERNEL memdisk
+    INITRD /boot/images/xpow98se.img
+
+LABEL ardos
+MENU LABEL Boot AiRen DOS (/boot/images)
+    KERNEL memdisk
+    INITRD /boot/images/ardos.img
+
+LABEL dsl
+MENU LABEL Boot GNU/Linux Damn Small (/boot/dsl)
+    KERNEL /boot/dsl/linux24
+    APPEND ramdisk_size=100000 init=/etc/init lang=us noapic vga=791 initrd=/boot/dsl/minirt24.gz BOOT_IMAGE=knoppix knoppix_dir=boot/dsl knoppix_name=dsl.iso frugal
+    INITRD /boot/dsl/minirt24.gz
+    
+LABEL dynpe 
+MENU LABEL Boot DynPE (/pe)
+    KERNEL memdisk
+    INITRD /pe/loader/peloader.img
+
+LABEL freedos
+MENU LABEL Boot Freedos (/boot/images)
+    KERNEL memdisk
+    INITRD /boot/images/fdos10.img
+
+
+LABEL testmem
+MENU LABEL Boot Test MEM (/boot/images)
+    KERNEL  memdisk
+    INITRD  /boot/images/testmem.img
+
+LABEL bootresc
+MENU LABEL Bootloader repaire (/boot/images)
+    KERNEL memdisk
+    INITRD /boot/images/bootresc.img
+

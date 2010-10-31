@@ -1,0 +1,3 @@
+title Boot Install Testing from HD-MEDIA
+    kernel /boot/debian/installer/testing/hdmedia/vmlinuz
+    initrd /boot/debian/installer/testing/hdmedia/initrd.gz

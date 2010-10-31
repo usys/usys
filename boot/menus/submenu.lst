@@ -1,0 +1,41 @@
+find --set-root /boot/uwsys.id
+
+title Freedos 1.0 
+        map --mem /boot/images/fdos10.fd (fd0)
+        map --hook
+        chainloader (fd0)+1
+        rootnoverify (fd0)
+        
+title Start Dos ToolBox
+	map --mem /boot/images/dostool.fd (fd0)
+	map --hook
+	chainloader (fd0)+1
+	rootnoverify (fd0)
+	
+title Start Ghost V11 
+        map --mem /boot/images/ghost11.fd (fd0)
+        map --hook
+        chainloader (fd0)+1
+        rootnoverify (fd0)
+
+title Start Norton Partition Magic 
+        map --mem /boot/images/pqmagic.fd (fd0)
+        map --hook
+        chainloader (fd0)+1
+        rootnoverify (fd0)
+        
+title Memory testing
+        map --mem /boot/images/memtestp.img (fd0)
+       map --hook
+        chainloader (fd0)+1
+       rootnoverify (fd0)
+
+title Image Editing list ...
+	configfile /boot/menus/editimg.lst
+	
+title --------------------------------------------------------------------  
+        clear
+        
+title <--Return
+	find --set-root /boot/menus/main.lst
+	configfile /boot/menus/main.lst

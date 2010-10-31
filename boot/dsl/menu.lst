@@ -1,0 +1,33 @@
+#color black/cyan yellow/cyan
+timeout 3
+hiddenmenu
+find --set-root /boot/dsl/linux24
+
+title dsl
+kernel /boot/dsl/linux24  ramdisk_size=100000 init=/etc/init lang=us noapic vga=791 initrd=/boot/dsl/minirt24.gz BOOT_IMAGE=knoppix knoppix_dir=boot/dsl knoppix_name=dsl.iso frugal
+initrd /boot/dsl/minirt24.gz
+
+title knoppix 
+kernel /boot/dsl/linux24  ramdisk_size=100000 init=/etc/init lang=us apm=power-off vga=normal initrd=/boot/dsl/minirt24.gz  nomce noapic qemu quiet BOOT_IMAGE=knoppix knoppix_dir=boot/dsl knoppix_name=dsl.iso frugal
+initrd /boot/dsl/minirt24.gz
+
+title expert
+kernel /boot/dsl/linux24  ramdisk_size=100000 init=/etc/init lang=us apm=power-off vga=791 initrd=/boot/dsl/minirt24.gz  nomce noapic BOOT_IMAGE=expert frugal
+initrd /boot/dsl/minirt24.gz
+
+title fb1280x1024
+kernel /boot/dsl/linux24  ramdisk_size=100000 init=/etc/init lang=us apm=power-off vga=794 xmodule=fbdev initrd=/boot/dsl/minirt24.gz  nomce noapic qemu quiet BOOT_IMAGE=knoppix knoppix_dir=boot/dsl knoppix_name=dsl.iso frugal
+initrd /boot/dsl/minirt24.gz
+
+title fb1024x768
+kernel /boot/dsl/linux24  ramdisk_size=100000 init=/etc/init lang=us apm=power-off vga=791 xmodule=fbdev initrd=/boot/dsl/minirt24.gz  nomce noapic qemu quiet BOOT_IMAGE=knoppix knoppix_dir=boot/dsl knoppix_name=dsl.iso frugal
+initrd /boot/dsl/minirt24.gz
+
+title fb800x600
+kernel /boot/dsl/linux24  ramdisk_size=100000 init=/etc/init lang=us apm=power-off vga=788 xmodule=fbdev initrd=/boot/dsl/minirt24.gz  nomce noapic qemu quiet BOOT_IMAGE=knoppix knoppix_dir=boot/dsl knoppix_name=dsl.iso frugal
+initrd /boot/dsl/minirt24.gz
+
+title failsafe
+kernel /boot/dsl/linux24  ramdisk_size=100000 init=/etc/init lang=us vga=normal atapicd nosound noapic noacpi acpi=off noscsi noapm nousb nopcmcia nofirewire noagp nomce nodhcp xmodule=vesa initrd=/boot/dsl/minirt24.gz  BOOT_IMAGE=knoppix knoppix_dir=boot/dsl knoppix_name=dsl.iso frugal
+initrd /boot/dsl/minirt24.gz
+

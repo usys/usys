@@ -1,0 +1,24 @@
+Tiny Core accepts the following boot time options:
+
+ Color            640x480     800x600      1024x768     1280x1024
+   256    8 bit     769         771           773          775
+ 32000   15 bit     784         787           790          793
+ 65000   16 bit     785         788           791          794
+ 16.7M   24 bit     786         789           792          795
+ 
+ tinycore vga=7xx                    7xx from table above
+ tinycore xsetup                     Prompt user for Xvesa setup
+ tinycore tce={hda1|sda1}            Specify Restore TCE apps directory
+ tinycore base                       Skip TCE load only the base system
+ tinycore norestore                  Turn off the automatic restore
+ tinycore restore={hda1|sda1|floppy} Specify saved configuration location
+ tinycore {ssh|cron|syslog}          Start various daemons at boot
+ tinycore lang=en                    Choose Language (currently english only)
+ tinycore kmap=us                    US only unless kamps.tce is installed.
+ tinycore host=xxxx                  Set hostname to xxxx
+ tinycore noswap                     Do not use swap partition
+ tinycore swapfile{=hda1}            Scan or Specify for a swap file
+ tinycore dosswapfile{=hda1}         Scan or Specify dosswapfile
+ tinycore nodhcp                     Skip the dhcp request for eth0 at boot
+ tinycore superuser                  Textmode as user root
+ tinycore text                       Textmode 

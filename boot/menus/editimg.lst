@@ -1,0 +1,231 @@
+title  /boot/images/MSDOS6.FD
+       map --unsafe-boot /boot/images/MSDOS6.FD (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/DOSHOME.FD
+       map --unsafe-boot /boot/images/DOSHOME.FD (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/FREEDOS1.FD
+       map --unsafe-boot /boot/images/FREEDOS1.FD (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSDME.FD
+       map --unsafe-boot /boot/images/MSDME.FD (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSD98.FD
+       map --unsafe-boot /boot/images/MSD98.FD (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSD95A.FD
+       map --unsafe-boot /boot/images/MSD95A.FD (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSD95B.FD
+       map --unsafe-boot /boot/images/MSD95B.FD (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSD98SE.FD
+       map --unsafe-boot /boot/images/MSD98SE.FD (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSDOS7.FD
+       map --unsafe-boot /boot/images/MSDOS7.FD (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSD700.IMG
+       map --unsafe-boot /boot/images/MSD700.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/DM956TWA.IMG
+       map --unsafe-boot /boot/images/DM956TWA.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/DOS98.IMG
+       map --unsafe-boot /boot/images/DOS98.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/DBAN.IMG
+       map --unsafe-boot /boot/images/DBAN.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MEMTESTP.IMG
+       map --unsafe-boot /boot/images/MEMTESTP.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/NTPASS.IMG
+       map --unsafe-boot /boot/images/NTPASS.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSD622.IMG
+       map --unsafe-boot /boot/images/MSD622.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/DM957.IMG
+       map --unsafe-boot /boot/images/DM957.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/DOSTOOLS.IMG
+       map --unsafe-boot /boot/images/DOSTOOLS.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/GDISK.IMG
+       map --unsafe-boot /boot/images/GDISK.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/GHOSTC.IMG
+       map --unsafe-boot /boot/images/GHOSTC.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/HDDREG15.IMG
+       map --unsafe-boot /boot/images/HDDREG15.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/HWINFO.IMG
+       map --unsafe-boot /boot/images/HWINFO.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/KV2006.IMG
+       map --unsafe-boot /boot/images/KV2006.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/NU2002.IMG
+       map --unsafe-boot /boot/images/NU2002.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/PM805.IMG
+       map --unsafe-boot /boot/images/PM805.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/XLY2007.IMG
+       map --unsafe-boot /boot/images/XLY2007.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/GHOST32.IMG
+       map --unsafe-boot /boot/images/GHOST32.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/GHOSTCE.IMG
+       map --unsafe-boot /boot/images/GHOSTCE.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSDOS71.IMG
+       map --unsafe-boot /boot/images/MSDOS71.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/NTFS2DOS.IMG
+       map --unsafe-boot /boot/images/NTFS2DOS.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/PDOS710.IMG
+       map --unsafe-boot /boot/images/PDOS710.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/PQ80X.IMG
+       map --unsafe-boot /boot/images/PQ80X.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/PWIN98.IMG
+       map --unsafe-boot /boot/images/PWIN98.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/RAV2004.IMG
+       map --unsafe-boot /boot/images/RAV2004.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSD710A.IMG
+       map --unsafe-boot /boot/images/MSD710A.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSD710.IMG
+       map --unsafe-boot /boot/images/MSD710.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSD800.IMG
+       map --unsafe-boot /boot/images/MSD800.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/MSDOS71S.IMG
+       map --unsafe-boot /boot/images/MSDOS71S.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/WINB95A.IMG
+       map --unsafe-boot /boot/images/WINB95A.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/WINB95B.IMG
+       map --unsafe-boot /boot/images/WINB95B.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/WINB98.IMG
+       map --unsafe-boot /boot/images/WINB98.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/WINB98SE.IMG
+       map --unsafe-boot /boot/images/WINB98SE.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/WINMEOEM.IMG
+       map --unsafe-boot /boot/images/WINMEOEM.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/WINME.IMG
+       map --unsafe-boot /boot/images/WINME.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title  /boot/images/GHOST11.IMG
+       map --unsafe-boot /boot/images/GHOST11.IMG (fd1)
+       map --hook
+       chainloader (fd0)+1
+       rootnoverify (fd0)
+title --------------------------------------------------------------------
+    clear
+title Return
+    find --set-root /boot/menus/submenu.lst
+   configfile /boot/menus/submenus.lst
+

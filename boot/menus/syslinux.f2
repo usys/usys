@@ -1,0 +1,23 @@
+
+Available boot entries:
+
+    dynpe           Boot DynPE (/pe)
+    usys            Boot USYS Dos (/boot/images)
+    xpow98se        Boot XPOWER MS-DOS 98SE (/boot/images)
+    ardos           Boot AiRen DOS (/boot/images)
+    freedos         Boot Freedos (/boot/images)
+    dsl             Boot GNU/Linux Damn Small (/boot/dsl)
+    debian_486      Boot Debian GNU/Linux using 486 kernel 
+    debian_686      Boot Debian GNU/Linux using 686 kernel 
+    debian_bigmem   Boot Debian GNU/Linux using 686-bigmem kernel
+
+    reboot          Reboot
+
+See also:
+    F1      Available boot entires
+    F2      This Page
+    F3      Tiny Core Linux Boot options
+    
+Press <Enter> to start, default is booting from harddisk 2.
+                                             - xiaoranzzz@myplace.hell
+

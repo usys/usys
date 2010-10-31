@@ -1,0 +1,23 @@
+Tiny Core accepts the following additional boot time options:
+
+ tinycore waitusb=X                  Wait X seconds for slow USB devices.
+ tinycore home={hda1|sda1}           Specify peristent home directory.
+ tinycore cryptohome={hda1|sda1}     Specify peristent home dir or file.
+ tinycore opt={hda1|sda1}            Specify peristent opt directory.
+ tinycore local={hda1|sda1}          Specify PPI directory or loopback file.
+ tinycore nolocal                    Skip autoscan for previously setup PPI.
+ tinycore secure                     Set password.
+ tinycore protect                    Password Encrypted Backup.
+ tinycore checkfs                    Check Ext2/Ext3 filesystems.
+ tinycore pause                      Pause at completion of boot messages.
+ tinycore noutc                      BIOS is using localtime.
+ tinycore tz=GMT+8                   Timezone tz=PST+8PDT,M3.2.0/2,M11.1.0/2
+ tinycore settime                    Set UTC time at boot, internet required.
+ tinycore user=abc                   Specify alternate user.
+ tinycore desktop=yyy                Specify alternate window manager.
+ tinycore noicons                    Do not use icons.
+ tinycore laptop                     Force load laptop related modules.
+ tinycore embed                      Stay on initramfs. 
+ tinycore bkg=image.{jpg|png|gif}    Set background from /opt/backgrounds.
+ tinycore thm=name_of_theme.thm      Set JWM theme from /opt/jwmThemes.
+

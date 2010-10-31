@@ -1,0 +1,61 @@
+# This is a sample menu.lst file. You should make some changes to it.
+# The old install method of booting via the stage-files has been removed.
+# Please install GRLDR boot strap code to MBR with the bootlace.com
+# utility under DOS/Win9x or Linux.
+
+
+debug off
+default=0
+timeout=2
+hiddenmenu
+
+
+#0
+title Boot Windows Vista
+        chainloader (hd2,0)/bootmgr
+        rootnoverify (hd2,0)
+        makeactive
+        map (hd0) (hd2)
+        map (hd2) (hd0)
+        fallback 1
+
+#1
+title Boot Windows XP/NT
+        chainloader (hd2,0)/ntldr
+        rootnoverify (hd2,0)
+        makeactive
+        map (hd0) (hd2)
+        map (hd2) (hd0)
+        fallback 2
+
+#2
+title Boot Win98/DOS
+        chainloader (hd2,0)/io.sys
+        rootnoverify (hd2,0)
+        makeactive
+        map (hd0) (hd2)
+        map (hd2) (hd0)
+        fallback 3
+
+#3
+title Boot First Sector
+        chainloader (hd2,0)+1
+        rootnoverify (hd2,0)
+        makeactive
+        map (hd0) (hd2)
+        map (hd2) (hd0)
+
+title --------------------------------------------------------------------  
+        clear
+#4
+title Return to main menu
+        find --set-root /menu.lst
+        configfile /menu.lst
+
+
+title Reboot
+reboot
+
+title Power Down
+halt
+

@@ -1,0 +1,25 @@
+    
+Available boot entries:
+
+    hd1             Boot from harddisk 1
+    hd2             Boot from harddisk 2
+    hd3             Boot from harddisk 3
+    msdos           Boot MSDOS 7.0 (/boot/images)
+    xrdos           Boot xrdos (boot/images)
+    tinycore        Boot Tiny Core Linux
+    debian          Boot Debian GNU/Linux
+
+    grub            Chainload GRUB4DOS
+    poweroff        Power off
+    reboot          Reboot
+
+See also:
+
+    F1      This page.
+    F2      More Available boot entires
+    F3      Tiny Core Linux Boot options
+    F12     Syslinux modules list
+    
+Press <Enter> to start, default is booting from harddisk 2.
+                                             - xiaoranzzz@myplace.hell
+

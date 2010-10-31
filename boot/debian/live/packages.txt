@@ -1,0 +1,129 @@
+This file contains the list of all packages installed in this live system.
+
+
+D: Executing: dpkg -l
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name                              Version                  Description
++++-=================================-========================-============================================
+ii  adduser                           3.112                    add and remove users and groups
+ii  apt                               0.7.25.3                 Advanced front-end for dpkg
+ii  base-files                        5.3                      Debian base system miscellaneous files
+ii  base-passwd                       3.5.22                   Debian base system master password and group
+ii  bash                              4.1-3                    The GNU Bourne Again SHell
+ii  bsdutils                          1:2.16.2-0               Basic utilities from 4.4BSD-Lite
+ii  busybox                           1:1.14.2-2               Tiny utilities for small and embedded system
+ii  console-common                    0.7.85                   basic infrastructure for text console config
+ii  console-data                      2:1.10-2                 keymaps, fonts, charset maps, fallback table
+ii  console-tools                     1:0.2.3dbs-69            Linux console and font utilities
+ii  coreutils                         8.5-1                    GNU core utilities
+ii  cpio                              2.11-4                   GNU cpio -- a program to manage archives of 
+ii  dash                              0.5.5.1-3                POSIX-compliant shell
+ii  debconf                           1.5.32                   Debian configuration management system
+ii  debconf-english                   1.5.32                   small footprint English-only debconf
+ii  debian-archive-keyring            2009.01.31               GnuPG archive keys of the Debian archive
+ii  debianutils                       3.2.3                    Miscellaneous utilities specific to Debian
+ii  dhcp3-client                      3.1.3-2                  DHCP client
+ii  dhcp3-common                      3.1.3-2                  common files used by all the dhcp3* packages
+ii  diffutils                         1:2.9-4                  File comparison utilities
+ii  dpkg                              1.15.7.1                 Debian package management system
+ii  e2fslibs                          1.41.11-1                ext2/ext3/ext4 file system libraries
+ii  e2fsprogs                         1.41.11-1                ext2/ext3/ext4 file system utilities
+ii  eject                             2.1.5+deb1+cvs20081104-7 ejects CDs and operates CD-Changers under Li
+ii  file                              5.04-2                   Determines file type using "magic" numbers
+ii  findutils                         4.4.2-1                  utilities for finding files--find, xargs
+ii  firmware-linux-free               2.6.32-9                 Binary firmware for various drivers in the L
+ii  gcc-4.4-base                      4.4.2-9                  The GNU Compiler Collection (base package)
+ii  gnupg                             1.4.10-2                 GNU privacy guard - a free PGP replacement
+ii  gpgv                              1.4.10-2                 GNU privacy guard - signature verification t
+ii  grep                              2.6.3-3                  GNU grep, egrep and fgrep
+ii  gzip                              1.3.12-9                 GNU compression utilities
+ii  hostname                          3.04                     utility to set/show the host name or domain 
+ii  ifupdown                          0.6.10                   high level tools to configure network interf
+ii  initramfs-tools                   0.93.4                   tools for generating an initramfs
+ii  initscripts                       2.87dsf-10               scripts for initializing and shutting down t
+ii  insserv                           1.12.0-14                Tool to organize boot sequence using LSB ini
+ii  iputils-ping                      3:20100214-1             Tools to test the reachability of network ho
+ii  klibc-utils                       1.5.18-1                 small utilities built with klibc for early b
+ii  klogd                             1.5-5                    Kernel Logging Daemon
+ii  libacl1                           2.2.49-2                 Access control list shared library
+ii  libattr1                          1:2.4.44-1               Extended attribute shared library
+ii  libblkid1                         2.16.2-0                 block device id library
+ii  libbz2-1.0                        1.0.5-4                  high-quality block-sorting file compressor l
+ii  libc-bin                          2.10.2-6                 Embedded GNU C Library: Binaries
+ii  libc6                             2.10.2-6                 Embedded GNU C Library: Shared libraries
+ii  libcomerr2                        1.41.11-1                common error description library
+ii  libconsole                        1:0.2.3dbs-69            Shared libraries for Linux console and font 
+ii  libdb4.7                          4.7.25-9                 Berkeley v4.7 Database Libraries [runtime]
+ii  libdb4.8                          4.8.26-1                 Berkeley v4.8 Database Libraries [runtime]
+ii  libdbus-1-3                       1.2.24-1                 simple interprocess messaging system
+ii  libdevmapper1.02.1                2:1.02.45-1              The Linux Kernel Device Mapper userspace lib
+ii  libfile-copy-recursive-perl       0.38-1                   Perl extension for recursively copying files
+ii  libfile-temp-perl                 0.22-1                   Perl module to create a temporary file safel
+ii  libgcc1                           1:4.4.2-9                GCC support library
+ii  libgdbm3                          1.8.3-9                  GNU dbm database routines (runtime version)
+ii  libiw30                           30~pre9-4                Wireless tools - library
+ii  libklibc                          1.5.18-1                 minimal libc subset for use with initramfs
+ii  liblocale-gettext-perl            1.05-6                   Using libc functions for internationalizatio
+ii  liblzma2                          4.999.9beta+20100307-1   XZ-format compression library
+ii  libmagic1                         5.04-2                   File type determination library using "magic
+ii  libncurses5                       5.7+20100313-2           shared libraries for terminal handling
+ii  libncursesw5                      5.7+20100313-2           shared libraries for terminal handling (wide
+ii  libnl1                            1.1-5                    library for dealing with netlink sockets
+ii  libpam-modules                    1.1.1-3                  Pluggable Authentication Modules for PAM
+ii  libpam-runtime                    1.1.1-3                  Runtime support for the PAM library
+ii  libpam0g                          1.1.1-3                  Pluggable Authentication Modules library
+ii  libpcsclite1                      1.5.5-3                  Middleware to access a smart card using PC/S
+ii  libreadline5                      5.2-7                    GNU readline and history libraries, run-time
+ii  libreadline6                      6.1-1                    GNU readline and history libraries, run-time
+ii  libselinux1                       2.0.94-1                 SELinux runtime shared libraries
+ii  libsepol1                         2.0.40-2                 SELinux library for manipulating binary secu
+ii  libss2                            1.41.11-1                command-line interface parsing library
+ii  libssl0.9.8                       0.9.8n-1                 SSL shared libraries
+ii  libstdc++6                        4.4.2-9                  The GNU Standard C++ Library v3
+ii  libtext-charwidth-perl            0.04-6                   get display widths of characters on the term
+ii  libtext-iconv-perl                1.7-2                    converts between character sets in Perl
+ii  libtext-wrapi18n-perl             0.06-7                   internationalized substitute of Text::Wrap
+ii  libusb-0.1-4                      2:0.1.12-14              userspace USB programming library
+ii  libuuid1                          2.16.2-0                 Universally Unique ID library
+ii  libwrap0                          7.6.q-18                 Wietse Venema's TCP wrappers library
+ii  linux-image-2.6-686               2.6.32+25                Linux 2.6 for modern PCs
+ii  linux-image-2.6.32-3-686          2.6.32-9                 Linux 2.6.32 for modern PCs
+ii  linux-wlan-ng                     0.2.9+dfsg-4             utilities for wireless prism2 cards
+ii  live-initramfs                    1.177.2-1                Debian Live initramfs hook
+ii  login                             1:4.1.4.2-1              system login tools
+ii  lsb-base                          3.2-23.1                 Linux Standard Base 3.2 init script function
+ii  mawk                              1.3.3-15                 a pattern scanning and text processing langu
+ii  module-init-tools                 3.12~pre2-3              tools for managing Linux kernel modules
+ii  mount                             2.16.2-0                 Tools for mounting and manipulating filesyst
+ii  ncurses-base                      5.7+20100313-2           basic terminal type definitions
+ii  ncurses-bin                       5.7+20100313-2           terminal-related programs and man pages
+ii  net-tools                         1.60-23                  The NET-3 networking toolkit
+ii  netbase                           4.41                     Basic TCP/IP networking system
+ii  passwd                            1:4.1.4.2-1              change and administer password and group dat
+ii  perl                              5.10.1-12                Larry Wall's Practical Extraction and Report
+ii  perl-base                         5.10.1-12                minimal Perl system
+ii  perl-modules                      5.10.1-12                Core Perl modules
+ii  procps                            1:3.2.8-8                /proc file system utilities
+ii  readline-common                   6.1-1                    GNU readline and history libraries, common f
+ii  sed                               4.2.1-7                  The GNU sed stream editor
+ii  sensible-utils                    0.0.4                    Utilities for sensible alternative selection
+ii  sudo                              1.7.2p6-1                Provide limited super user privileges to spe
+ii  sysklogd                          1.5-5                    System Logging Daemon
+ii  sysv-rc                           2.87dsf-10               System-V-like runlevel change mechanism
+ii  sysvinit                          2.87dsf-10               System-V-like init utilities
+ii  sysvinit-utils                    2.87dsf-10               System-V-like utilities
+ii  tar                               1.23-1                   GNU version of the tar archiving utility
+ii  tcpd                              7.6.q-18                 Wietse Venema's TCP wrapper utilities
+ii  tzdata                            2010i-1                  time zone and daylight-saving time data
+ii  udev                              153-2                    /dev/ and hotplug management daemon
+ii  update-inetd                      4.36                     inetd configuration file updater
+ii  user-setup                        1.28                     Set up initial user and password
+ii  util-linux                        2.16.2-0                 Miscellaneous system utilities
+ii  vim-common                        2:7.2.330-1              Vi IMproved - Common files
+ii  vim-tiny                          2:7.2.330-1              Vi IMproved - enhanced vi editor - compact v
+ii  wireless-tools                    30~pre9-4                Tools for manipulating Linux Wireless Extens
+ii  wpasupplicant                     0.6.10-2                 client support for WPA and WPA2 (IEEE 802.11
+ii  xz-utils                          4.999.9beta+20100307-1   XZ-format compression utilities
+ii  zlib1g                            1:1.2.3.4.dfsg-3         compression library - runtime

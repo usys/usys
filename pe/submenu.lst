@@ -1,0 +1,12 @@
+timeout 5
+default 0
+debug off
+
+title DynPE
+	find --set-root /pe/loader/dynpe.ldr
+	chainloader /pe/loader/dynpe.ldr
+	
+title CmdPE
+    find --set-root /pe/loader/cmdpe.ldr
+    chainloader /pe/loader/cmdpe.ldr
+    
