@@ -1,11 +1,25 @@
-USYS
----------
-usb disk booting system
+USB Booting System
+==================
 
-*project host
+Source
+------
 
-**https://zusys.googlecode.com/svn/trunk
+1. GoogleCode
 
-**git@github.com:eotect/usys.git
+    <http://zusys.googlecode.com>
 
+    <https://zusys.googlecode.com/svn/trunk>
+
+2. GitHub
+
+    <http://github.com/eotect/usys>
+
+    <git@github.com:eotect/usys.git>
+
+2. Gitorious
+
+    <http://gitorious.org/eotect/usys>
+
+    <git@gitorious.org:eotect/usys.git>
+    
 
