@@ -1,0 +1,114 @@
+ 
+                   DOS 5 and QUARTERDECK PRODUCTS
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.
+
+  Quarterdeck Technical Support BBS:  DOS5.TEC
+                         CompuServe:  DOS5.ZIP
+                              Q/FAX:  #200
+
+
+  The shipping versions of all Quarterdeck products are compatible
+  with IBM and Microsoft DOS 5.
+
+  INSTALLING DOS 5 OVER A QEMM SYSTEM:
+
+  If you are installing DOS 5 on a system that already has QEMM
+  installed, simply leave the Quarterdeck memory managers in place
+  and run the DOS SETUP program.  SETUP will detect that a
+  compatible memory manager is installed and will not replace it.
+
+  SETUP typically places a "DEVICE=SETVER.EXE" statement at the
+  beginning of your CONFIG.SYS file (before QEMM) and puts
+  "DOS=HIGH" at the end of the CONFIG.SYS. It will also put a
+  "SHELL=COMMAND.COM" statement in the file if there is not one
+  already.  For our purposes, you can leave that as it is.
+
+  If you move the SETVER.EXE line below QEMM, OPTIMIZE will be able
+  to load it high.
+
+  Once you have installed the DOS 5 upgrade, switch to your QEMM
+  directory and run OPTIMIZE.
+
+  If you are running DESQview, you should Optimize with the
+  /STEALTH option, even though Optimize may not suggest it
+  automatically.
+
+  INSTALLING QEMM OVER A DOS 5 SYSTEM:
+
+  If you are installing QEMM onto a system that already has DOS 5,
+  place the QEMM disk in your floppy drive and type:
+
+       INSTALL
+
+  The INSTALL routines are fully aware of DOS 5.
+
+  Note:  In most cases, DESQview users get larger memory in their
+  DOS windows by removing the "DOS=HIGH" from the CONFIG.SYS file.
+  This allows DESQview to use the High Memory Area (HMA) that DOS
+  would otherwise use. DESQview is more efficient at using the HMA
+  than DOS, so giving DESQview the HMA usually results in more
+  memory in your DESQview window.  The only way to be sure which is
+  better is to try it both ways (running Optimize and then running
+  DESQview's Memory Status program with each configuration) to
+  determine which provides the most memory.
+
+  MICROSOFT WINDOWS 3.x IN ENHANCED MODE:
+
+  If you run Microsoft Windows in Enhanced mode and use the DOS=HIGH
+  parameter, you CANNOT use QEMM's "EXT=" or "MEM=" parameters.
+
+  COMPATIBILITY WITH EARLIER SOFTWARE
+
+  The following are specific compatibility issues related to
+  earlier versions of Quarterdeck software and the use of DOS 5.
+
+  1)  If you use DOS 5's DOSKEY utility and run DESQview:
+
+  You need DESQview 2.34 or later.  To use DOSKEY in a DESQview DOS
+  window, modify the "Program" line of the program information file
+  using "Change a Program" to load "DOSKEY" and configure the
+  "Parameters" line with "/REINSTALL".
+
+  2)  To run Microsoft WINDOWS 3.x in Standard Mode inside DESQview:
+
+  You need DESQview 2.34 or later.
+
+  3)  If you run DOS 5's DOSSHELL program:
+
+  The DOSSHELL program works fine with Quarterdeck's memory
+  management software. It is also possible to start DESQview from
+  the shell, but you cannot task switch away from versions of
+  DESQview prior to 2.34 or the system will hang.
+
+  It is presumed that most users who use more advanced DOS
+  environments (such as DESQview or Windows) will not use DOSSHELL.
+
+  4)  If you run DESQview and use SETVER.EXE:
+
+  SETVER does not take effect when run inside DESQview 2.33 or
+  earlier.
+
+  5)  If you run DESQview and get the message, "packed file is
+  corrupt", when you open a window:
+
+  The EXEPACK utility that came with versions of DOS prior to 5
+  contained a bug that resulted in this error message being
+  displayed when a packed .EXE file was executed in the first 64K
+  of conventional memory. DOS 5 patches the files in memory so that
+  they can be successfully unpacked and executed. However, since
+  DESQview takes over much of the program-loading process from DOS,
+  this patch does not take effect in DESQview versions prior to
+  2.34.
+
+  ******************************************************************
+   This technical note may be copied and distributed freely as long
+    as it is distributed in its entirety and it is not distributed
+    for profit.  
+
+   Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ********************* E N D   O F   F I L E **********************

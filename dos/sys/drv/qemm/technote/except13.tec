@@ -1,0 +1,133 @@
+ 
+                Exception #13 Errors Explained
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available from the following sources:
+
+  Quarterdeck Technical Support BBS:  EXCEPT13.TEC
+                         CompuServe:  EXCEPT.TEC
+                              Q/FAX:  #142
+
+
+  Subject: An explanation of what QEMM's Exception #12 and Exception
+  #13 messages mean, why they are reported, and some of the steps
+  that can be taken to identify their causes.  See also EX13FLOW.TEC
+  for troubleshooting suggestions.
+
+  PLEASE NOTE:  Except where otherwise noted, "386 processor"
+  refers to any 80386 or higher processor.
+
+  Q. What is an Exception #13?  What is an Exception #12?
+  Q. What does the QEMM Exception message mean?  How can it help me?
+
+  Users of QEMM may sometimes encounter a report that an attempt
+  has been made to execute an invalid instruction.  It is almost
+  certain that QEMM, in and of itself, is not the cause of
+  Exception #13 problems, though QEMM's memory management may come
+  into conflict with other hardware and software on your system.
+
+  To answer the questions above, it is worthwhile to examine the
+  Exception #13 report bit by bit.
+
+  "Your PC's main processor has received an invalid instruction..."
+
+  Exceptions are the processor's response to unusual, invalid, or
+  special conditions in the normal operation of the 80386 and
+  higher processor. Exceptions cause the 386 processor to stop what
+  it is doing and to try to react to the condition that caused the
+  exception.  QEMM is designed to capture some of these exceptions -
+  particularly those caused by protection faults or invalid
+  instructions, which could cause a program or the entire system to
+  crash -- and display a report to the user. Neither DOS nor
+  Microsoft's EMM386.EXE has a protected mode interrupt 13 handler,
+  so if an exception occurs using only DOS or EMM386.EXE, your
+  system simply crashes and you have no report.
+
+  Q. What causes an Exception #12 or Exception #13?
+
+  "[This may be] due to an error in one of your programs, a
+  conflict between two programs, or a conflict between a program
+  and a hardware device."
+
+  The exception reported is most commonly #13, the General
+  Protection Fault exception.  This indicates that a program has
+  tried to execute an invalid or privileged instruction.  The
+  result may be a system crash, but QEMM does provide a report
+  before the crash happens.
+
+  Occasionally Exception #12, indicating a stack exception, will be
+  reported. This protection violation is very similar to an
+  Exception #13.
+
+  Very infrequently, an Exception #0 is reported.  This is not
+  intentional; it is usually the result of QEMM's stack being
+  corrupted while QEMM was trying to report another exception.
+
+  It is important to remember that in the vast majority of cases,
+  QEMM is not involved with the problem, but is merely reporting
+  it.
+
+  Q.  What do I do now?
+
+  "...It is likely that the system is unstable now and should be
+  rebooted...."
+
+  QEMM is designed to offer the user the opportunity to terminate
+  the offending program, or to reboot the computer, but often the
+  damage has already been done by the time that the exception is
+  trapped and reported.  In this instance, you may find the
+  computer locked regardless of what you choose.  If the computer
+  is indeed hung, you should write down the information on the
+  screen and then reboot the machine.
+
+  While QEMM's exception reports can be cryptic to non-programmers
+  or to programmers with little experience with assembly language,
+  the information that they provide can sometimes be quite helpful.
+
+  How can an Exception #13 be fixed?  Two Quarterdeck Technical
+  Notes can help you determine if you can solve the problem
+  yourself.  Quarterdeck Technical Note #241, QEMM:  General
+  Troubleshooting (TROUBLE.TEC) is a good place to start.  This
+  note describes common problems and possible solutions, and will
+  help if the cause of the Exception #13 is a memory conflict or
+  bus-mastering issue.  Quarterdeck Technical Note #232, Exception
+  #13 Advanced Troubleshooting (EX13FLOW.TEC) should help you to
+  determine if there is anything at all that you can do yourself to
+  fix the problem.
+
+  If you follow the instructions in both of these technical notes
+  completely, and the Exception #13 persists, the problem is almost
+  certainly a bug in the offending program.  If this is so, you
+  should contact the publisher of the program and explain the
+  situation.   It is possible that he/she is aware of the problem
+  and has a solution.  Unless and until the bug is corrected, you
+  may, at best, be able to make the problem subside.
+
+  Changing the location of the offending program in memory will
+  sometimes help. If you are running under DESQview and you are
+  sure that you have given the program enough memory (i.e., all you
+  can give it), try adding 16 to the size of the script buffer on
+  page 2 of Change a Program.  If you are not running under
+  DESQview, try adding an extra file handle or two.
+
+  If you are unsuccessful in resolving a conflict, the information
+  provided by the report should be forwarded, along with a Manifest
+  printout and a complete description of your system, to the
+  developer of the program that you were running at the time.
+
+  If you are interested in reading a longer, highly technical
+  explanation of Exception #13 errors, refer to the unabridged
+  version of this technical bulletin, available through our
+  standard support channels under the same filename.  See
+  CONTACT.TEC in your QEMM\TECHNOTE directory for information on
+  obtaining technical bulletins.
+
+  *****************************************************************
+            Trademarks are property of their respective owners.
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ********************** E N D   O F   F I L E ********************

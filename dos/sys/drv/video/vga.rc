@@ -1,0 +1,7 @@
+# Example configuration file for PC VGA Monitors
+
+device_video_pclock 10-50
+device_video_hclock 31.5
+device_video_vclock 55-100
+device_video_modeline pc_31.5_640x480 25.1752 640 656 752 800 480 490 492 525 -hsync -vsync
+device_video_modeline pc_31.5_vga_text80_8x16 25.1752 640 656 752 800 400 408 410 437 -hsync +vsync

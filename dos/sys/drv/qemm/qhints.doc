@@ -1,0 +1,571 @@
+                         ÿþçQEMM Hints and Tips
+
+    1 = QEMM and Microsoft Windows                             1äQEMM AND MICRO
+    2 = QEMM and DESQview or DESQview/X                        2äQEMM AND DESQV
+    3 = QEMM with DR DOS 6 or Novell DOS 7                     3äQEMM WITH DR DOS
+    4 = QEMM and disk compressors (e.g., Stacker, SuperStor)   4äQEMM AND DISK
+    5 = QEMM and bus-mastering devices                         5äQEMM AND BUS-MAS
+    6 = QEMM and the EMS page frame                            6äQEMM AND THE EMS
+    7 = QEMM's Stealth ROM Feature                             7äQEMM'S STEALTH ROM
+    8 = QEMM's Optimize Program                                8äQEMM'S OPTIMIZE PRO
+    R = View QEMM's READ.ME file for late-breaking information R¯READ.ME
+    T = View QEMM technical notes                              TäTECHNOTE INDEX
+
+            ÿþè--- Type the number of the item you want ---
+                 ÿþèor press PgDn for more selections
+                    ÿþçQEMM Hints and Tips (page 2)
+    
+    1 = Undoing an Optimize                                    1äUNDOING
+    2 = The Manifest program                                   2äTHE MANIFEST
+    3 = VIDRAM - extending memory for text-based programs      3äEXTENDING MEMORY
+    4 = Tips on freeing more conventional memory               4äTIPS ON FREEING
+    5 = QEMM's new parameter names                             5äNAMES
+    6 = Booting without QEMM                                   6äBOOTING WITHOUT
+    7 = Contacting Quarterdeck technical support               7äQUARTERDECK TECHNICAL
+    8 = Switching between MS-DOS 6's memory manager and QEMM   8äSWITCHING
+
+  
+            ÿþè--- Type the number of the item you want ---
+                 ÿþèor press PgUp for more selections
+                     ÿþçQEMM and Microsoft Windows
+
+  QEMM is fully compatible with Microsoft Windows 3.0 and 3.1. 
+  QEMM automatically provides 8K-24K more memory for running 
+  DOS programs inside Windows 386 enhanced mode.
+
+  Also, you can use QEMM's VIDRAM feature to extend the amount of
+  memory available to DOS text-based programs running in Windows by 
+  up to 96K.  (For information, see Chapter 6 in the QEMM manual.)
+
+  If you install Windows after installing QEMM, be sure to run 
+  QSETUP and select "Specify Microsoft Windows directory."  This
+  selection will add the line SystemROMBreakPoint=false to your 
+  SYSTEM.INI file, a Windows configuration file, to ensure that 
+  Windows runs optimally with QEMM.
+               ÿþçQEMM and Microsoft Windows (Continued)
+
+  In the unlikely event that you experience problems with Windows 
+  after installing QEMM, see the text file WINFLOW.TEC in the 
+  \QEMM\TECHNOTE directory.  You can view technotes with QEMM 
+  Setup by selecting "View QEMM hints technotes and READ.ME" at
+  main menu.
+                  ÿþçQEMM and DESQview or DESQview/X
+
+  If you are using DESQview or DESQview/X, you can increase the 
+  amount of memory in each window by using the Stealth ROM 
+  feature. To find out if you are using Stealth ROM, select 
+  "Review or change QEMM parameters" from the main QEMM Setup menu. 
+  Then look for the selection "Stealth system and video ROMs." If 
+  you see the word "Mapping" or "Frame" at the end of that line, 
+  Stealth ROM is already enabled. If you see the word "Off," you
+  can enable Stealth ROM by typing "S" or hitting the ENTER key,
+  then following the on-screen instructions.  Online Help will tell
+  you more about the Mapping and Frame methods of Stealth ROM.
+    
+  If you have DOS version 5 or 6, QEMM's installation places the 
+  command DOS=HIGH in your CONFIG.SYS file (if it is not already 
+             ÿþçQEMM and DESQview or DESQview/X (Continued)
+
+  there). This is a DOS command that loads part of DOS and DOS 
+  BUFFERS into the HMA (the first 64K of memory above 1MB). 
+
+  You may be able to increase the amount of memory in DESQview or 
+  DESQview/X windows by deleting DOS=HIGH from CONFIG.SYS. To find 
+  out, first run Memory Status from inside DESQview or DESQview/X.
+  Make a note of the figure in the bottom right under "Largest
+  Available Expanded Memory."  Then delete DOS=HIGH from your
+  CONFIG.SYS and run Optimize by typing OPTIMIZE at the DOS prompt.
+  
+  When Optimize completes, run Memory Status from inside DESQview 
+  or DESQview/X and check "Largest Available Expanded Memory" 
+  again.  If it is a larger number than before, you are better off 
+             ÿþçQEMM and DESQview or DESQview/X (Continued)
+ 
+  without DOS=HIGH. Otherwise, add the line DOS=HIGH back to 
+  CONFIG.SYS and re-run Optimize.
+                ÿþçQEMM with DR DOS 6 or Novell DOS 7
+
+  DOS-Up is compatible with both Novell DOS 7 and DR DOS 6, but not
+  with DR DOS 5.  For complete information on using QEMM with DR DOS
+  6 or Novell DOS 7, see the text file DRDOS6.TEC or NOVELL7.TEC in
+  the \QEMM\TECHNOTE directory. You can view technotes with QEMM
+  Setup by selecting "View QEMM hints technotes and READ.ME" at the
+  main menu.
+
+                     ÿþçQEMM and Disk Compressors
+                     ÿþç(e.g., Stacker, SuperStor)
+
+  Depending on the disk compressor you are using, you may need to 
+  take special steps to use QEMM. We have provided technical 
+  bulletins (technotes) covering Stacker, SuperStor, XtraDrive, and 
+  DoubleDisk in the \QEMM\TECHNOTE directory.
+  
+  ÿþèStackerÿþæ - If you have Stacker version 2.0x, 3.0 or 3.1, no
+  special steps are generally required; however, we do suggest you
+  read the technote STACKER3.TEC before running Optimize.  If you
+  are using Stacker 4.0, see the technote STACKER4.TEC.
+
+            ÿþçUsing QEMM with Disk Compressors (Continued)
+
+  ÿþèSuperStorÿþæ - Before running Optimize, read SSTOR.TEC.
+
+  ÿþèXtraDriveÿþæ - Please see the technote XTRADRV.TEC.
+
+  ÿþèDoubleSpaceÿþæ - If you are using MS-DOS 6's DoubleSpace,
+  you can save 40K of memory by using QEMM's Stealth DoubleSpace
+  feature to relocate the DoubleSpace device driver in expanded
+  memory.  See Chapter 5 of the QEMM manual for details.
+                   ÿþçQEMM and Bus-Mastering Devices
+
+  Certain SCSI disk controller cards (and, less frequently, ESDI
+  disk controllers and network cards) use a technique called
+  bus-mastering to speed up disk access. This technique causes a
+  conflict when a memory manager (such as QEMM) attempts to load a
+  device driver or TSR into upper memory.  In some, but not all,
+  cases QEMM can detect a bus-mastering hard disk controller and
+  will take steps to prevent this from happening.  (This is not
+  true if the card controls something other than a hard drive or
+  if QEMM is not being loaded from the bus-mastering hard drive.)
+
+  The typical symptom of a bus-mastering controller is a lock up
+  during Optimize.
+             ÿþçQEMM and Bus-Mastering Devices (Continued)
+  
+  Fortunately, there are solutions to this problem. For a 
+  detailed explanation of bus-mastering and suggestions for 
+  resolving the conflicts caused by its use, please refer to our 
+  technical bulletin BUS-MAST.TEC which can be found in your 
+  \QEMM\TECHNOTE directory.  You can view technotes with QEMM Setup
+  by selecting "View QEMM hints technotes and READ.ME" at the main 
+  menu.   
+                    ÿþçQEMM and the EMS Page Frame
+
+  Most programs that use expanded memory (EMS) access up to 64K 
+  of expanded memory at a time (in 16K units called pages) at a 
+  special area of upper memory called the page frame. An expanded 
+  memory manager (QEMM) makes memory from outside the first 
+  megabyte of memory appear in the page frame. 
+
+  QEMM's installation normally reserves 64K of upper memory for 
+  use as a page frame. You can use QSETUP to specify that no 
+  page frame should be used. 
+   
+  The advantage of eliminating the page frame is that you will free 
+  up 64K of upper memory. The disadvantages are 1) programs that 
+  use EMS memory will not have it, and 2) you will not be able to
+            ÿþçQEMM and the EMS Page Frame (Continued)
+
+  use the Stealth ROM and Stealth DoubleSpace features, which can
+  typically gain you 48K-115K of additional usable upper memory, 
+  and 40K beyond that if you are using MS-DOS 6's DoubleSpace 
+  disk compression feature.
+  
+  Because a great number of DOS applications can use EMS memory 
+  and because you can gain even more usable upper memory with 
+  Stealth, we recommend you use a page frame.
+    
+  To eliminate the page frame, select "Review or change QEMM 
+  parameters" from the main QEMM Setup menu, then select "Set page 
+  frame" and specify NONE. To help you decide if you need a page 
+  frame, press PgDn see the partial list of programs that use EMS.
+                     ÿþçApplications that use EMS
+
+    ÿþçProduct                  Publisher
+    Paradox                  Borland           
+    Clipper                  Computer Associates   
+    DESQview                 Quarterdeck     
+    Folio Views              Folio Corp.       
+    Generic CAD              AutoDesk      
+    Lotus 1-2-3 2.x          Lotus
+    Lotus Agenda             Lotus 
+    FoxPro                   Microsoft         
+    Quattro Pro              Borland      
+    Wildcat BBS              Mustang
+    Turbo C                  Borland          
+                ÿþçApplications that use EMS (Continued)
+
+    ÿþçProduct                  Publisher
+    DESQview/X               Quarterdeck              
+    Intellicom               Liberation Enterprises   
+    Geoworks                 Geoworks              
+    Lotus Magellan           Lotus 
+    Lotus Symphony           Lotus               
+    PC-Write                 Quicksoft                  
+    Q & A                    Symantec                      
+    WordPerfect 5.x          WordPerfect Corp.   
+    Harvard Graphics         SPC                
+    Ventura Publisher        Xerox   
+    dBASE                    Borland                       
+                   ÿþçNetwork Programs that use EMS
+
+    ÿþçProduct                  Publisher
+    3COM TCPIP 2.1           3COM        
+    DECNET                   Digital Equipment Corp.
+    PC/TCP 2.2               FTP     
+    LANMAN 2.1               Microsoft
+    EMSNETX.COM              Novell  
+             ÿþçUtility Programs and Drivers that use EMS
+         
+    ÿþçProduct                  Publisher
+    PC Tools                 Central Point 
+    DoubleDisk               Vertisoft             
+    Fastback                 Fifth Generation        
+    NDOS                     Symantec                   
+    Btrieve                  Novell 
+    QRAM                     Quarterdeck             
+    Stacker                  Stac Electronics         
+    MSCDEX CD ROM Driver     Microsoft
+    Xtradrive                Integrated Information Technologies
+                    ÿþçDisk Caches that can use EMS
+
+    ÿþçProduct                  Publisher
+    Norton 6.x cache         Symantec
+    SmartDRIVE               Microsoft
+    PC-Kwik                  PC-Kwik
+    Hyperdisk                Hyperware
+                         ÿþçGames that use EMS
+
+    ÿþçProduct                  Publisher    
+    Falcon 3.0               Spectrum Holobyte             
+    Patriot                  Three-Sixty
+    Spear of Destiny         ID Software        
+    Strike Commander         Origin
+    Ultima Underworld        Origin
+    V for Victory            Three-Sixty         
+    Wing Commander           Origin
+    Wolfenstein              ID Software           
+    X-Wing                   LucasArts
+                     ÿþçQEMM's Stealth ROM Feature 
+
+  Stealth ROM is an exclusive QEMM feature that can typically
+  create an additional 48K to 115K of High RAM on almost any PC. 
+  Stealth ROM hides your PC's ROMs and makes their memory addresses 
+  available for High RAM or expanded memory mapping. The advantage 
+  of having the additional High RAM is that QEMM can load TSRs, 
+  device drivers and selected parts of DOS there instead of in 
+  conventional memory. By freeing up conventional memory, you will 
+  have more room for running DOS programs.
+
+  Depending on your configuration and the installation options you 
+  chose, Stealth ROM may have been enabled on your system when you 
+  installed QEMM. When you run the Optimize program, Optimize 
+               ÿþçQEMM's Stealth ROM Feature (Continued)
+
+  will try to load your TSRs, device drivers and selected parts of 
+  DOS into High RAM. If all of them will not fit, Optimize will 
+  test your system for compatibility with Stealth ROM and will 
+  determine which Stealth ROM method is best for your system. 
+
+  Is there any reason not to use Stealth?  Yes, you may not need it
+  if all your device drivers, TSRs and parts of DOS fit into High
+  RAM without Stealth ROM enabled. The extra High RAM that Stealth 
+  ROM creates actually comes from QEMM's pool of memory, so by not
+  using Stealth ROM you have slightly more memory for programs that 
+  use expanded or extended memory. A good rule of thumb is to let
+               ÿþçQEMM's Stealth ROM Feature (Continued)
+
+  Optimize decide whether you need Stealth ROM--if Optimize does
+  not suggest Stealth testing, you do not need Stealth ROM. 
+
+  There is one exception--we recommend you use Stealth if you use 
+  DESQview or DESQview/X (see below).  Also, there are a few 
+  machines that are incompatible with Stealth ROM; Optimize
+  attempts to detect incompatibitiles during Stealth testing and 
+  will not enable Stealth ROM on machines that it finds are 
+  incompatible. 
+  
+  DESQview and DESQview/X can use the additional High RAM provided
+  by Stealth ROM. So if you regularly use DESQview or DESQview/X, 
+  we recommend you use Stealth ROM, even if Optimize did not 
+               ÿþçQEMM's Stealth ROM Feature (Continued)
+
+  recommend it. To find out if you are using Stealth ROM, type QEMM
+  at the DOS prompt. QEMM will display some status information. 
+  If you see information about the "Stealth type," Stealth ROM is 
+  already enabled. If not, you can have Optimize perform Stealth 
+  ROM testing by typing OPTIMIZE /ST. 
+                      ÿþçQEMM's Optimize Program
+
+  Optimize is a program that determines how to load TSRs, device 
+  drivers and selected parts of DOS into upper memory. Optimize 
+  analyzes the memory requirements of device drivers and TSRs that 
+  you are loading from CONFIG.SYS and AUTOEXEC.BAT and any batch 
+  files called by AUTOEXEC.BAT. Then, Optimize determines the most 
+  efficient way to load items into High RAM by testing all possible 
+  locations.  There can be thousands or millions of possibilities.
+
+  The object is to free up as much conventional memory as possible 
+  for your DOS programs. If you are using QEMM's DOS-Up feature, 
+  Optimize also experiments with different ways of loading parts 
+  of DOS into upper memory.
+                ÿþçQEMM's Optimize Program (Continued)
+
+  When you install QEMM, INSTALL offers to run Optimize. You should 
+  run Optimize again if you add new hardware devices or modify your 
+  AUTOEXEC.BAT or CONFIG.SYS files.
+
+  Optimize must reboot your machine two or more times to complete 
+  its testing. Optimize changes the lines that load device drivers 
+  and TSRs by adding a LOADHI command to the beginning of those 
+  lines. For example, a device driver line that looks like this:
+      
+                      ÿþèDEVICE=C:\DOS\SETVER.EXE
+  
+  would look something like this after Optimize has done its work:
+      
+                ÿþçQEMM's Optimize Program (Continued)
+
+          ÿþèDEVICE=C:\QEMM\LOADHI.SYS /R:1 C:\DOS\SETVER.EXE
+
+  A TSR line in AUTOEXEC.BAT that looks like this: 
+      
+                        ÿþèC:\DOS\SMARTDRV.EXE
+  
+  would look something like this after running Optimize:
+
+              ÿþèC:\QEMM\LOADHI /R:2 C:\DOS\SMARTDRV.EXE
+
+  For detailed information on Optimize, see Chapter 3 of the 
+  QEMM manual. For information on the LOADHI command, see 
+  Chapter 8.
+                        ÿþçUndoing an Optimize
+
+  When you run QEMM's Optimize program, modifications are made to
+  your CONFIG.SYS and AUTOEXEC.BAT files and any batch file called 
+  by AUTOEXEC.BAT.
+
+  If for some reason you want to restore these files to their pre-
+  optimized states, type UNOPT at the DOS prompt. The files will be 
+  restored to the state they were in before you last ran Optimize.
+                        ÿþçThe Manifest Program
+  
+  Manifest is a powerful system reporting program that is 
+  automatically installed on your hard drive when you install QEMM.  
+  While Manifest can be extremely useful when troubleshooting a 
+  problem, it is much more than a diagnostic tool.  Whether you are 
+  new to computers or a power user with years of DOS experience 
+  under your belt, Manifest will help you take full advantage of 
+  the memory that is installed in your computer. Think of Manifest 
+  and its companion manual as a tutorial in memory management.
+
+  To run Manifest, just type MFT at the DOS prompt.  Open your 
+  Manifest manual to Chapter Three - Road Map, then take Manifest 
+  for a spin. At your own pace explore the world of memory as 
+  it relates to your own PC.
+         ÿþçVIDRAM - Extending Memory for Text-based Programs
+
+  QEMM's VIDRAM program can extend conventional memory by as much
+  as 96K for running DOS text-based programs. VIDRAM even extends
+  conventional memory for DOS text programs running in Microsoft 
+  Windows. 
+
+  To use VIDRAM, your system must have an EGA or VGA video adapter 
+  or an adapter with EGA or VGA capability (this includes VGA-
+  compatible 8514A video adapters).  Your PC must have 640K of
+  conventional memory and the programs that you run while using
+  VIDRAM must not use EGA or VGA graphics.
+   ÿþçVIDRAM - Extending Memory for Text-based Programs (Continued)
+
+  If your PC has an EGA or VGA video adapter, the 64K memory area 
+  just above conventional memory (640K-704K or A000-AFFF hex) is 
+  reserved for use by graphics modes. When you run text-based 
+  programs, that area is unused, so VIDRAM can appropriate it to 
+  extend the contiguous conventional memory for running programs.
+
+  It is important to understand that you cannot run EGA or VGA 
+  graphics operations while VIDRAM is in use. If you routinely use 
+  both large text-based programs and graphics programs, you can 
+  turn the VIDRAM feature on when you need it for a text program 
+  and off before you run a graphics program. If you are using an 
+  8514A adapter, you can still use 8514 graphics programs while 
+  VIDRAM is enabled. 
+   ÿþçVIDRAM - Extending Memory for Text-based Programs (Continued)
+
+  To turn VIDRAM on type VIDRAM ON at the DOS prompt.
+
+  This command will extend conventional memory into the EGA/VGA
+  graphics area for a total of 704K conventional memory.
+
+  To turn VIDRAM off so you can use graphics programs again, type
+  VIDRAM OFF. 
+
+  For more information on VIDRAM, including using VIDRAM with
+  Microsoft Windows, DESQview, and DESQview/X, and extending
+  conventional memory an additional 32K, see Chapter 6 of the QEMM
+  manual.
+            ÿþçTips on Freeing Up More Conventional Memory
+
+  If you use DOS text-based programs, you can extend conventional 
+  memory by as much as 96K by using QEMM's VIDRAM feature.  For 
+  information on VIDRAM, see Chapter 6 of the QEMM manual.
+
+  The Manifest program may be able to tell you how to free up 
+  a bit more conventional memory.  Run Manifest by typing MFT 
+  at the DOS prompt. When Manifest displays, type H to select 
+  Hints, and read the suggestions Manifest offers.
+
+  If you do not use any programs that require DPMI (DOS Protected
+  Mode Interface) memory, you can free up 1-2K, by deleting the 
+  QDPMI.SYS device driver line from your CONFIG.SYS file.
+                     ÿþçQEMM's New Parameter Names
+
+  If you have upgraded from an earlier version of QEMM, be aware 
+  that many of the old parameters have new names. You can still use 
+  the older parameter names if you like. Below is a list of the old 
+  parameter names, cross-referenced with the parameters' new names. 
+  Some parameters have abbreviations which are listed in 
+  parentheses.
+     
+      ÿþçOld Name                      New Name
+      COMPAQ386S (C386S)            COMPAQ386S:Y (C386S)
+      COMPAQEGAROM (CER)            COMPAQEGAROM:Y (CER)
+      COMPAQHALFROM (CHR)           COMPAQHALFROM:Y (CHR)
+      COMPAQROMMEMORY (CRM)         COMPAQROMMEMORY:Y (CRM)
+               ÿþçQEMM's New Parameter Names (Continued)
+
+      ÿþçOld Name                      New Name
+      DONTUSEXMS (DUX)              USEXMS:N 
+      DOS4 (D4)                     DOS4:Y (D4)
+      FORCEEMS (FEMS)               FORCEEMS:Y (FEMS)
+      FORCESTEALTHCOPY (FSTC)       FORCESTEALTHCOPY:Y (FSTC)
+      IGNOREA20 (IA)                TRAP8042:Y (T8) 
+      LOCKDMA (LD)                  LOCKDMA:Y (LD)
+      NOCOMPAQFEATURES (NCF)        COMPAQFEATURES:N (CF)
+      NOEMS                         EMS:N
+      NOFILL (NO)                   FILL:N
+      NOHMA                         HMA:N
+               ÿþçQEMM's New Parameter Names (Continued)
+
+      ÿþçOld Name                      New Name
+      NOPAUSEONERROR (NOPE)         PAUSEONERROR:Y (PE)
+      NOROM (NR)                    MAPREBOOT:N (MR)
+      NOROMHOLES (NRH)              ROMHOLES:N (RH)
+      NOSHADOWRAM (NOSH)            SHADOWRAM:NONE (SH)
+      NOTOKENRING (NTR)             TOKENRING:N (TR)
+      NOTOPMEMORY (NT)              TOPMEMORY:N (TM)
+      NOVDS                         VDS:N
+      NOVIDEOFILL (NV)              VIDEOFILL:N (VF)
+      NOVIDEORAM (NVR)              VIDEORAM:N (VR)
+               ÿþçQEMM's New Parameter Names (Continued)
+
+      ÿþçOld Name                      New Name
+      NOWINDOWS3 (NW3)              WINDOWS3:N (W3)
+      NOXBDA (NX)                   XBDA:N
+      NOXMS                         XMS:N
+      OLDDV (ODV)                   OLDDV:Y (ODV)
+      UNUSUALEXT (UX)               UNUSUALEXT:Y (UX)
+                        ÿþçBooting without QEMM
+
+  If you want to boot your PC without QEMM's memory management, 
+  first reset your system. Use the power switch if necessary.
+
+  When you hear a beep, hold down the Alt key until the boot 
+  sequence stops. If you are using QEMM's DOS-Up feature, you will 
+  see a message asking if you want to unload the DOSDATA device 
+  driver; press Esc to unload it, then ÿþèimmediatelyÿþæ press and
+  hold down Alt again until you see: "QEMM: Press ESC to unload 
+  QEMM or any other key to continue with QEMM."
+
+  Press the Esc key. QEMM will not load, so programs will not load 
+  into High RAM, but your system will be usable.
+              ÿþçContacting Quarterdeck Technical Support
+
+  As a registered owner of QEMM, you are entitled to 90 days of
+  free technical support. You can receive support by fax, mail, 
+  or phone. If you have a modem, you can get support through 
+  Quarterdeck's BBS, or through several other public message 
+  forums. Your 90 days of free support starts with your first call, 
+  letter, fax, or online communication in reference to QEMM. 
+         
+  Before contacting technical support, we encourage you to see
+  Appendix A of the QEMM manual for troubleshooting information, 
+  and Appendix B for a list of technical bulletins (technotes)
+  included with QEMM. You can view technotes with QEMM Setup by 
+  selecting "View QEMM hints technotes and READ.ME" at main menu.  
+        ÿþçContacting Quarterdeck Technical Support (Continued)
+
+  The troubleshooting guide and the technotes give step-by-step 
+  solutions to several common problems users may experience after 
+  installing QEMM. Also, be sure to see the file READ.ME in the 
+  \QEMM directory for late-breaking information. You can also 
+  view the READ.ME file with QEMM Setup by selecting "View QEMM 
+  hints technotes and READ.ME" at the main menu.
+
+  For information on contacting technical support see the Passport
+  booklet included with QEMM or read the text file CONTACT.TEC 
+  located in the \QEMM\TECHNOTE directory. To read that file, 
+  view it in a text editor such as EDIT, provided with DOS 5 
+  and 6, or load it into your word processor as an ASCII file.
+        ÿþçContacting Quarterdeck Technical Support (Continued)
+
+  Quarterdeck also offers extended support, priority support and 
+  corporate support plans. See the Passport booklet for information.
+    ÿþçSwitching Between MS-DOS 6's Memory Manager and QEMM
+
+  QEMM provides all the functionality of MS-DOS 6's memory manager,
+  and much more. For a list of QEMM's features and how they stack 
+  up against DOS 6's memory manager, see "QEMM Benefits and
+  Features" in Chapter 1 of the QEMM manual.
+
+  If you are using MS-DOS 6 and you have run its MemMaker memory
+  utility, you can switch back to QEMM by running QEMM's Optimize
+  program (assuming you have already installed QEMM on your hard 
+  disk). To run Optimize, type OPTIMIZE at the DOS prompt. 
+
+  If you ever want to switch back to MS-DOS's memory manager,
+  simply run MemMaker again. If you are using QEMM's DOS-Up feature,
+  be sure to run QSETUP and disable DOS-Up before you run MemMaker.
+  ÿþçSwitching Between MS-DOS 6's Memory Manager and QEMM (Continued)
+ 
+  If you are using QEMM's Stealth DoubleSpace feature and you
+  decide to switch back to MS-DOS 6's memory manager, the 
+  ST-DBL.SYS driver will perform the same function as DOS's 
+  DBLSPACE.SYS /MOVE.  That is, it will allow DBLSPACE.BIN to be 
+  moved into upper memory.  You can replace ST-DBL.SYS with 
+  DBLSPACE.SYS, but you will suffer no ill effects if you do not.
+
+                        ÿþçQEMM Technote Index
+
+  You can view the following technotes, in the \QEMM\TECHNOTE 
+  directory, by pressing the corresponding number:
+     
+     1 =  MS-DOS 6 and Quarterdeck Products                1¯TECHNOTE\MSDOS6.TEC
+     2 =  DOS 5 and Quarterdeck Products                   2¯TECHNOTE\DOS5.TEC
+     3 =  DR DOS 6 and Quarterdeck Products                3¯TECHNOTE\DRDOS6.TEC
+     4 =  Novell DOS 7 and Quarterdeck Products            4¯TECHNOTE\NOVELL7.TEC
+     5 =  DESQview/X: Maximizing Window Size               5¯TECHNOTE\MAXWINDO.TEC
+     6 =  Classic DESQview: Maximizing Window Size         6¯TECHNOTE\WINSIZE.TEC
+
+            ÿþè--- Type the number of the item you want ---
+                        ÿþèPress PgDn for more
+                       ÿþçTechnotes (Continued)
+      
+     1 =  Using Bus-Mastering Devices                     1¯TECHNOTE\BUS-MAST.TEC
+     2 =  Disk Compression: Stacker 2.0 - 3.1             2¯TECHNOTE\STACKER3.TEC
+     3 =  Disk Compression: Stacker 4.0                   3¯TECHNOTE\STACKER4.TEC
+     4 =  Disk Compression: SuperStor                     4¯TECHNOTE\SSTOR.TEC
+     5 =  Disk Compression: XtraDrive                     5¯TECHNOTE\XTRADRV.TEC
+     6 =  QEMM: General Troubleshooting                   6¯TECHNOTE\TROUBLE.TEC
+     7 =  QEMM: Advanced Troubleshooting                  7¯TECHNOTE\QEMMFLOW.TEC
+     8 =  QEMM: Analysis Procedure for Memory Conflicts   8¯TECHNOTE\EXCLUDE.TEC
+     9 =  Solutions for Problems with Specific Products   9¯TECHNOTE\PRODUCTS.TEC
+
+   
+            ÿþè--- Type the number of the item you want ---
+                    ÿþèPress PgDn or PgUp for more
+                       ÿþçTechnotes (Continued)
+
+     1 =  Microsoft Windows 3.x Advanced Troubleshooting   1¯TECHNOTE\WINFLOW.TEC
+     2 =  Exception #13 Errors Explained                   2¯TECHNOTE\EXCEPT13.TEC
+     3 =  Exception #13 Advanced Troubleshooting           3¯TECHNOTE\EX13FLOW.TEC
+     4 =  Stealth ROM Technology Explained                 4¯TECHNOTE\STLTECH.TEC
+     5 =  Stealth ROM Troubleshooting                      5¯TECHNOTE\STEALTH.TEC
+     6 =  The "Disabling Stealth ROM..." Error Message     6¯TECHNOTE\XSTI.TEC
+     7 =  Parity Errors                                    7¯TECHNOTE\PARITY.TEC
+     8 =  How to Contact Quarterdeck Technical Support     8¯TECHNOTE\CONTACT.TEC
+
+
+
+            ÿþè--- Type the number of the item you want ---
+                        ÿþèPress PgUp for more
+

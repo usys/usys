@@ -1,0 +1,166 @@
+ 
+                QEMM:  General Troubleshooting
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  TROUBLE.TEC
+                         CompuServe:  TROUBL.TEC
+                              Q/FAX:  #241
+
+
+  Subject: A general, easy-to-follow, and efficient guide to
+           troubleshooting problems involving QEMM 7.0.
+
+  This is a very general guide to troubleshooting QEMM, and
+  provides either quick fixes or references for additional
+  information.  See the Appendix for information on obtaining
+  technical bulletins discussed in this document.
+
+  PLEASE NOTE:  The information contained in this technical
+  bulletin pertains ONLY to QEMM version 7.0.  If you require
+  information relating to earlier versions of QEMM, you should
+  obtain the longer, unabridged version through our standard
+  support channels.
+
+  PRELIMINARIES:
+
+  IF YOUR PROBLEMS ARE RELATED TO:     REFER TO OUR TECHNOTE:
+
+  Stacker                              STACKER3.TEC
+  SuperStor                            SSTOR.TEC
+  XtraDrive                            XTRADRV.TEC
+  DoubleDisk                           DBLDISK.TEC
+  DR-DOS 6                             DRDOS6.TEC
+  Microsoft Windows                    WINFLOW.TEC
+  IBM PS/1 computer                    PS1.TEC
+  Unrecognized Microchannel Adapter    MCA.TEC
+  PROTMAN.DOC (OR PROTMAN.SYS)         PROTMAN.TEC and LANMAN.TEC
+       [LAN Manager and some other networks load this driver.]
+  Pathworks/DECNET                     DECNET.TEC
+  XGA video                            XGA.TEC
+  IBM's PC Support for 5250            AS400.TEC
+  "Cannot find ROM handler for Int     XSTI.TEC
+
+  Exception 13 errors can occur for a wide variety of reasons,
+  most of which are addressed here.  If you want to learn
+  more about the causes of Exception 13 errors, refer to the
+  technote EXCEPT13.TEC; for detailed troubleshooting, refer to
+  EX13FLOW.TEC.
+
+
+  BASIC TROUBLESHOOTING:
+
+  A line in your CONFIG.SYS file should read:
+
+    DEVICE=C:\QEMM\QEMM386.SYS [parameters]
+
+  Steps 1-6 in this technote involve editing the [parameters] on
+  this line, and nothing else.  Every time you change the
+  parameters on this line, you must reboot your computer for them
+  to take effect.
+
+  1)  Remove QEMM by placing the word "rem" before the word
+  "device" on this line; reboot.  If this does not solve your
+  problem, QEMM is not involved.  If this does solve your problem,
+  remove the "rem".
+
+  2)  If there is a Stealth parameter ("ST:M" or "ST:F"), remove it
+  and rerun Optimize.  When Optimize completes, try to recreate the
+  problem.  If removing the Stealth parameter solves your problem,
+  refer to our technote STEALTH.TEC and follow its instructions.
+
+  3)  Add the parameter "DB=2" to this line and reboot.  If this
+  solves your problem, refer to our technote BUS-MAST.TEC for an
+  explanation.
+
+  4)  Add the parameter "X=A000-FFFF" to this line and reboot.  If
+  this solves your problem, refer to our technote "EXCLUDE.TEC" and
+  follow its instructions.
+
+  5)  Remove all the parameters on the QEMM386.SYS line.  Add the
+  following ALL ON THE SAME LINE:
+
+  DB=2 DMA=128 IOTRAP=64 LD FILL:N CF:N VDS:N MR:N RH:N SH:N
+      TR:N XBDA:N UX ON
+
+  then reboot.  If this set of parameters solves your problem,
+  consult the manual for an explanation of these parameters.  All of
+  these parameters, even taken together, do not seriously handicap
+  the usefulness of QEMM.  Together they cause QEMM to use only 2K
+  more conventional memory, 116K more extended memory, and will not
+  cause QEMM to be any slower.  You can find the one(s) you need by
+  eliminating them, one at a time.
+
+  6)  If you are still experiencing the problem, add the parameter
+  EMS:N and reboot. If this solves your problem, some program that
+  uses expanded memory (EMS) is probably misbehaving, since this
+  parameter tells QEMM not to provide expanded memory.  Go on to
+  step 7, and check to see if the other program you are trying to
+  run uses EMS.
+
+  7)  Rename your AUTOEXEC.BAT to TEST.BAT.  Make a backup copy of
+  your old CONFIG.SYS by typing:
+
+         COPY CONFIG.SYS CONFIG.XXX
+
+  Edit your CONFIG.SYS so that it contains ONLY the QEMM line and
+  "FILES=40", then reboot your computer.  (If you need to load a
+  driver in order to boot your system, such as a driver for a hard
+  drive, include that line, also.)  If this solves the problem,
+  restore your old CONFIG.SYS and AUTOEXEC.BAT files one line at a
+  time to find out what other program is causing your problem.
+
+  8)  If you are not able to solve your problem using these
+  techniques and referenced technical bulletins, contact Technical
+  Support by voice (310-392-9701), FAX (310-314-3217) or our
+  Technical Support BBS (310-314-3227.)  If you have solved your
+  problem but are unsure of the consequences of using the
+  parameters needed to solve it, you may want to contact Technical
+  Support for further information.
+
+                               APPENDIX
+
+  Many of the technical bulletins discussed in this document were
+  installed in your QEMM\TECHNOTE directory when you installed QEMM
+  7.0.  Those which are not included with QEMM can be obtained from
+  the Quarterdeck BBS (310-314-3227), by calling QFAX (our
+  automated FAX-back service, at 310-314-3214), on CompuServe (go
+  QUARTERDECK, library 2), or BIX.  Many technotes are also
+  available on large local BBSs, often in "DESQview" or
+  "multitasking" file areas.
+
+  Quarterdeck BBS     QFAX#     CompuServe     BIX
+  ---------------     -----     ----------     ---
+  STEALTH.TEC         205       STEALT.ZIP     Technote
+  XSTI.TEC            233       XSTI.TEC       names are
+  EXCLUDE.TEC         219       EXCLUD.TEC     not
+  BUS-MAST.TEC        121       BUSMAS.TEC     changed
+  MCA.TEC             223       MCA.TEC        for BIX,
+  WINFLOW.TEC         207       WINFLO.ZIP     but may
+  EXCEPT13.TEC        142       EXCP13.ZIP     be
+  EX13FLOW.TEC        232       X13FL.ZIP      ZIPped.
+  PS1.TEC             234       PS1.TEC
+  LANMAN.TEC          258       LANMAN.TEC
+  PROTMAN.TEC         183       PROTMN.TEC
+  IA.TEC              221       IA.TEC
+  XGA.TEC             208       XGA.ZIP
+  DECNET.TEC          220       DECNET.TEC
+  AS400.TEC           212       AS400.TEC
+  STACKER3.TEC        104       STAC3.ZIP
+  SSTOR.TEC           249       SSTOR.ZIP
+  XTRADRV.TEC         199       XTRADR.TEC
+  DBLDISK.TEC         218       DBLDSK.TEC
+
+  *****************************************************************
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  *********************** E N D   O F   F I L E *******************

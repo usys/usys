@@ -1,0 +1,252 @@
+ 
+             MAXIMIZING THE SIZE OF YOUR DESQview WINDOWS
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  WINSIZE.TEC
+                         CompuServe:  WINSIZ.TEC
+                              Q/FAX:  #161
+
+
+  Subject:  How to increase the size of your DESQview windows.
+
+
+  HOW CAN I GET BIGGER WINDOW SIZES IN DESQVIEW?
+
+  DESQview may require 170K of your first megabyte of memory or
+  more than 200K, depending on your specific configuration.
+  DESQview can load over 63K of its code into the HMA (High Memory
+  Area, the first 64K of extended memory) if this area is
+  available.  It can also load its data into unused areas of High
+  RAM between 640K and 1024K.  The remaining portion of DESQview's
+  code will load into conventional memory. Regardless of the amount
+  of RAM on your system, DESQview (like most programs) can ONLY
+  load into these three areas.  It is important that you find the
+  best ways of utilizing the HMA and your areas of High RAM if you
+  are to maximize your DV windows.
+
+  First, make sure that the file DV.COM exists in your DV
+  directory.  After verifying its presence, follow the suggestions
+  listed below.
+
+  1. USING STEALTH ROM TO FREE CONVENTIONAL MEMORY:
+
+  With version 6.00 of QEMM, Quarterdeck introduced its Stealth ROM
+  technology which reclaims some of the upper memory addresses used
+  by ROMs, gaining its users nearly 100K of additional High RAM.
+  If you are using Stealth ROM, the QEMM device line in your
+  CONFIG.SYS file will contain either the ST:M or ST:F parameter.
+  If you do not have one of these parameters on the QEMM line, you
+  can enable Stealth ROM by typing the following command at the DOS
+  prompt:
+
+      OPTIMIZE /ST
+
+  This runs QEMM's Optimize program and instructs it to test your
+  system for Stealth ROM compatibility.  Stealth ROM can do more to
+  increase the size of your DESQview windows than any other
+  suggestion in this technote.
+
+  If you notice anything unusual about the way your system
+  functions after enabling Stealth ROM, refer to our technical
+  bulletin STEALTH.TEC for troubleshooting suggestions.  This
+  technote was installed in your QEMM\TECHNOTE directory when you
+  installed QEMM 7.
+
+  2. USING QEMM's ANALYSIS PROGRAM TO INCREASE AREAS OF HIGH RAM:
+
+  Before loading into conventional memory DESQview fills up all
+  available areas of High RAM.  It is to your advantage, therefore,
+  to configure QEMM to give you the most High RAM possible.  One
+  way to gain additional High RAM is by performing an ANALYSIS.
+  With this procedure QEMM determines what areas of upper memory
+  are not currently being accessed by your hardware and software
+  and suggests ranges of addresses that you can try "INCLUDING" for
+  QEMM's use. In order for the results of ANALYSIS to be accurate,
+  you must follow the instructions precisely.  For complete
+  details, refer to your QEMM or Manifest manual or read our
+  technical bulletin EXCLUDE.TEC.  This technote was also installed
+  in your QEMM\TECHNOTE directory.
+
+  3. USING ST-DBL TO STEALTH DOUBLESPACE:
+
+  If you are using DoubleSpace (the disk compression program
+  included with MS-DOS 6.0), you can use QEMM's ST-DBL.SYS to free
+  even more conventional memory for DESQview.  Normally,
+  DoubleSpace uses 43K of your first megabyte of memory.  This can
+  heavily tax your window sizes in DESQview.  The new ST-DBL
+  technology will stealth the DoubleSpace driver into expanded
+  memory.  ST-DBL uses 2K of memory for itself and can be loaded
+  high for a net savings of 41K.
+
+  In order to use "ST-DBL" you must be using DoubleSpace from MS-
+  DOS 6 and have QEMM configured to provide expanded memory through
+  a 64K EMS page frame.
+
+  If you install DoubleSpace AFTER installing QEMM 7, you should
+  run QEMM's QSETUP program (by typing QSETUP at the DOS prompt.)
+  QSETUP will remove the DBLSPACE.SYS line in your CONFIG.SYS and
+  replace it with the following line:
+
+    DEVICE=C:\QEMM\ST-DBL.SYS
+
+  4.  GETTING QEMM TO BACKFILL MORE MEMORY:
+
+  By default QEMM backfills only 576k of conventional memory on
+  80386 systems. (This is not the case with 80486 and higher
+  processors.)  The first 64K of conventional memory is not
+  backfilled, allowing a maximum of 576K of conventional memory in
+  a DESQview window.  If you are running QEMM on a 386 system, you
+  can try to reclaim some of this memory by adding I=0C00-0FFF or
+  I=0800-0FFF to the QEMM386.SYS line in your CONFIG.SYS file.
+
+  Including 0C00-0FFF reclaims 32K of conventional memory.  On some
+  systems these addresses are used for such things as I/O
+  addresses.  If your computer does not function normally after
+  adding this include statement, try reducing the range by using
+  the I=0800-0FFF parameter.
+
+  One of these two include statements will work for most systems.
+  If you experience a problem that is not resolved by using the
+  second, smaller, include statement, you should remove the include
+  statement altogether.
+
+  5.  GETTING DESQVIEW TO USE THE HMA:
+
+  With QEMM loaded, DESQview is able to load 63K of its data into
+  the HMA (High Memory Area, the first 64K of extended memory.)
+  Only one program can use the HMA, however, so DESQview cannot use
+  it if another program is already using it. If you have DOS 5 or
+  6, you may have a line in your CONFIG.SYS file that says
+  "DOS=HIGH."  This line instructs DOS to load part of itself into
+  the HMA. DOS normally uses only 35K to 45K of the HMA, so most
+  DESQview users obtain larger windows if they remove the DOS=HIGH
+  line and allow DV to load into this area.
+
+  In some cases it may be to your advantage to use the DOS=HIGH
+  line in your CONFIG.SYS file rather than letting DESQview load
+  into the HMA.  Try it both ways and then determine which gives
+  you more memory by running Optimize, then checking "Largest
+  Available Expanded Memory" in Memory Status while in DESQview.
+  Use the configuration that gives you the best results.
+
+  If you are using DR-DOS 6, you may get bigger window sizes in
+  DESQview by loading the DOS kernel into High RAM.  You do this by
+  placing the following lines in the CONFIG.SYS file:
+
+            SHELL=C:\COMMAND.COM C:\ /P /MU
+            HIDOS=ON
+            DEVICE=C:\DRDOS\HIDOS.SYS /BDOS=AUTO
+
+  Another option you can try if you have DR-DOS 6 is loading the
+  DOS kernel into the HMA with the following lines:
+
+            SHELL=C:\COMMAND.COM C:\ /P /MH
+            HIDOS=ON
+            DEVICE=C:\DRDOS\HIDOS.SYS /BDOS=FFFF
+
+  6.  REMOVING DEVICE DRIVERS AND TSRs FROM CONFIG.SYS AND
+      AUTOEXEC.BAT:
+
+  The number of device drivers and TSRs you load during bootup
+  directly impacts your maximum window size.  Many TSRs (like
+  DOSKEY or Sidekick) can be removed from your AUTOEXEC.BAT and
+  loaded in a DESQview window as needed.  Programs and drivers
+  loaded in this manner do not detract from the size of EACH window
+  but, rather, affect ONLY the size of the window in which they are
+  run.
+
+  Device drivers such as disk caches or ramdrives also use memory
+  in the first megabyte.  Try removing such drivers one at a time
+  in order to judge any performance gain resulting from their use.
+  You may decide the performance gain is not worth the memory it
+  costs you.  Because memory is a finite resource, you must make
+  decisions as to how you use it.
+
+  Network drivers can also be changed to save memory.  As an
+  example, Novell's NETX.COM can be replaced with EMSNETX.COM which
+  uses expanded memory and, as a result, uses much less
+  conventional memory or High RAM.  Contact your network
+  administrator for more information on alternative network
+  drivers.
+
+  7.  USING QEMM'S VIDRAM TO INCREASE CONVENTIONAL MEMORY:
+
+  If your system is equipped with an EGA or VGA card and you use
+  mainly text based applications, you can use VIDRAM to increase
+  your conventional memory up to 96K.  When VIDRAM is enabled you
+  will not be able to run graphics programs but you will be able to
+  run larger text-based applications inside DV than you would
+  otherwise be able to do.  For further information on enabling
+  VIDRAM, refer to your QEMM manual.
+
+  8.  CONFIGURING DESQVIEW TO USE LESS MEMORY VIA ITS SETUP
+      PROGRAM.
+
+  A number of settings in DESQview's SETUP program can be
+  configured to save memory, and experimenting with them can prove
+  well worth the time spent.
+
+  COMMON MEMORY is used by DESQview to manage its windows, and the
+  amount you need is dependent upon the number of windows you open.
+  The default value is 20K.  Rarely do DV users need more than 25K
+  of common memory.
+
+  DOS BUFFERS FOR EMS refers to memory used by DESQview to manage
+  file operations into expanded memory.  The default value is 2K;
+  QEMM users who are not on a network can set this figure to 0K
+  with no loss of performance, saving about 5K.  The value of this
+  field can affect the speed of disk access, but rarely will a
+  value higher than 10K or 15K prove worthwhile.
+
+  If you are willing to do without a few of DESQview features, you
+  can probably scrimp a few more K from the Setup program:
+
+  On the KEYBOARD option you can save as much as 12K by telling
+  DESQview that you do not want to use the Learn feature.  By doing
+  so, however, you disable DESQview's very useful macro system.  If
+  you are not aware of the capabilities of DV's LEARN feature, you
+  may want to refer to the manual for information before disabling
+  it.
+
+  On the VIDEO MONITOR option you may be able to save up to 16K by
+  telling DESQview not to display text and graphics at the same
+  time.  This disables DESQview's Video Options menu, prevents
+  graphics programs from being seen when in background, and
+  prevents virtualization of graphics.  You can save another 2-9K
+  by choosing 0 for "What Display Adapter do you have?".  This
+  causes DESQview not to load a video driver and keeps DESQview
+  from saving and restoring graphics screens or virtualizing
+  graphics.
+
+  On the PERFORMANCE option you can save 2K by changing "Manage
+  Printer Contention?" to N(o) if it is set to Y(es.)  By default
+  this field is set to N, in which case DESQview does nothing to
+  prevent two programs from attempting to print at the same time.
+
+  On the NETWORK option you may disable the network support or
+  decrease the size of the buffer.  Network support is ONLY needed
+  for certain network-specific programs.  It is NOT required for
+  most normal DOS applications that are merely being run from a
+  network hard drive.  The amount of memory you save by disabling
+  network support is about 5K plus the size of the buffer reserved
+  in the second field.  Unless you are certain that you need this
+  service, try running without it.  If you encounter a problem when
+  network support is disabled that you DO NOT encounter with such
+  support, simply run DESQview Setup and change the settings back
+  as they were.  You can also try decreasing the size of the buffer
+  which, by default, is set to 8K.
+
+  *****************************************************************
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ******************** E N D   O F   F I L E **********************

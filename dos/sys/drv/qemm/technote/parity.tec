@@ -1,0 +1,80 @@
+ 
+                           PARITY ERRORS
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  If you are interested in a lengthier discussion of this subject,
+  you can obtain the unabridged version from the following sources:
+
+  Quarterdeck Technical Support BBS:  PARITY.TEC
+                         CompuServe:  PARITY.TEC
+                              Q/FAX:  #128
+
+
+  Subject: An explanation of hardware PARITY ERRORS and suggestions
+  for finding and correcting the problem.
+
+  PROBLEM:   Since installing QEMM on your computer system you are
+             getting "parity errors."
+
+  CAUSE:     Parity errors are indicative of a hardware problem.
+
+  SOLUTION:  Have the hardware components of your PC examined to
+             determine where the problem lies.
+
+  HOW DO I DETERMINE WHICH PIECE OF HARDWARE IS CAUSING THE PROBLEM?
+
+  The first thing to check is the RAM in your system.  An easy test
+  is to disable everything that uses EMS and XMS memory so you can
+  create a RAMDRIVE the size of all your system memory.  (Refer to
+  your DOS manual for information on creating a RAMDRIVE.)  Then:
+
+     a) Run CHKDSK on the RAMDRIVE, or
+     b) Copy files to the RAMDRIVE until it is full.
+
+  Either way, eventually you will get a parity error or a General
+  Drive Failure on the RAMDRIVE.  The first thing you can do to try
+  to remedy this problem is to make sure that the RAM chips are
+  seated properly in their sockets.  If they are DRAMs or SIPPs
+  make sure the pins aren't broken off or bent.  If they are SIMMs
+  or the memory is on a card, you may just need to clean the
+  contacts.  If the chips physically check out ok, the chip speeds
+  could be mismatched with memory that is too slow for the
+  CPU/memory bus, or a controller chip could be bad.  At this point
+  the only sure way to test this is to swap out the chips for ones
+  that you know are good.
+
+  Parity errors may also be caused by the presence of an
+  autoswitching video card or one that is using 16-bit ROM access.
+  Your motherboard could be assigning parity to the address space
+  where your EMS page frame is located. Also there may be some
+  special features of the computer in the CMOS Setup that could be
+  causing problems.  Try disabling the computer's shadowing of BIOS
+  or video ROM or turning off memory caching or other features to
+  see if one of them is involved.  This may allow you to pinpoint
+  the cause of the problem. In all these cases you should refer to
+  the documentation that came with your hardware product to disable
+  a particular feature.
+
+  While there are several diagnostic programs on the market that
+  will test your memory for errors, they may not duplicate
+  conditions that would cause marginal memory to fail, and most are
+  not even designed to be run with a memory manager.  When parity
+  errors are encountered, it is time to have the hardware
+  components of the machine examined.
+
+  For a longer, more technical explanation of parity errors, refer
+  to our unabridged technical bulletin (with the same filename)
+  which is available through our standard support channels.  See
+  CONTACT.TEC (in your QEMM\TECHNOTE directory) for information on
+  obtaining technical bulletins.
+
+  *****************************************************************
+            Trademarks are property of their respective owners.
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ****************** E N D   O F   F I L E ************************

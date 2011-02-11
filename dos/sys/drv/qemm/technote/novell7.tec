@@ -1,0 +1,223 @@
+
+              NOVELL DOS 7 and QUARTERDECK PRODUCTS
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM or if you are interested in a lengthier discussion of this
+  subject, you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  NOVELL7.TEC
+                         CompuServe:  NOVEL7.TEC
+                              Q/FAX:  #269
+
+  Subject: The use of Novell DOS 7 with Quarterdeck products.
+
+  All shipping versions of Quarterdeck products are compatible with
+  Novell DOS 7.  There are, however, a couple of configuration
+  issues that must be addressed.
+
+
+              INSTALLING NOVELL DOS 7 ON A MACHINE
+                  THAT IS ALREADY RUNNING QEMM
+
+  Novell DOS 7 may have problems installing properly if COMMAND.COM
+  is loaded into upper memory. Before installing Novell DOS 7,
+  please take the following precautionary steps to ensure that
+  COMMAND.COM is not in upper memory:
+
+  1) At the DOS prompt, type QSETUP.
+
+  2) When the QEMM Setup welcome screen appears, press Enter.
+
+  3) At the QEMM Setup Options menu, type U to select Enable or
+     Disable DOS-Up.
+
+  4) At the Enable or Disable DOS-Up menu, type P to select Partial.
+
+  5) At the DOS Up Options menu, type 2 until the word No appears
+     after COMMAND.COM. Then press Enter.
+
+  6) At the QEMM Setup Options screen, press S to select Save
+     Configuration and Quit.
+
+  7) You will be prompted to run Optimize. Follow the prompts on the
+     screen.
+
+  When Optimize completes, you can run the Novell DOS 7
+  installation. The installation program will detect that a
+  compatible memory manager (QEMM) is already installed and will not
+  replace it. Follow the procedures outlined for you in the Novell
+  DOS 7 Installation Guide.
+
+  After Novell DOS 7 has been installed and configured, you should
+  should run QEMM's Optimize program again.  Before Optimizing, you
+  will need to create a text file called OPTIMIZE.EXC in the QEMM
+  directory.  This file needs to have the word "DPMS" in it (without
+  the quotes).  If you already have a file called OPTIMIZE.EXC in
+  the QEMM directory, simply add the line DPMS to that file.  You
+  can find out more about the OPTIMIZE.EXC file in Chapter 3, "The
+  Optimize Program," in the QEMM manual.
+
+
+    INSTALLING QEMM AND RUNNING OPTIMIZE ON A NOVELL DOS 7 MACHINE
+
+  If you are running the Novell 7 Taskswitcher or Multitasker, shut
+  down all of your programs and exit Task Manager before installing
+  QEMM.
+
+  Put the distribution disk in your floppy drive and run INSTALL.
+  See Chapter 2 of the QEMM manual for information on installing
+  QEMM.
+
+  IMPORTANT: Near the end of QEMM's installation, you will be
+  prompted to run QEMM's Optimize program.  You should NOT run
+  Optimize at this time. Before you run Optimize, you will need to
+  create a text file in your QEMM directory called OPTIMIZE.EXC.
+  This file should contain the word "DPMS" (without the quotes).
+  This tells Optimize not to attempt to load the DPMS driver high.
+  If you already have a file called OPTIMIZE.EXC in the QEMM
+  directory, simply add the line DPMS to that file. You can find out
+  more about the OPTIMIZE.EXC file in Chapter 3, titled 'The
+  Optimize Program', in the QEMM manual.
+
+  Once the OPTIMIZE.EXC file has been created, you are ready to run
+  Optimize.  To do so, type OPTIMIZE.
+
+                        COMPATIBILITY ISSUES
+
+
+  Multitasking (TASKMGR)
+
+      Novell 7's Multitasker will only work with their EMM386.EXE
+      driver. If you try to use the Multitasker with QEMM, it will
+      perform task switching but will not run processes in the
+      background.  To multitask with QEMM, we recommend you use
+      DESQview or DESQview/X.
+
+
+  DPMS (Novell DOS 7's DOS Protected Mode Services driver)
+
+      Early versions of the DPMS driver cannot be loaded into High
+      RAM.  If you try to load an early version of the DPMS driver
+      into upper memory, it will not load at all.  This can cause
+      problems with Optimize and programs that take advantage of
+      DPMS.  The DPMS driver takes a very small amount of memory and
+      cannot be loaded high by ANY memory manager. Placing the word
+      DPMS in the OPTIMIZE.EXC file will ensure that you won't have
+      to remember to keep this program from loading high the next
+      time you Optimize.
+
+
+  EMM386.EXE (Novell DOS 7's Memory Manager)
+
+      DESQview is compatible with Novell DOS 7, however it is not
+      compatible with Novell's EMM386.EXE.  If you would like to run
+      DESQview on your Novell 7 machine, you need QEMM as your
+      Expanded Memory Manager.
+
+
+  NWCache (Novell DOS 7's Disk Cache)
+
+      NWCache defaults to loading its 16K look ahead buffer into
+      conventional memory.  If you need to free more conventional
+      memory for your programs, you may want to use the /BU or /BE
+      parameters on NWCache, which will load the look ahead buffer
+      into either Upper or Expanded memory.  If you have a SCSI
+      system, you may need to keep the buffer in conventional
+      memory.
+
+
+              NOVELL DOS 7 AND QEMM'S DOS-UP FEATURE
+
+    With QEMM version 7, Quarterdeck introduced a new feature called
+    DOS-Up, which loads portions of DOS into upper memory (more than
+    Novell DOS 7 can load high of itself).  DOS-Up is fully
+    compatible with Novell DOS 7, but because of the way that Novell
+    DOS 7 uses upper memory, some configuration changes may have to
+    be made to fully optimize your system with QEMM 7 and Novell DOS
+    7.
+
+
+    There are two main differences in the way that DOS-Up works with
+    Novell DOS 7:
+
+    - The line DEVICE=C:\QEMM\DOSDATA.SYS, which normally appears at
+      the beginning of your CONFIG.SYS file, is used on MS-DOS and
+      IBM DOS systems to load the DOS kernel's data segment into
+      upper memory.  On Novell DOS 7 systems, DOSDATA.SYS will not
+      be able to load the DOS data segment into upper memory, so you
+      may delete the DOSDATA line from CONFIG.SYS if you like.  It
+      uses no memory and it will do no harm if you leave it in.
+
+    - The SHELL statement in CONFIG.SYS will not contain QEMM's
+      LOADHI command, which is used to load COMMAND.COM into upper
+      memory on MS-DOS and IBM DOS systems only.  On Novell DOS 7
+      systems, DOS-Up does not load COMMAND.COM into upper memory.
+
+    Please note the following suggestions that apply when using
+    DOS-Up with Novell DOS 7:
+
+    1. Novell DOS's INSTALL and HIINSTALL commands are incompatible
+       with DOS-Up.  If you are using either of these commands
+       in your CONFIG.SYS file to load programs, load the programs
+       from AUTOEXEC.BAT instead.
+
+    2. Novell DOS 7 has certain configuration options that can cause
+       the command processor to load into upper memory.  The command
+       processor's presence in upper memory may cause problems with
+       QEMM's Optimize program. You can prevent such problems by
+       adding the /MH parameter to the command processor line in
+       CONFIG.SYS. For example:
+
+         SHELL=C:\COMMAND.COM /P /MH
+
+       The /MH parameter causes the command processor to load into
+       the HMA or conventional memory, depending on other
+       configuration options you may have set. The point is that by
+       loading the command processor into the HMA or conventional
+       memory, you keep it out of upper memory where it can cause
+       problems for Optimize.  For this reason, we suggest using the
+       /MH parameter. By the way, the DR DOS manual refers to the
+       HMA as "high memory."
+
+     3. If you are using Quarterdeck's DESQview or DESQview/X,
+        please skip this step. (This step tells you how to free up
+        conventional memory by loading parts of DOS into the HMA. We
+        suggest that DESQview and DESQview/X users not do this
+        because these products can make more efficient use of the
+        HMA than DOS can.)
+
+        You can have Novell DOS relocate a portion of DOS into the
+        HMA, freeing space in conventional memory for DOS
+        applications.  We recommend you do this unless you are using
+        DESQview or DESQview/X).  To load the parts of DOS into the
+        HMA, add the line DOS=HIGH to your CONFIG.SYS file anywhere
+        after the QEMM386.SYS device driver line.
+
+        To get the most free conventional and upper memory, if you
+        use DOS=HIGH to load parts of DOS into the HMA, put the
+        command processor there as well. See step 2 above.
+
+     4. For DESQview and DESQview/X users only: Quarterdeck's
+        testing reveals that various Novell DOS 7 utilities,
+        including SHARE and NLSFUNC, will put themselves into the
+        HMA without special parameters, even if the DOS=HIGH
+        statement is not present. This will prevent DESQview and
+        DESQview/X from using the HMA, which will almost always
+        result in a decrease in the size of DESQview and DESQview/X
+        windows. To prevent SHARE and NLSFUNC from using the HMA,
+        give them one of the following parameters: /MU (which loads
+        the program into upper memory) or /ML (which loads the
+        program into conventional memory).  For example:
+
+           SHARE /MU
+
+  ******************************************************************
+   This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  Copyright (C) 1994 by Quarterdeck Office Systems.
+  ************************ E N D   O F   F I L E *******************
+

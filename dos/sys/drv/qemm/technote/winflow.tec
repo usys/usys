@@ -1,0 +1,626 @@
+ 
+        MS Windows 3.X and QEMM Advanced Troubleshooting
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  WINFLOW.TEC
+                         CompuServe:  WINFLO.ZIP
+                              Q/FAX:  #207
+
+
+  Subject: Step-by-step troubleshooting procedure in flowchart
+  style for solving conflicts between MS Windows 3.x and QEMM.
+
+
+  YES, this document IS long!  PLEASE do not be intimidated by its
+  length. You will only need to refer to portions of it.
+  ---------------------------------------------------------------
+  QEMM versions 5.11 and above are fully compatible with and able
+  to run Windows 3.x in all of its modes (Real, Standard, and 386
+  Enhanced in the case of Windows 3.0 and Standard and 386 Enhanced
+  for users of Windows 3.1)
+
+  This technical note has been written to help you troubleshoot and
+  fix Windows 3.x problems relating to the use of QEMM.  We have
+  included an example scenario for you to follow in order to make
+  this process as "user friendly" as possible.  At the end of each
+  step you will see three question marks (???) followed by a
+  question.  The answer to each question determines the next step
+  you must follow.
+
+  The troubleshooting procedure will take several steps to
+  complete.  You will have to skip ahead to different parts of this
+  technote depending on the results of previous steps, so PLEASE
+  FOLLOW ALL INSTRUCTIONS CAREFULLY.  Steps A, and B are located
+  near the end of this technote.
+  ---------------------------------------------------------------
+  EXAMPLE Windows 3.x PROBLEM SCENARIO:  "I installed QEMM and ran
+  the OPTIMIZE program to load my TSRs and device drivers into
+  upper memory. I'm running Windows from my network drive (drive
+  F:).  I get into Windows without a problem, except when I load my
+  scanner program I get an 'UAE: Unrecoverable Application Error'
+  error message and my system crashes".
+
+  SCENARIO ASSUMPTIONS:  QEMM has been loaded onto the local C:
+  drive and QEMM is installed in the C:\QEMM subdirectory.  Windows
+  3.x has been installed on the NETWORK drive in the F:\WINDOWS
+  subdirectory.
+
+                             (STEP 1)
+             DETERMINING WHETHER STEALTH ROM IS INVOLVED
+             -------------------------------------------
+  If you have enabled QEMM's Stealth ROM feature your Windows
+  problem may be related to its use.  Check your CONFIG.SYS file
+  for one of the two Stealth ROM parameters (ST:M or ST:F.)
+
+  ??? If the QEMM386.SYS line DOES NOT have a ST:M or ST:F
+  parameter and you are having problems in Windows 3 - Real or
+  Standard mode, then go to STEP 3.
+
+  ??? If the QEMM386.SYS line DOES NOT have a ST:M or ST:F
+  parameter and you are having problems in Windows 3 - Enhanced
+  mode, then go to STEP 2.
+
+  ??? If the QEMM386.SYS line DOES have a ST:M or ST:F parameter
+  proceed below.
+
+  We want to remove all Stealth-related parameters (ST:M, ST:F,
+  XST=, XSTI=, DBF=, FSTC, FRAME=) to test whether Stealth ROM is
+  involved.  Here is an example of removing these parameters:
+
+  DEVICE=C:\QEMM\QEMM386.SYS R:1 RAM ROM X=D000-D3FF ST:M XST=C000
+                                                     <--delete--->
+
+  Edit your CONFIG.SYS file and remove the Stealth-related
+  parameters, then re-run Optimize.  Once Optimize completes, try
+  to recreate the problem.
+
+  ??? If the problem still exists and you are having problems in
+  Windows 3.x Enhanced mode, then go to STEP 2.
+
+  ??? If the problem still exists and you are having problems in
+  Windows 3.x Real or Standard mode, then go to STEP 3.
+
+  ??? If the problem goes away, then it is due to a conflict with
+  QEMM's Stealth ROM feature.  You should refer to our technote
+  STEALTH.TEC.  This technote was installed into your QEMM\TECHNOTE
+  directory when you installed QEMM 7.
+
+                             (STEP 2)
+           CONFIGURE WINDOWS TO AVOID CONFLICTS WITH QEMM
+
+  You are having problems with Windows 3 - Enhanced mode.  Windows
+  3.x has several configuration files which it loads at startup.
+  We can modify one of these startup files, SYSTEM.INI, to instruct
+  Windows not to conflict with QEMM.
+
+  The SYSTEM.INI file is at least 60 lines long and is broken up
+  into sections by brackets [  ].  Add OR modify the following
+  three parameters to the [386Enh] section of the SYSTEM.INI file
+  (located in the WINDOWS directory):
+
+   EMMExclude=A000-EFFF
+   VirtualHDirq=False
+   SystemROMBreakPoint=False
+
+  Save the SYSTEM.INI file.  Now run Windows 3.x - Enhanced mode
+  and try to recreate the problem.
+
+  ??? If the problem still exists, go to STEP 3.
+
+  ??? If the problem goes away, it has been solved.  You may want
+  to try decreasing the range of addresses you have excluded from
+  Windows use in the EMMExclude line.  [For example, change EFFF to
+  DFFF.  If your problem returns, change it back.  If it does not,
+  try CFFF.  You can also try changing A000 to B000 and, if that
+  works, C000.]
+
+                             (STEP 3)
+                CREATE A CLEAN ENVIRONMENT FOR QEMM
+                -----------------------------------
+  To determine whether the Windows 3.x problem is related to QEMM,
+  you have to remove all unnecessary lines from the CONFIG.SYS and
+  AUTOEXEC.BAT files and then run Windows to see if the problem
+  still exists.  First, you need to make backup copies of your
+  CONFIG.SYS and AUTOEXEC.BAT files (which are located in the root
+  directory) because we are going to modify these files.  To make
+  the backup copies of these files type the following commands at
+  the DOS prompt:
+
+     1) C:
+     2) CD\
+     3) COPY CONFIG.SYS CONFIG.OLD
+     4) COPY AUTOEXEC.BAT AUTOEXEC.OLD
+
+  Now, edit your CONFIG.SYS file so that only the lines that are
+  ABSOLUTELY necessary to recreate the Windows problem remain in
+  the CONFIG.SYS file. You need the QEMM386.SYS line and the FILES=
+  line as a minimum, delete every other line unless it is
+  ABSOLUTELY needed to recreate the problem.
+
+  The following is an example CONFIG.SYS file for our scenario.
+  (The # indicates lines which are ABSOLUTELY necessary to include
+  in the CONFIG.SYS file in order to recreate the problem.)
+
+     #1   DEVICE=C:\QEMM\QEMM386.SYS RAM AROM=C800-CBFF
+      2   DEVICE=C:\UTIL\CACHE.SYS
+     #3   FILES=25
+      4   BUFFERS=30
+     #5   DEVICE=C:\QEMM\LOADHI.SYS /R:2 C:\SCAN\SCANNER.SYS 256
+      6   DEVICE=C:\DOS\ANSI.SYS
+      7   DEVICE=C:\FAXING\FAX.SYS
+     #8   SHELL=C:\COMMAND.COM /P /E:768
+     #9   DEVICE=C:\QEMM\LOADHI.SYS /R:3 C:\NETW\NETWORK.SYS
+      10  STACKS=0,0
+
+  Below is an explanation of why we are keeping certain lines.  You
+  may want to look at the Windows 3.x example problem scenario
+  located on the first page of this technote again.)
+
+     line  1) We NEED the QEMM driver to recreate the problem
+     line  2) A disk cache IS NOT necessary to recreate the problem
+     line  3) We NEED to include the FILES= statement
+     line  4) The BUFFERS statement IS NOT needed
+     line  5) The scanner IS part of our problem
+     line  6) ANSI.SYS IS NOT needed to recreate the problem
+     line  7) The fax board has NOTHING to do with the problem
+     line  8) The SHELL= statement tells DOS where the command
+              processor is
+     line  9) We NEED to log on to the network to run Windows
+     line 10) The Stacks statement IS NOT necessary
+
+  (If you are not sure if a line is absolutely necessary in YOUR
+  CONFIG.SYS or AUTOEXEC.BAT files, you might want to refer to your
+  DOS manual or the documentation that accompanied your software
+  programs for information.)
+
+  This leaves our CONFIG.SYS with:
+
+     DEVICE=C:\QEMM\QEMM386.SYS RAM AROM=C800-CBFF
+     FILES=25
+     DEVICE=C:\QEMM\LOADHI.SYS /R:2 C:\SCAN\SCANNER.SYS 256
+     SHELL=C:\COMMAND.COM /P /E:768
+     DEVICE=C:\QEMM\LOADHI.SYS /R:3 C:\NETW\NETWORK.SYS
+
+  If you ran QEMM's OPTIMIZE program, some of your device drivers
+  have been loaded high.  We want to make sure these drivers are
+  loaded low for the time being.  This is because some device
+  drivers behave incorrectly when loaded high.  All we have to do
+  is remove the LOADHI.SYS (and the /R:x parameter if used) from
+  these lines.
+
+  For example:
+     DEVICE=C:\QEMM\LOADHI.SYS /R:2 C:\SCAN\SCANNER.SYS 256
+            <------delete--------->
+  would become:    DEVICE=C:\SCAN\SCANNER.SYS 256
+
+  This leaves our CONFIG.SYS with:
+     DEVICE=C:\QEMM\QEMM386.SYS RAM AROM=C800-CBFF
+     FILES=25
+     DEVICE=C:\SCAN\SCANNER.SYS 256
+     SHELL=C:\COMMAND.COM /P /E:768
+     DEVICE=C:\NETW\NETWORK.SYS
+
+  Modify the QEMM line as follows with the parameters ALL ON THE
+  SAME LINE:
+
+  DEVICE=C:\QEMM\QEMM386.SYS X=A000-C7FF X=F000-FFFF FILL:N
+        TM:N CF:N SH:NONE
+
+  DO NOT add the RAM parameter to this line!
+
+  ??? If you are using the Stealth ROM parameter (ST:M or ST:F), DO
+  NOT include this parameter at this time.  BUT make a note of it,
+  as you will add this parameter back to the QEMM386.SYS line in
+  STEP 8.  ALSO, you will want to remove any Stealth-related
+  parameters you may be using at this time: XST=, XSTI=, DBF=,
+  FSTC, FRAME=.
+
+  If your QEMM386.SYS line previously contained a parameter to
+  EXCLUDE an area of memory such as EXCLUDE= or X= or AROM= or
+  ARAM=, then you should also add this parameter to the end of the
+  QEMM386.SYS line.  In our example we previously had AROM=C800-
+  CBFF on the QEMM line.  DO NOT add any INCLUDE= or I= parameters,
+  if you previously had them.  Finally, boost your FILE= statement
+  to at least 40.
+
+  Your final CONFIG.SYS looks like:
+
+  DEVICE=C:\QEMM\QEMM386.SYS X=A000-C7FF X=F000-FFFF FILL:N
+     TM:N CF:N SH:NONE AROM=C800-CBFF
+  FILES=40
+  DEVICE=C:\SCAN\SCANNER.SYS 256
+  SHELL=C:\COMMAND.COM /P /E:768
+  DEVICE=C:\NETW\NETWORK.SYS
+
+  PLEASE NOTE:  ALL QEMM parameters MUST BE on the QEMM device
+  line, not on a separate line as they appear above.   Also, your
+  CONFIG.SYS may only need the QEMM386.SYS and FILES=40 line.  Do
+  not be concerned if your CONFIG.SYS file is not 5 lines long.)
+
+  Save the CONFIG.SYS and we will modify your AUTOEXEC.BAT file.
+
+  The following is an example AUTOEXEC.BAT file:
+
+        ECHO OFF
+        PATH C:\;C:\DOS;C:\UTILS;C:\EDITOR;F:\WINDOWS;
+        C:\QEMM\LOADHI C:\UTIL\FASTKEYB
+        PROMPT $P$G
+        C:\QEMM\LOADHI /R:1 C:\NETW\LOGIN
+        SET TEMP=F:\WINDOWS\TEMP
+        FAXSETUP 125
+
+  The only lines we need to keep are the PROMPT and PATH statements
+  and the network login.
+
+  This leaves our AUTOEXEC.BAT as:
+     PATH C:\;C:\DOS;C:\UTILS;C:\EDITOR;F:\WINDOWS;
+     PROMPT $P$G
+     C:\QEMM\LOADHI /R:1 C:\NETW\LOGIN
+
+  Now we want to make sure all drivers that were loaded high during
+  Optimize are loaded low.  We want to remove the LOADHI (and the
+  /R:x parameter if used) from these lines.
+
+     C:\QEMM\LOADHI /R:1 C:\NETW\LOGIN
+     <----delete------->
+
+  This leaves our final AUTOEXEC.BAT with:
+
+     PATH C:\;C:\DOS;C:\UTILS;C:\EDITOR;F:\WINDOWS;
+     PROMPT $P$G
+     C:\NETW\LOGIN
+
+  (Your AUTOEXEC.BAT may only need the PATH and PROMPT lines.  Do
+  not be concerned if your AUTOEXEC.BAT is not 3 or more lines
+  long)
+
+  Save the AUTOEXEC.BAT file.
+
+  Now reboot your machine and try to recreate the problem.
+
+  ??? If the problem still exists, go to STEP 4.
+  ??? If the problem goes away, go to STEP 6.
+
+                             (STEP 4)
+
+              USE THE MICROSOFT DRIVERS INSTEAD OF QEMM
+              -----------------------------------------
+  Since the problem still exists using a clean environment for
+  QEMM, we have to determine whether QEMM is involved in the
+  problem or if it is related solely to Windows.  To do this we
+  will modify your CONFIG.SYS to use the Microsoft drivers instead
+  of QEMM and try to recreate the problem.  First, make a backup
+  copy of the "clean environment" version of CONFIG.SYS file by
+  entering the following 3 commands at the DOS prompt:
+
+     1) C:
+     2) CD\
+     3) COPY CONFIG.SYS CONFIG.Q
+
+  We will attempt to recreate the problem by using the Microsoft
+  drivers, HIMEM.SYS and either EMM386.SYS or EMM386.EXE, depending
+  on your versions of DOS and Windows.  Loaded together, HIMEM and
+  EMM386 create an environment similar to that of QEMM.
+
+  These files will most likely be located in your \WINDOWS, \DOS,
+  or root directory.  Edit the CONFIG.SYS, replacing the QEMM
+  device line with HIMEM and EMM386.  In our example, we will use
+  HIMEM.SYS and EMM386.EXE and assume that both are in your DOS
+  directory.
+
+     DEVICE=C:\DOS\HIMEM.SYS
+     DEVICE=C:\DOS\EMM386.EXE ON 4096
+     FILES=40
+     DEVICE=C:\SCAN\SCANNER.SYS 256
+     SHELL=C:\COMMAND.COM /P /E:768
+     DEVICE=C:\NETW\NETWORK.SYS
+
+  Use a number smaller than 4096 on the EMM386.EXE line if you
+  have less than 4 megabytes of RAM on your system.  Save the
+  CONFIG.SYS, reboot, and try to recreate the problem.
+
+  ??? If the problem still exists, QEMM is not involved in the
+  problem you are having in Windows.  The next STEP is for you to
+  consult your Windows documentation or contact either Microsoft
+  Windows Technical Support or the makers of the resident program
+  or driver which is giving you trouble.
+
+  ??? If the problem goes away, go to STEP 5.
+
+                             (STEP 5)
+            CONFIGURE QEMM SIMILARLY TO THE MICROSOFT DRIVERS
+            -------------------------------------------------
+  We want to configure QEMM to emulate the Microsoft drivers, and
+  we will use the MANIFEST program to see what the Microsoft
+  drivers are doing.
+
+  1) Exit Windows or reboot your computer to get to the DOS prompt.
+  2) Type the following at the DOS prompt to start MANIFEST:
+
+   CD\QEMM
+   MFT
+
+  Once in Manifest, tap the DOWN-ARROW key once.  This will give
+  you the "First Meg/Overview" screen.  The box in the center of
+  the screen will look like something like this:
+
+    Memory Area   Size   Description
+    0000 - 003F     1K   Interrupt Area
+    0040 - 004F   0.3K   BIOS Data Area
+    0050 - 006F   0.5K   System Data
+    0070 - 0FB0    61K   DOS
+    0FB1 - 21F8    73K   Program Area
+    21F9 - 9FFF   504K   [Available]
+    Conventional memory ends at 640K
+    A000 - AFFF    64K   VGA Graphics
+    B000 - B7FF    32K   Unused
+    B800 - BFFF    32K   VGA Text
+    C000 - C7FF    32K   Video ROM
+    C800 - CFFF    32K   Unused
+    D000 - DFFF    64K   Page Frame      <---------------------
+    E000 - EFFF    64K   Unused
+    F000 - FFFF    64K   System ROM
+
+  Look for "Page Frame"  We will use the QEMM parameter FRAME=  to
+  instruct QEMM to place the Page Frame in the same location.  (In
+  our example, the Page Frame starts at D000.)
+
+  Hit the ESCAPE key twice to exit MANIFEST and type the following:
+
+     1) CD\
+     2) RENAME CONFIG.SYS CONFIG.M  [Save the CONFIG.SYS
+                                     w/Microsoft drivers]
+     3) COPY CONFIG.Q CONFIG.SYS  [Bring back the STEP-4 CONFIG.SYS]
+
+  Add the following parameters to the end of the QEMM386.SYS line
+  of your CONFIG.SYS file:
+
+     X=0000-3FFF XBDA:N MR:N RH:N VDS:N FRAME=XXXX
+
+  [NOTE:   XXXX should be replaced with the starting address of the
+  Page Frame when using the Microsoft drivers.  In our example,
+  this is D000.]
+
+  The QEMM386.SYS line for this EXAMPLE now looks like this:
+
+  DEVICE=C:\QEMM\QEMM386.SYS X=A000-C7FF X=F000-FFFF FILL:N
+    TM:N CF:N SH:NONE AROM=C800-CBFF X=0000-3FFF XBDA:N
+    MR:N RH:N VDS:N FRAME=D000
+
+  Again, these parameters should all be on the same line.  Reboot
+  and try to recreate the problem in Windows.
+
+  ??? If the problem still exists , then go to STEP A.
+  ??? If the problem goes away, then go to STEP 6.
+
+                             (STEP 6)
+                     CREATING HIGH RAM FOR QEMM
+                     --------------------------
+  We have properly configured QEMM to work with Windows without
+  High RAM.  Now we will add the RAM parameter to the QEMM386.SYS
+  line in your CONFIG.SYS to create High RAM.  Edit your CONFIG.SYS
+  file and add RAM to the end of the QEMM386.SYS line
+  (DEVICE=C:\QEMM\QEMM386.SYS ... RAM).
+
+  Reboot your machine and try to recreate the problem in Windows.
+
+  ??? If the problem reoccurs, then go to STEP 7.
+
+  ??? If the problem does not occur, then proceed below:
+
+  In STEP 3, we added several parameters to the QEMM386.SYS line
+  including: X=A000-C7FF, X=F000-FFFF, and CF:N.  We will now
+  attempt to recover some (or all) of the high RAM we excluded.
+  Edit the QEMM device line in the CONFIG.SYS file and delete these
+  parameters ONE AT A TIME.  Each time you remove a parameter, save
+  the CONFIG.SYS, reboot, and try to recreate the problem.  If the
+  problem does not reoccur you don't need that parameter.  If the
+  problem does return, then you need that parameter.  Replace it
+  and try removing the others.
+
+  ??? If the problem still does not occur and you WERE using the
+  Stealth ROM feature (ST:M or ST:F) then go to STEP 7.
+
+  ??? If the problem still does not occur and you WERE NOT using
+  the Stealth ROM feature (ST:M or ST:F) then go to STEP B.
+
+                              (STEP 7)
+                   ELIMINATING HIGH RAM CONFLICTS
+                   ------------------------------
+  It appears that one of your adapters is using memory addresses
+  between 640 and 1024K and QEMM is not detecting its use, thereby
+  mapping memory into the same addresses.  We are going to exclude
+  all areas of High RAM in order to test this theory.  If it is
+  accurate, we will pinpoint the area that actually needs to be
+  excluded.
+
+  At the DOS prompt type:
+
+  CD\QEMM
+  MFT
+
+  This will load Manifest.  Tap the DOWN-ARROW key once so we are
+  looking at the "First Meg/Overview" screen.  The box in the
+  center of the screen will look something like this:
+
+    Memory Area   Size   Description
+    0000 - 003F     1K   Interrupt Area
+    0040 - 004F   0.3K   BIOS Data Area
+    0050 - 006F   0.5K   System Data
+    0070 - 0FB0    61K   DOS
+    0FB1 - 21F8    73K   Program Area
+    21F9 - 9FFF   504K   [Available]
+    Conventional memory ends at 640K
+    A000 - AFFF    64K   VGA Graphics
+    B000 - B7FF    32K   Unused
+    B800 - BFFF    32K   VGA Text
+    C000 - C7FF    32K   Video ROM
+    C800 - CFFF    32K   High RAM      <------------|
+    D000 - DFFF    64K   Page Frame                 |
+    E000 - EFFF    64K   High RAM      <------------|
+    F000 - FFFF    64K   System ROM
+
+  We will exclude these High RAM areas (C800 to CFFF and E000 to
+  EFFF) from QEMM's use.  To do this add the following to your QEMM
+  device line:
+
+   X=C800-CFFF X=E000-EFFF
+
+  Our example QEMM386.SYS line now looks like:
+   DEVICE=C:\QEMM\QEMM386.SYS ... RAM X=C800-CFFF X=E000-EFFF
+
+  NOTE:  If you have a SCSI hard disk controller and/or bus-
+  mastering device, be sure to load SMARTDRIVE in your CONFIG.SYS
+  file.  (SMARTDRIVE is a disk cache shipped with both DOS and
+  Microsoft Windows.)  See your DOS manual or Windows documentation
+  for further information on loading SMARTDRIVE.
+
+  Reboot your machine and try to recreate the problem in Windows.
+
+  ??? If the problem occurs, then go to STEP A.
+
+  ??? If the problem goes away, there was a memory conflict.  Now we
+  will we try to pinpoint the address range causing the conflict,
+  as only this area needs to be excluded.
+
+  EXAMPLE:  We have excluded C800-CFFF which is a 32K area and E000-
+  EFFF which is a 64K area.  (These numbers are in hexadecimal; if
+  you want to better understand hexadecimal numbers, refer to
+  HEX.TEC, our technical note on this subject.)  These 2 areas are
+  comprised of six 16K areas (C800-CBFF, CC00-CFFF, E000-E3FF, E400-
+  E7FF, E800-EBFF, EC00-EFFF).  To narrow down the exclude, add
+  X=C800-CBFF to the QEMM line, reboot the computer, and try to
+  recreate the problem.  Do this for each address range.  In most
+  cases only one of the six will be needed to prevent the problem,
+  although some devices require more than a 16K exclude.  You will
+  have to experiment to determine what area(s) need to be excluded.
+
+  ??? Once you have determined which area needs to be excluded, if
+  you WERE using the Stealth ROM feature go to STEP 8.
+
+  ??? Once you have determined which area needs to be excluded, if
+  you WERE NOT using the Stealth ROM feature go to STEP B.
+
+                             (STEP 8)
+                ADDING THE STEALTH ROM PARAMETER BACK
+                -------------------------------------
+  We have properly configured QEMM to work with Windows 3.x with
+  High RAM.  We will now enable Stealth ROM.  Edit your CONFIG.SYS
+  file and add ST:M or ST:F (and any Stealth-related parameter that
+  was ORIGINALLY on your QEMM386.SYS line) to the end of the
+  QEMM386.SYS line:
+
+  DEVICE=C:\QEMM\QEMM386.SYS ...RAM ST:x [other stealth parameters]
+
+  Reboot your machine and try to recreate the problem.
+
+  ??? If the problem still does not occur, then go to STEP B.
+
+  ??? If the problem does occur, your Windows 3.x problem is
+  related to the use of Stealth ROM.  At this point you should
+  refer to STEALTH.TEC in your QEMM\TECHNOTE directory.
+
+  Once you resolve the Stealth-related problem with your current
+  CONFIG.SYS go to STEP B.
+
+  -----------------------------------------------------------------
+                             (STEP - A)
+
+  Your problem requires further troubleshooting.  Please call our
+  Technical Support line at (310) 392-9701 for further assistance.
+  When you call please have the following information available:
+
+  1)  Your original CONFIG.SYS and AUTOEXEC.BAT
+      (now CONFIG.OLD and AUTOEXEC.OLD)
+  2)  Your current CONFIG.SYS
+      (QEMM386.SYS, FILES=40, NECESSARY drivers ONLY.)
+  3)  Your current AUTOEXEC.BAT
+      (PATH and PROMPT, other NECESSARY commands ONLY.)
+  4)  CONFIG.Q      (only if you have gone thru STEP 4)
+  5)  CONFIG.M      (only if you have gone thru STEP 5)
+
+                             (STEP - B)
+  CONGRATULATIONS! You have successfully configured QEMM and
+  Windows 3.x to work together.  Now enter the following commands
+  at the DOS prompt:
+
+   1) C:
+   2) CD\
+   3) RENAME AUTOEXEC.BAT AUTOEXEC.Q
+   4) COPY CONFIG.SYS CONFIG.Q
+   5) COPY CONFIG.OLD CONFIG.SYS     [Bring back your original file]
+   6) COPY AUTOEXEC.OLD AUTOEXEC.BAT [Bring back your original file]
+
+  Edit the CONFIG.SYS file and replace the original QEMM386.SYS
+  line with the one you have created by using this technical note
+  (now in CONFIG.Q) and make sure FILES= at least 40.
+
+  Reboot the machine and try to recreate the problem in Windows.
+
+  ??? If the problem does not occur, it is solved.
+
+  ??? If the problem now occurs, we know that a command line in
+  either your CONFIG.SYS or AUTOEXEC.BAT is causing the problem. To
+  determine which line in which file is the culprit, we will bring
+  back the AUTOEXEC.BAT (Path and Prompt) that we previously
+  created in STEP 3:
+
+  Enter the following 3 commands at the DOS prompt:
+
+     1) C:
+     2) CD\
+     3) COPY AUTOEXEC.Q AUTOEXEC.BAT
+
+  Reboot your machine and try to recreate the problem in Windows.
+
+  ??? If the problem still exists, then we know that the command
+  line which is giving us a problem is located in the CONFIG.SYS
+  file and if the problem goes away, the command line is in the
+  original AUTOEXEC.BAT file.
+
+  You now need to delete command lines from either the CONFIG.SYS
+  or AUTOEXEC.BAT (depending on which file we determined was
+  causing the conflict) to find the single command line causing the
+  conflict.
+
+  Once again, bring back your original AUTOEXEC.BAT:
+
+     1) COPY AUTOEXEC.OLD AUTOEXEC.BAT
+
+  Now you must systematically determine which command line is
+  giving you trouble.  Try deleting one line at a time (if you have
+  a long CONFIG.SYS or AUTOEXEC.BAT file try deleting 2-3 lines at
+  a time) until you find the problem.
+
+  Once you determine the line causing the problem:
+
+  1) If the device driver or TSR is loaded into High RAM, use the
+  procedure in STEP 3 to load it low and see if this corrects the
+  problem.
+
+  2) Read the manual or call the Technical Support Department of
+  the product you are loading for assistance in solving the
+  problem.
+
+  3) Some TSR's and device drivers can be configured to use
+  conventional memory, XMS, or EMS (or a combination of these.)
+  Depending on how you currently have it configured, try the other
+  options.
+
+  4) You may need to permanently remove that line.
+
+  *****************************************************************
+          Trademarks are property of their respective owners.
+   This technical note may be copied and distributed freely as long
+    as it is distributed in its entirety and it is not distributed
+    for profit.  
+
+   Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ****************** E N D   O F   F I L E ************************

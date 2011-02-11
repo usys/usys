@@ -1,0 +1,128 @@
+
+            QEMM AND STACKER 4.0 DISK COMPRESSION SOFTWARE
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  If you need more regarding QEMM and Stacker 4.0 you can obtain the
+  unabridged version from the following sources:
+
+  Quarterdeck Technical Support BBS:  STACKER4.TEC
+                         CompuServe:  STAC4.TEC
+
+  Subject: The use of Stacker 4.0 with Quarterdeck products.
+
+  QEMM is automatically compatible with Stacker 4.0.
+
+
+  Q. I installed Stacker 4.0 on my system and after running
+  Optimize I found that I have 2K less available conventional memory.
+  Why is this?
+
+  A. Stacker 4.0 now uses Novell's DOS Protected Mode Services
+  (DPMS), through the driver DPMS.EXE, to place most of the Stacker
+  program into extended memory.  When you install Stacker 4.0 on
+  your system, the DPMS.EXE driver will automatically be placed into
+  the CONFIG.SYS file directly above the STACHIGH.SYS device driver
+  line.  The use of the DPMS.EXE driver will reduce the size of the
+  Stacker program from about 44K (more or less, depending upon your
+  configuration) to about 17K.  However, the DPMS.EXE driver cannot
+  be loaded into High RAM, so it must load into conventional memory.
+  This will reduce your conventional memory by about 2K,  but since
+  your Stacker driver is now much smaller, you should be able to
+  load more programs into High RAM.
+
+
+  Q. Is Stacker 4.0 compatible with QEMM's ST-DBL.SYS (Stealth
+  DoubleSpace) driver?
+
+  A. No.  Even though Stacker uses a file called DBLSPACE.BIN in
+  order to load before the CONFIG.SYS file loads, it is not
+  sufficiently compatible with Microsoft's DoubleSpace program to
+  allow ST-DBL.SYS to work. ST-DBL will only work with Microsoft's
+  DOS 6 DoubleSpace.
+
+
+  Q. After I installed Stacker 4.0 over my DoubleSpace program, I
+  received the following message:
+
+     ST-DBL: DBLSPACE is not in use, so there is no need to load
+     ST-DBL.SYS.
+
+  A.The Stacker 4.0 install does not detect or remove QEMM's
+  ST-DBL.SYS driver, which may be in your CONFIG.SYS file if you
+  were using Microsoft's DoubleSpace prior to installing Stacker
+  4.0.  Upon installation, Stacker simply places a device line in
+  the CONFIG.SYS file that reads:
+
+     DEVICE=C:\STACKER\STACHIGH.SYS
+
+  This line is placed at the end of the CONFIG.SYS file. If you were
+  previously loading the ST-DBL.SYS device driver with a
+  multi-config system, replace every ST-DBL.SYS device line with the
+  STACHIGH.SYS device line above.  If you are loading it from a
+  single boot CONFIG.SYS, simply delete the ST-DBL.SYS line.
+
+
+  Q. After I installed Stacker 4.0, my system locked up on the
+  DOSDATA.SYS line during the reboot.
+
+  A. If you have QEMM 7.01, you will experience a lockup during
+  reboot.  The quickest solution is to disable the DOSDATA feature
+  of DOS-Up using the QSETUP program. After disabling the DOSDATA
+  feature, save the new configuration and run Optimize.
+
+  The DOSDATA.SYS from QEMM version 7.03 and later should work fine
+  with Stacker 4.0, so if you have an earlier version, you should
+  upgrade to avoid any DOSDATA conflicts.
+
+  Q. I use Stacker's password feature and it appears that
+  DOSDATA.SYS hangs the machine after I put in my password.
+
+  A. If you are using the password feature in Stacker 3.1 or 4.0 and
+  QEMM's DOSDATA.SYS (one of QEMM's DOS-Up drivers), you should add
+  the /ALTVIDEO- parameter to the DOSDATA.SYS device line in
+  CONFIG.SYS. DOSDATA.SYS reloads the operating system
+  (transparently to the user) at bootup time, which in turn reloads
+  Stacker and the password query. Without the /ALTVIDEO- parameter,
+  you will not see the Stacker copyright notice and password query
+  when the operating system reloads. (You will see a cursor below
+  the DOSDATA.SYS copyright line and you can enter the password
+  again from that cursor.  Everything will work normally after you
+  type your password the second time.)  If you add the /ALTVIDEO-
+  parameter to the DOSDATA line in CONFIG.SYS, the Stacker copyright
+  notice and password query will display again when the operating
+  system reloads. Here is how the DOSDATA line looks with the
+  /ALTVIDEO- parameter:  DEVICE=C:\QEMM\DOSDATA.SYS /ALTVIDEO-
+
+
+  Q. What if I don't want to use the DPMS.EXE driver?
+
+  A. If you don't want to use the DPMS.EXE driver, you may remove it
+  from the CONFIG.SYS file.  Keep in mind that after removing
+  DPMS.EXE and rebooting, the Stacker driver will be about 44K in
+  size, so you may need to run Optimize after making this change.
+
+
+  Q. Is there any other way I can reduce the size of the Stacker
+  driver?
+
+  A. If you want to reduce the size of the Stacker driver without
+  using DPMS.EXE, you may still use the /EMS parameter to load
+  Stacker into EMS.  Note that the use of the /EMS parameter is no
+  longer recommended by STAC Electronics, and the /EMS switch cannot
+  be used when the DPMS.EXE driver is being loaded.  To add the
+  /EMS switch to the STACKER.INI file, follow the Stacker manual
+  which explains how to edit the file.
+
+  NOTE:  If you add the /EMS parameter to the STACKER.INI file and
+  you want to use QEMM's STEALTH technology, you must add a DBF:2
+  parameter to the QEMM device line in the CONFIG.SYS file.
+
+  ********************************************************************
+  This technical note may be copied and distributed freely as long
+  as it is distributed in its entirety and it is not distributed
+  for profit.  Copyright (C) 1994 by Quarterdeck Office Systems
+  ************************ E N D   O F   F I L E *********************
+  
+

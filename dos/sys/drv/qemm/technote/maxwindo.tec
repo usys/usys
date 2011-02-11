@@ -1,0 +1,311 @@
+ 
+                  DESQview/X: MAXIMIZING WINDOW SIZE
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier
+versions
+  of QEMM you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  MAXWINDO.TEC
+                         CompuServe:  MAXWIN.TEC
+                              Q/FAX:  #252
+
+
+  Subject: How to get more conventional memory for each DV/X
+window.
+
+
+  HOW CAN I DETERMINE HOW MUCH MEMORY IS AVAILABLE TO EACH OF MY
+  DV/X WINDOWS?
+
+  Run the Memory Status program in DESQview/X.  If you have not
+  customized your menus extensively, you should find Memory Status
+  on your Open Window menu under Toolbox.  "Largest Available
+  Expanded Memory" will tell you the largest window you can open in
+  DESQview/X.
+                           Total       Total      Largest
+                           Memory    Available   Available
+
+  Common Memory            30720      17836       17768
+  Conventional Memory       594K        91K         88K
+  Expanded Memory          2704K      2464K    --> 528K <--
+
+  The biggest window size for the above example is 528K.  This
+  technote will point out ways in which you can increase the size
+  of your DV/X windows.  After trying each suggestion, open the
+  Memory Status program and see if this figure has changed.
+
+  HOW CAN I GET BIGGER WINDOW SIZES IN DESQVIEW/X?
+
+  DESQview/X uses 160K to 300K of the first megabyte of memory when
+  it loads, depending on your specific configuration.   DESQview/X
+  can load over 63K of its code into the HMA (High Memory Area, the
+  first 64K of extended memory) if this area is available.  It can
+  also load its data into unused areas of High RAM between 640K and
+  1024K.  The remaining portion of DESQview/X's code will load into
+  conventional memory. Regardless of the amount of RAM on your
+  system, DESQview/X can ONLY load into these three areas.  It is
+  important that you find the best ways of utilizing the HMA and
+  areas of High RAM if you are to maximize your DV/X windows.
+
+  It should be mentioned that some systems contain hardware devices
+  which use upper memory addresses, reducing the amount of High RAM
+  available on those machines.  Also, PS/2's have 128K of System
+  ROM instead of the more typical 64K, limiting the amount of High
+  RAM that can be created on these machines.
+
+  1. USING STEALTH ROM TO FREE CONVENTIONAL MEMORY.
+
+  By using QEMM's Stealth ROM technology, you can reclaim some of
+  the upper memory addresses used by ROMs.  This can result in
+  nearly 100K of additional High RAM.  If you are using Stealth
+  ROM, the QEMM device line in your CONFIG.SYS file will contain
+  either the ST:M or ST:F parameter.  If you do not have one of
+  these parameters on the QEMM line, you can enable Stealth ROM by
+  typing the following command at the DOS prompt:
+
+      OPTIMIZE /ST
+
+  This command runs QEMM's Optimize program and instructs it to
+  test your system for Stealth ROM compatibility.  Stealth ROM can
+  do more to increase the size of your DESQview/X windows than any
+  other suggestion in this technote.
+
+  If you notice anything unusual about the way your system
+  functions after enabling Stealth ROM, refer to our technical
+  bulletin STEALTH.TEC for troubleshooting suggestions.  If you
+  have DESQview/X 1.1, you can find a copy of STEALTH.TEC in your
+  \DVX directory.  A copy was also installed in your QEMM\TECHNOTE
+  directory when you installed QEMM 7.
+
+  2. USING QEMM's ANALYSIS PROGRAM TO INCREASE AREAS OF HIGH RAM.
+
+  Before loading into conventional memory DESQview/X will fill up
+  all available areas of High RAM.  It is to your advantage,
+  therefore, to configure QEMM to give you the most High RAM
+  possible.  One way to gain additional High RAM is by performing
+  an ANALYSIS.  With this procedure QEMM determines what areas of
+  upper memory are not currently being accessed by your hardware
+  and software and suggests ranges of address space you can try
+  "INCLUDING" for QEMM's use. In order for the results of ANALYSIS
+  to be accurate, you must follow the instructions precisely.  For
+  complete details, refer to your QEMM or Manifest manual or read
+  our technical bulletin EXCLUDE.TEC.  This technote was installed
+  in your \QEMM\TECHNOTE directory along with QEMM 7.
+
+  3. USING ST-DBL TO STEALTH DOUBLESPACE.
+
+  If you are using DoubleSpace (the disk compression program
+  included with MS-DOS 6.0), you can use ST-DBL.SYS to free even
+  more conventional memory in DESQview/X.  Normally, DoubleSpace
+  uses 43K of your first megabyte of memory. This can heavily tax
+  your window sizes in DESQview/X.  The new ST-DBL technology will
+  "stealth" (move) the DoubleSpace driver into expanded memory
+  (outside your first megabyte of address space.) ST-DBL uses 2K of
+  memory for itself and can be loaded high for a net savings of
+  41K.
+
+  In order to use "ST-DBL" you must have QEMM configured to use
+  expanded memory through the use of a 64K EMS page frame.
+
+  If you are using DoubleSpace at the time you install QEMM, ST-
+  DBL.SYS will be installed automatically.  If you add DoubleSpace
+  after installing QEMM and wish to load ST-DBL, run QEMM's QSETUP
+  (by typing QSETUP from the DOS prompt.) QSETUP with replace
+  DBLSPACE.SYS in your CONFIG.SYS with the following line:
+
+      DEVICE=C:\QEMM\ST-DBL.SYS
+
+  4.  GETTING DESQVIEW/X TO USE THE HMA.
+
+  DESQview/X is able to load 63K of its data into the HMA (High
+  Memory Area, the first 64K of your extended memory.)  Only one
+  program can use the HMA, however, so DESQview/X cannot use it if
+  another program is already using it. If you have DOS 5 or 6, you
+  might have a line in your config.sys file that says "DOS=HIGH."
+  This line instructs DOS to load part of itself into the HMA. DOS
+  normally uses only 35K to 45K of the HMA, so most DESQview/X
+  users find they can obtain larger windows if they remove the
+  DOS=HIGH line and allow DV/X to load into this area.
+
+  In some cases it may be to your advantage to use the DOS=HIGH
+  line in your CONFIG.SYS file rather than letting DESQview/X load
+  into the HMA.  Try it both ways and then determine which gives
+  you more memory by running Optimize, then checking "Largest
+  Available Expanded Memory" in Memory Status from within
+  DESQview/X.  Use the configuration that gives you the best
+  results.
+
+  If you are using DR-DOS 6, you may get bigger window sizes in
+  DESQview/X by loading the DOS kernel into High RAM.  This can be
+  done by loading "HIDOS=ON", "HIDOS.SYS /BDOS=AUTO " and
+  "SHELL=C:\COMMAND.COM C:\ /P /MU" in the CONFIG.SYS file.
+
+      Example:
+      SHELL=C:\COMMAND.COM C:\ /P /MU
+      HIDOS=ON
+      DEVICE=C:\DRDOS\HIDOS.SYS /BDOS=AUTO
+
+  Another thing you can try if you have DR-DOS 6 is loading the DOS
+  kernel into the HMA.  This can be done by loading "HIDOS=ON",
+  "HIDOS.SYS /BDOS=FFFF" and "SHELL=C:\COMMAND.COM C:\ /P /MH".
+
+      Example:
+      SHELL=C:\COMMAND.COM C:\ /P /MH
+      HIDOS=ON
+      DEVICE=C:\DRDOS\HIDOS.SYS /BDOS=FFFF
+
+  5. REMOVING UNNECESSARY DEVICE DRIVERS AND TSRs.
+
+  The number of device drivers and TSRs you load during bootup
+  directly impacts your maximum window size.  Many TSRs (like
+  DOSKEY or Sidekick) can be removed from your AUTOEXEC.BAT and
+  loaded in a DESQview/X window as needed.  Programs and drivers
+  loaded in this manner do not detract from the size of EACH window
+  but, rather, affect ONLY the size of the window in which they are
+  run.
+
+  Device drivers such as disk caches or ramdrives also use memory
+  in the first megabyte.  Try removing such drivers one at a time
+  in order to judge any performance gain resulting from their use.
+  You may decide the performance gain is not worth the memory it
+  costs you.  Because memory is a finite resource, you must make
+  decisions as to how you use it.
+
+  Certain network drivers have replacements that can save memory.
+  As an example, Novell's NETX.COM can be replaced with EMSNETX.COM
+  which uses expanded memory and, as a result, uses much less
+  conventional memory or High RAM.  Contact your network
+  administrator for more information on alternative network
+  drivers.
+
+  6. 8514 VIDEO CARDS
+
+  If you have an 8514 video card you can use VIDRAM to gain an
+  additional 64K-96K of conventional memory.  If your 8514 card
+  requires a driver, then it is not hardware compatible and this
+  process may not work.  
+
+  Important: If you use VIDRAM, you will not be able to display
+  EGA or VGA graphics programs.
+
+  First, add the VREMS to the QEMM386.SYS line in the CONFIG.SYS
+  file.
+
+  DEVICE=C:\QEMM\QEMM386.SYS RAM VREMS
+
+  Next, add the following line to the AUTOEXEC.BAT file to activate
+  VIDRAM:
+
+  C:\QEMM\VIDRAM ON
+
+  This line will activate VIDRAM and extend conventional memory.
+  When you start DESQview/X, it will report "GRFVGA.DVR does not
+  find the correct video adapter" and the DESQview/X title screen
+  will appear corrupted.  You can ignore the error message and the
+  title screen--DESQview/X should still function properly.
+
+  7. CONFIGURING DESQVIEW/X TO USE LESS MEMORY IN THE FIRST
+     MEGABYTE.
+
+  The DESQview/X Setup program includes a number of options which
+  can be adjusted to save memory.  To alter these settings, type
+  SETUP from the DVX directory, select "Advanced Options", then
+  select "Tune Performance".
+
+        Common Memory          30K
+        DOS I/O Buffer          8K
+        Network Buffer         20K (Only if using Network Support)
+
+  Changing these settings may not have any immediate effect because
+  expanded memory is mapped in 16K increments.  Decreasing the
+  Common Memory by 1K, for instance, will not make any difference
+  unless your memory usage is on the 16K threshold. These numbers
+  can be decreased until the amount saved goes up 16K.
+
+  Common Memory:
+
+  COMMON MEMORY is used by DESQview/X to manage its windows, and
+  the amount you need is dependent upon the number of windows you
+  open.  The default value is 30K; users who open only a few
+  windows at a time may be able to lower this figure to 25K.
+
+  DOS I/O Buffer:
+
+  DOS I/O BUFFER refers to memory used by DESQview/X to manage file
+  operations into expanded memory.  The value of this field can
+  affect the speed of disk access, but rarely will a value higher
+  than 10K or 15K prove worthwhile.  Any user who can set this to
+  "0" and obtain satisfactory results should do so.
+
+  Network Buffer:
+
+  On the NETWORK option you may disable the network support.
+  Network support is ONLY needed for certain network-specific
+  programs.  It is NOT required for most normal DOS applications
+  that are merely being run from a network hard drive.  The amount
+  of memory you save by disabling network support is about 5K plus
+  the size of the buffer.  Unless you are certain that you need
+  this service, try running without it.  (NOTE:  If you are running
+  the IPX/NetBIOS Network Manager you CANNOT disable network
+  virtualization.)  If you encounter a problem when network support
+  is disabled that you DO NOT encounter with such support, simply
+  run DESQview/X Setup and change the settings back as they were.
+
+  The memory allocated to the Network Buffer does not come from
+  conventional memory.  Decreasing the size of the buffer would
+  affect the size of your expanded memory pool but not your window
+  size.
+
+  Font Cache:
+
+  The Font Cache is not taken from conventional memory and
+  decreasing the value will not affect the size of your DV/X
+  windows.
+
+  8.  HOW DO THE CUSTOMIZE MENU SETTINGS AFFECT THE WINDOW SIZE?
+
+  Some settings in the DESQview/X Program Information Files
+  (.DVP's) can affect the window size.  For the lowest memory
+  overhead, set "System Memory (in K)" to "0" and set "Text Pages"
+  to "1".
+
+  System Memory (in K) - This field will shrink the window size in
+                         K by the value in this field.
+
+  Text Pages           - Each additional Text Page will use 4K
+more.
+
+  9. GETTING QEMM TO BACKFILL MORE MEMORY.
+
+  By default QEMM backfills (maps expanded memory into) only 576k
+  of conventional memory on 80386 systems.  (This is NOT true of
+  80486 or higher processors.) The first 64K of conventional memory
+  is not backfilled, allowing a maximum of 576K of conventional
+  memory in a DESQview/X window.   You can try to reclaim some of
+  this memory by using I=0C00-0FFF or I=0800-0FFF on the
+  QEMM386.SYS line in the CONFIG.SYS.
+
+  Including 0C00-0FFF reclaims 32K of conventional memory.  On some
+  systems these addresses are used for such things as I/O
+  addresses.  If your computer does not function normally after
+  adding this include statement, try reducing the range by using
+  the I=0800-0FFF parameter.
+
+  One of these two include statements will work for most systems.
+  If you experience a problem that is not resolved by using the
+  second, smaller, include statement, you should remove the include
+  statement altogether.
+
+  *****************************************************************
+            Trademarks are property of their respective owners.
+   This technical note may be copied and distributed freely as long
+    as it is distributed in its entirety and it is not distributed
+    for profit.  
+
+   Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ******************** E N D   O F   F I L E **********************
+

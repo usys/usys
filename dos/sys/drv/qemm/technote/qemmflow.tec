@@ -1,0 +1,58 @@
+ 
+                    QEMM Advanced Troubleshooting
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM or if you are interested in a lengthier discussion of this
+  subject, you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  QEMMFLOW.TEC
+                         CompuServe:  QEMFLO.ZIP
+                              Q/FAX:  #113
+
+
+  Subject: A step-by-step, flowchart-like procedure for solving
+  problems with QEMM that are not addressed by more specific,
+  product-oriented technical notes.
+
+
+  If you are experiencing a problem with your hardware or software,
+  you should read through our technical bulletin PRODUCTS.TEC which
+  can be found in your QEMM\TECHNOTE directory.  This file contains
+  product compatibility information and may provide the solution to
+  your problem.
+
+  You should also refer to TROUBLE.TEC which is also located in
+  your QEMM\TECHNOTE directory.  TROUBLE.TEC is a general
+  troubleshooting and reference guide.  It may refer you to a
+  technical bulletin that deals specifically with your problem.
+  Some of the technotes mentioned in TROUBLE.TEC can be found in
+  your QEMM\TECHNOTE directory.  Others can be obtained through our
+  standard support channels.  See CONTACT.TEC (located in
+  QEMM\TECHNOTE) for information on obtaining technical bulletins.
+
+
+  This technote was written to help you troubleshoot problems
+  involving QEMM.  The troubleshooting procedure involves several
+  steps.  Many of these steps are the same ones outlined in
+  EX13FLOW.TEC (our technote dealing with Exception #13 errors.)
+  We have included EX13FLOW.TEC in your QEMM\TECHNOTE directory.
+  In the interest of saving hard drive space, we will refer you to
+  that technical bulletin.  Follow each of the steps in
+  EX13FLOW.TEC except for STEPS # 5 and 6.  These two steps are
+  only necessary if you are experiencing a problem with Exception
+  #13 errors.
+
+
+  *****************************************************************
+            Trademarks are property of their respective owners.
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ******************** E N D   O F   F I L E **********************

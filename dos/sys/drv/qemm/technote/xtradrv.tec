@@ -1,0 +1,134 @@
+ 
+                       XtraDrive and QEMM
+
+
+  This QEMM 7 technote is available from the following sources:
+
+  Quarterdeck Technical Support BBS:  XTRADRV.TEC
+                         CompuServe:  XTRADR.ZIP
+                              Q/FAX:  #199
+
+
+  Subject: Frequently asked questions about QEMM and XtraDrive.
+
+  XtraDrive is a disk compression program published by Integrated
+  Information Technology.  While this program is generally
+  compatible with QEMM, some issues must be addressed.  Below are
+  some of the most frequently asked questions about XtraDrive and
+  QEMM.
+
+
+  STEALTH ROM:
+
+  Q:  When I try to install XtraDrive on a system that has QEMM and
+  Stealth ROM running, I get the following error message:
+
+  "Drive 1 is being controlled by a program that appropriates
+  INT13.  You cannot install XtraDrive on this drive."
+
+  What do I have to do to fix this?
+
+  A:  Remove the Stealth ROM parameter (ST:M or ST:F) from the QEMM
+  device line and try to install XtraDrive again.  You should only
+  need to do this during the installation of XtraDrive.  Once
+  XtraDrive is installed, you can restore the Stealth ROM
+  parameter.
+
+  Q:  So, I can use XtraDrive with QEMM's Stealth ROM parameter?
+
+  A:  Under most circumstances, Stealth ROM works fine with
+  XtraDrive, but if you are using the XtraDrive EMS cache you
+  cannot use either of QEMM's Stealth ROM parameter (ST:M or ST:F.)
+  The XtraDrive EMS cache accesses the disk via the page frame and
+  this causes a conflict with Stealth ROM.  Normally, if a program
+  accesses the disk via the page frame, QEMM's DBF=2 parameter will
+  fix the problem.  This is not possible with XtraDrive.  The EMS
+  cache will also cause problems with drivers such as EMSNETX.COM
+  and Microsoft's MOUSE.COM using EMS.
+
+  Q.  Are there any other possible conflicts with XtraDrive and
+  QEMM's Stealth ROM parameter?
+
+  A.  Under certain rare circumstances you may need to exclude a 4K
+  region in the system ROM BIOS area.  If, after installing
+  XtraDrive and QEMM with the Stealth ROM parameter, you get an
+  Exception 13 or lockup you should refer to Technical Bulletin
+  #205, STEALTH.TEC.  (This technote is installed in your
+  QEMM\TECHNOTE directory when you install QEMM version 7.0)  This
+  technote will help you determine which area must be excluded.
+  Keep in mind, however, that the need to exclude the 4k block of
+  High RAM is very rare.
+
+
+  EXCLUDES:
+
+  Q:  When I install QEMM on a system that has XtraDrive currently
+  installed, I get a lockup or Exception 13 when I reboot the
+  machine, loading QEMM.  What do I have to do to allow me to boot
+  the system?
+
+  A:  Simply reboot the machine and when it beeps after checking
+  the memory, hold down the ALT key until prompted to press ESC to
+  unload QEMM.  (If you are using QEMM's DOS-UP, you will first be
+  prompted to press ESC to unload DOSDATA.)  Once you have unloaded
+  DOSDATA and/or QEMM, load your CONFIG.SYS file into a text editor.
+  If you have MS-DOS 5 or MS-DOS 6, you may load the DOS Editor, by
+  typing EDIT C:\CONFIG.SYS and <ENTER>.  At the end of the QEMM
+  device line, place the following parameter:  X=9000-9FFF.
+
+  A sample QEMM device line would then read as follows:
+
+        DEVICE=C:\QEMM\QEMM386.SYS RAM ST:M X=9000-9FFF
+
+  After adding the parameter, simply save the CONFIG.SYS file and
+  reboot your machine.
+
+  Q:  When I installed XtraDrive after QEMM, XtraDrive placed an
+  exclusion from 8000-A000 on the QEMM device line.  Do I need this
+  exclusion and will it take away any memory from my system?
+
+  A:  Given the way that XtraDrive is currently designed, an
+  exclusion is needed.  If you are using DESQview or DESQview/X,
+  the exclusion will tell QEMM to not map memory into that area, so
+  the amount of memory available to each DESQview window will be
+  smaller. There are a couple of things you can do to increase your
+  window size if you are using DESQview or DESQview/X:
+
+  1.  The default exclude is 8000-A000, a 128K block.  Our testing
+  has determined that usually an exclusion of 9000-9FFF will be
+  sufficient. This will decrease your window size by only 64K.  If
+  you are using the CONVENTIONAL MEMORY disk cache, and have
+  selected more than two 16K blocks of conventional memory, you
+  will need to change the exclude back to 8000-9FFF.
+
+                                OR
+
+  2.  Load the XtraDrive driver BEFORE QEMM and take the exclude
+  off the QEMM device line.  This should decrease your window size
+  by only about 46K. Once again, if you are using the CONVENTIONAL
+  MEMORY disk cache, your driver size will increase with each 16K
+  block you add.  The default is one 16K block. If you select two
+  blocks, your driver will be 66K.  If you select three it will be
+  82K.  The maximum, four 16K blocks will result in a 98K driver.
+  Your DESQview and DESQview/X window sizes will decrease
+  accordingly.
+
+
+  BUS-MASTERING:
+
+  Q:  If I have a SCSI bus-mastering controller, can I load the
+  XtraDrive device driver into High Ram?
+
+  A:  No.  Even with double buffering, on a system with a SCSI bus-
+  mastering device you will not be able to load XtraDrive into High
+  Ram.  This is NOT a memory manager issue, but a limitation of
+  XtraDrive.
+
+  *****************************************************************
+          Trademarks are the property of their respective owners.
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ****************** E N D  O F   F I L E *************************

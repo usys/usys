@@ -1,0 +1,188 @@
+ 
+            QEMM and STACKER DISK COMPRESSION SOFTWARE
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  STACKER3.TEC
+                         CompuServe:  STAC3.ZIP
+                              Q/FAX:  #104
+
+
+  Subject: Information on using Stac Electronics' Stacker disk
+           compression software with QEMM.
+
+  PLEASE NOTE:  The information contained in this technical
+  bulletin pertains ONLY to QEMM version 7.0.  If you require
+  information relating to earlier versions of QEMM, you should
+  obtain the longer, unabridged version of this technote which is
+  available through our standard support channels under the same
+  filename.  See CONTACT.TEC (in your QEMM\TECHNOTE directory) for
+  information on obtaining technical bulletins.
+
+
+
+  1.   STACKER Version 3.1:
+
+       Stacker 3.1 works very much like MS-DOS 6's DoubleSpace in
+       that it does not swap drive names.  QEMM is fully compatible
+       with this version of Stacker, and no special steps need to be
+       taken except in the following situation:
+
+       If you are using Stacker 3.1's password feature and QEMM's
+       DOS-Up, you must add the following parameter to the
+       DOSDATA.SYS device line in your CONFIG.SYS file:
+
+           /ALTVIDEO-
+
+       Although the user is not aware of it, DOSDATA.SYS actually
+       reloads the operating system which, in turn, reloads Stacker
+       3.1.  When Stacker reloads, it again asks for your password.
+
+       Without the above parameter you will NOT see the Stacker logo
+       and password query when Stacker reloads.  Instead, you will
+       see a blinking cursor below the DOSDATA.SYS copyright line.
+       At this point you could enter your password again and the
+       system would continue to boot normally.  You simply would not
+       see the request on your display.  By using the /ALTVIDEO-
+       parameter you avoid this problem completely.
+
+
+       The information below pertains to versions of Stacker
+       prior to version 3.1.
+
+
+  2.   DETECTION OF STACKER DURING INSTALLATION OF QEMM:
+
+       QEMM now detects the presence of Stacker on your system.
+       During the installation of QEMM, the install program will
+       detect Stacker, create a QEMM directory on both the
+       COMPRESSED and UNCOMPRESSED drives, and copy the pertinent
+       files to each directory.
+
+       This copy process is usually successful; however, if you do
+       not have enough room on your UNCOMPRESSED drive to hold the
+       QEMM files, install will fail.  You must then use the Stacker
+       utility STAC.COM to increase the size of the UNCOMPRESSED
+       drive, and then either run OPTIMIZE again or manually copy
+       over the correct files to the drive.  The following is a list
+       of the files needed on the UNCOMPRESSED boot drive:
+
+           QEMM386.SYS
+           RSTRCFG.SYS
+           LOADHI.COM
+           LOADHI.SYS
+           MCA.ADL            [if a Micro Channel machine]
+           MFT.EXE            [not required but may be useful]
+           QDPMI.SYS          [if loaded in CONFIG.SYS]
+           DOSDATA.SYS        [if using DOS-UP]
+           DOS-UP.SYS         [if using DOS-UP]
+           ST-DBL.SYS         [if you are using DoubleSpace on one
+                              of your drives in addition to Stacker]
+           QSETUP.EXE         [if you have room for it]
+
+       If your configuration requires the following files, they
+       should also be copied to the UNCOMPRESSED drive:
+
+           EMS.SYS
+           EMS2EXT.SYS
+           HOOKROM.SYS
+
+       Optimize and QSetup will also place various data files in the
+       QEMM subdirectory on the UNCOMPRESSED drive.
+
+
+       To increase the size of the UNCOMPRESSED partition type:
+
+          STAC   <ENTER>
+
+       at the DOS prompt.  For further information regarding the
+       STAC.COM program, please refer to your Stacker manual.
+
+
+  3. USING STACKER WITH ITS "/EMS" SWITCH:
+
+     Stacker can put its built-in cache into EMS, which reduces the
+     amount of conventional memory the STACKER.COM driver requires.
+     You can select this option when you are installing Stacker on
+     your hard drive.  If you are using the Stealth ROM option with
+     QEMM, however, you must use the DBF=2 parameter on your QEMM
+     device line in the CONFIG.SYS.
+
+     When STACKER.COM uses EMS, it accesses the disk via the EMS
+     Page Frame at the same time that Stealth ROM is using the Page
+     Frame.  "DBF=2" buffers all disk reads and writes that directly
+     access the Page Frame, preventing a conflict.
+
+     A sample QEMM device line would then read:
+
+     DEVICE=C:\QEMM\QEMM386.SYS RAM DBF=2
+
+
+  4. "LOADHI: This program took over INT 67!"
+
+     When using STACKER.COM with the "/EMS" parameter it is
+     possible, under certain circumstances, to see the above
+     error message.  In order to generate this message,
+     your system must be configured as follows:
+
+     a.   STACKER.COM is using the "/EMS" parameter which puts
+          Stacker's built-in cache into EMS.
+
+     b.   You are NOT using QEMM's Stealth ROM parameter.
+
+     c.   QEMM's LOADHI.COM is loading, from the COMPRESSED Stacker
+          drive, a driver or TSR into HIGH RAM using LOADHI's
+          "SQUEEZEF" (Squeeze Frame) parameter.  "SQUEEZEF" uses the
+          Page Frame temporarily in order to give a driver or TSR
+          enough room to initialize.  Since ANY driver or TSR
+          loading from the COMPRESSED Stacker drive becomes an EMS
+          user and subsequently uses the Page Frame at the same time
+          as "SQUEEZEF", the two become incompatible.  The result is
+          the error message above.
+
+     To resolve this problem you have a number of options:
+
+     1.   Use QEMM with the Stealth ROM parameter.  Since Stealth
+          ROM uses the Page Frame, "SQUEEZEF" does NOT work with it.
+          However, the "SQUEEZET" (Squeeze Temp) parameter (which
+          temporarily uses areas of HIGH RAM to give a driver or TSR
+          enough room to initialize) does work.
+
+     2.   If you do not want to use Stealth ROM, the easiest remedy
+          is to rerun OPTIMIZE with the "/NF" parameter.  This tells
+          OPTIMIZE to NOT use the "/SQUEEZEF parameter.
+
+     3.   A final option would be to simply load all your drivers
+          and TSR's from the UNCOMPRESSED boot drive.  For instance,
+          if you are using Stacker with SSWAP.COM, and a sample line
+          in your AUTOEXEC.BAT file looks like the following:
+
+          C:\MOUSE\MOUSE
+
+          you would change it to read:
+
+          D:\MOUSE\MOUSE
+
+          After SSWAP.COM has swapped your drive names, the D: drive
+          is your UNCOMPRESSED drive.  If you are loading a driver
+          from the CONFIG.SYS file, and SSWAP.COM is the last line,
+          there is no need to make any changes to that file.
+
+
+     The information in this technote should take care of problems
+     you are likely to encounter using QEMM with Stacker versions
+     2.0 through 3.1.
+
+  *****************************************************************
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ******************** E N D  O F   F I L E ***********************

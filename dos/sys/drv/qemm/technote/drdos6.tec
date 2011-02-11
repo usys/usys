@@ -1,0 +1,251 @@
+ 
+                 DR DOS 6 and QUARTERDECK PRODUCTS
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM or if you are interested in a lengthier discussion of this
+  subject, you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  DRDOS6.TEC
+                         CompuServe:  DRDOS6.ZIP
+                              Q/FAX:  #215
+
+
+  Subject: A discussion of the use of Digital Research's DR DOS 6.0
+  operating system with Quarterdeck products.
+
+
+  DR DOS 6 is an operating system alternative to MS-DOS versions 5
+  and 6.  It claims to be completely compatible with MS-DOS and to
+  offer enhancements to that operating system.  Quarterdeck has had
+  no experiences that call into question its MS-DOS compatibility.
+  This technote only addresses the issue of compatibility with
+  Quarterdeck products.
+
+  QEMM provides all the memory management capabilities of DR-DOS'
+  EMM386.SYS, while creating more High RAM through the use of its
+  Stealth ROM feature. QEMM's OPTIMIZE program automatically
+  configures your system to use that High RAM most efficiently. QEMM
+  includes MANIFEST, an excellent diagnostic tool, which also serves
+  as a tutorial on memory management.  Under QEMM, Microsoft Windows
+  3.x can run in both Standard and 386 Enhanced modes. (Windows
+  cannot run in standard mode with DR-DOS's EMM386.SYS if it creates
+  any High RAM, and its expanded memory manager is turned off while
+  you are in standard mode.)
+
+  DR DOS 6 AND QEMM'S DOS-UP FEATURE
+
+  With QEMM version 7, Quarterdeck introduced a new feature called
+  DOS-Up, which loads portions of DOS into upper memory (more than
+  Novell DOS 7 can load high of itself).  DOS-Up is fully compatible
+  with DR DOS 6 (but not with the previous version 5), but because
+  of the way that DR DOS 6 uses upper memory, some configuration
+  changes may have to be made to fully optimize your system with
+  QEMM 7 and DR DOS 6.
+  
+
+  There are two main differences in the way that DOS-Up works with
+  DR DOS 6:
+
+  - The line DEVICE=C:\QEMM\DOSDATA.SYS, which normally appears at
+    the beginning of your CONFIG.SYS file, is used on MS-DOS and IBM
+    DOS systems to load the data segment of the DOS kernel into
+    upper memory.  On DR DOS 6 systems, DOS-Up does not load the DOS
+    data segment into upper memory, so you may delete the DOSDATA
+    line from CONFIG.SYS if you like. It will do no harm and will
+    not use any memory if you leave it in.
+
+  - The SHELL statement in CONFIG.SYS will not contain QEMM's LOADHI
+    command, which is used to load COMMAND.COM into upper memory on
+    MS-DOS and IBM DOS systems only.  On DR DOS 6 systems, DOS-Up
+    does not load COMMAND.COM into upper memory.
+
+  Please note the following suggestions that apply when using DOS-Up
+  with DR DOS 6:
+
+  1. DOS-Up is incompatible with DR DOS's INSTALL and HIINSTALL
+     commands. If you are using either of these commands in your
+     CONFIG.SYS file to load programs, load the programs from
+     AUTOEXEC.BAT instead.
+
+  2. DR DOS 6 has certain configuration options that can cause the
+     command processor to load into upper memory.  The command
+     processor's presence in upper memory may cause problems with
+     QEMM's Optimize program. You can prevent such problems by
+     adding the /MH parameter to the command processor line in
+     CONFIG.SYS. For example:
+
+       SHELL=C:\COMMAND.COM /P /MH
+
+    The /MH parameter causes the command processor to load into the
+    HMA or conventional memory, depending on other configuration
+    options you may have set. The point is that by loading the
+    command processor into the HMA or conventional memory, you keep
+    it out of upper memory where it can cause problems for Optimize.
+    For this reason, we suggest using the /MH parameter. By the way,
+    the DR DOS manual refers to the HMA as "high memory."
+ 
+   IMPORTANT: If you are using Quarterdeck's DESQview or DESQview/X,
+              please disregard numbers 3 and 4 below. (These steps
+              tell you how to free up conventional memory by loading
+              parts of DOS into the HMA. We suggest that DESQview
+              and DESQview/X users not do this because these
+              products can make more efficient use of the HMA than
+              DOS can.)
+
+   3. You can have DR DOS relocate the DOS kernel into the HMA,
+     freeing space in conventional memory for DOS applications. We
+     recommend you do this (unless you are using DESQview or
+     DESQview/X).  To load the DOS kernel into the HMA, add the
+     following line to your CONFIG.SYS file anywhere after the
+     QEMM386.SYS device driver line:
+
+         DEVICE=C:\DRDOS\HIDOS.SYS /BDOS=FFFF
+
+  4. If you are loading the DOS kernel into the HMA (see step 3), we
+     suggest you load BUFFERS there also. If you have a statement
+     BUFFERS=nn (where nn is a number), change it to HIBUFFERS=nn.
+     DR DOS will relocate as many of the BUFFERS as possible into
+     the HMA; any that do not fit will be loaded into conventional
+     memory.
+
+  NOTE: To get the most free conventional and upper memory, if you
+        put the kernel and buffers into the HMA, put the command
+        processor there as well. See step 2 above.
+
+
+  DESQVIEW AND DESQVIEW/X USERS ONLY
+
+  Quarterdeck's testing reveals that various DR DOS 6 utilities,
+  including SHARE and NLSFUNC, will put themselves into the HMA
+  without special parameters, even if the DOS=HIGH statement is not
+  present. This will prevent DESQview and DESQview/X from using the
+  HMA, which will almost always result in a decrease in the size of
+  DESQview and DESQview/X windows. To prevent SHARE and NLSFUNC from
+  using the HMA,give them one of the following parameters: /MU
+  (which loads the program into upper memory) or /ML (which loads
+  the program into conventional memory).  For example:
+
+         SHARE /MU
+
+
+
+  OPTIMIZE/LOADHI AND SUPERSTOR
+
+  SuperStor is a disk compression utility that is bundled with DR-
+  DOS 6.  The following issues concern the user of SuperStor with
+  QEMM's Optimize:
+
+  1)  There is a new command, CHAIN, in DR DOS.  This command allows
+  the CONFIG.SYS to pass control to another CONFIG.SYS-like file.
+  DR DOS uses it on installation if you choose to install SUPERSTOR.
+  OPTIMIZE does not follow this passing of control to another file.
+  If you are using CHAIN you must combine the two (or more)
+  CONFIG.SYS (or CONFIG.SYS-like) files if you want drivers in the
+  additional files to be loaded high during the Optimization
+  process.
+
+  2)  The driver that performs data compression is SSTORDRV.SYS.
+  Because of the method used by SuperStor to compress data, we found
+  that this driver could not be loaded high.  If SSTORDRV.SYS was
+  loaded high by Optimize, access to the compressed drive was lost.
+  This is not true of the stand-alone version of SuperStor; it is
+  true only of the bundled version (and, possibly, only true of the
+  earlier bundled versions.)
+
+  To prevent Optimize from attempting to load this driver high,
+  create a text file in your QEMM directory called OPTIMIZE.EXC.
+  This file will contain a single line as follows:
+
+              SSTORDRV
+
+  If you already have an OPTIMIZE.EXC file in your QEMM directory,
+  add the above line to this file.
+
+  3)  The version of SuperStor that ships with DR DOS 6 is NOT
+  identical to the version sold in retail outlets.  In fact, a
+  coupon is included with DR DOS which offers you the chance to
+  upgrade to the most recent, stand-alone version.  Quarterdeck has
+  implemented extensive changes to Optimize in QEMM 7.0 which
+  eliminate the need to follow lengthy instructions in order to
+  successfully Optimize with SuperStor; these changes apply ONLY
+  when using the stand-alone version.  For this reason we strongly
+  recommend that you take advantage of the opportunity to upgrade
+  your version through AddStor.
+
+  Users choosing not to do so (or who wish to run Optimize prior to
+  installation of the stand-alone version) should refer to the
+  unabridged version of this technical bulletin (available through
+  standard support channels under the same filename.)  The longer
+  version of the technote provides the necessary instructions to
+  successfully Optimize your system with the DR DOS 6 version of
+  SuperStor.
+
+  VIDRAM:
+
+  DR DOS comes with a program called MEMMAX that allows the user to
+  turn off the extending of conventional memory into the video area
+  if previously mapped by its own memory manager.  This feature DOES
+  NOT work without their memory manager.  QEMM's VIDRAM is
+  compatible with DR DOS 6 and allows the user to extend
+  conventional memory on EGA/VGA systems when running DOS text-
+  based applications.  QEMM users should use VIDRAM instead of
+  MEMMAX.
+
+  MANIFEST:
+
+  1)  For purposes of identifying its level of API support, DR DOS
+  reports itself as version 3.31 of DOS.  It loads an environment
+  variable that causes VER to report that it is DR DOS version 6 but
+  MANIFEST reports its response to the DOS API call that identifies
+  the version for API purposes. For all programming purposes, DR DOS
+  6 is version 3.31.  There is no SETVER command, nor is one
+  necessary.
+
+  2)  DR DOS converts FCBS to FILE handles so MANIFEST and FILES.COM
+  will report the total number of FILE handles to be the sum of the
+  two.  The minimum number of FILE handles is 20 and the minimum
+  number of FCBS is 4.  This combination of FCBS and FILE handles
+  causes Manifest to mistakenly report that there is only one FCB.
+
+  DESQview and DESQview/X :
+
+  1)  DR-DOS's HISTORY feature does not work inside DESQview. There
+  is no workaround.
+
+  2) You may be able to get a larger amount of memory for DESQview
+  windows by letting DESQview or DESQview/X use the HMA instead of
+  DR DOS. Both DESQview and DESQview/X can load over 63K of their
+  code into the HMA. If you regularly use one of these programs, we
+  suggest you experiment with letting them use the HMA. To do that,
+  omit the DEVICE=C:\DRDOS\HIDOS.SYS line and use the BUFFERS
+  statement instead of the HIBUFFERS statement in your CONFIG.SYS
+  file. This will cause DESQview or DESQview/X to use the HMA. Run
+  OPTIMIZE  /ST to Optimize and force Stealth ROM testing (we always
+  recommend using Stealth ROM if you are using DESQview or
+  DESQview/X).
+
+  To see how much memory you have for each window, run Manifest from
+  inside DESQview or DESQview/X and look at the amount of Available
+  Conventional Memory listed on the System Overview screen. You may
+  want to perform the same test using HIDOS.SYS /BDOS=FFFF and
+  HIBUFFERS to see which method gives you the largest amount of
+  available conventional memory.
+
+  3)  The task switcher, TaskMAX, does not run in DESQview.  There
+  is no workaround.
+
+  4)  There is no SETVER command, nor is one necessary, as explained
+  in the MANIFEST section of this technote.
+
+  *****************************************************************
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ********************* E N D   O F   F I L E *********************
+

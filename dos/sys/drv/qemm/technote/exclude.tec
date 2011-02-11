@@ -1,0 +1,228 @@
+ 
+      Using QEMM's Analysis Procedure to Find Memory Conflicts
+
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM or if you are interested in a lengthier discussion of this
+  subject, you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  EXCLUDE.TEC
+                         CompuServe:  EXCLUD.TEC
+                              Q/FAX:  #239
+
+
+  Subject: Finding potential conflicts in the address space between
+  640K and 1MB by using QEMM's Analysis procedure.  An important
+  note for users on network workstations.
+
+
+  The purpose of this document is to explain the use of QEMM's
+  ANALYSIS feature. ANALYSIS is a procedure used to find address
+  space between 640K and 1024K that is used by your hardware (or,
+  in rare cases, by software programs) but whose use is undetected
+  by QEMM during bootup.  To prevent memory conflicts, these areas
+  must be excluded explicitly on the QEMM386.SYS line of the
+  CONFIG.SYS. PLEASE NOTE:  If you are using Stealth ROM, you
+  should refer to our Stealth ROM troubleshooting technical
+  bulletin STEALTH.TEC.
+
+  WHAT IS ANALYSIS?
+
+  Whenever QEMM is "on" it monitors the use of the first megabyte
+  of address space.  The QEMM/ANALYSIS screen of MANIFEST points
+  out portions of the address space that need to be excluded from
+  QEMM's use because they are being used by a hardware device
+  installed in your PC or by a piece of software you are running.
+  Such addresses are indicated on the ANALYSIS screen by the letter
+  X (which appears red on color monitors.)
+
+  WHY SHOULD I USE ANALYSIS?
+
+  If you are getting an Exception #13 error message, are unable to
+  access your network when QEMM is installed, cannot access a
+  floppy, use your printer, or run some program, are experiencing
+  lock-ups at some identifiable point in operating your computer
+  (from booting the system to running your word processor), or have
+  some other problem when running QEMM that you do not have when
+  you do not run QEMM, then the ANALYSIS procedure may be a useful
+  diagnostic process.
+
+  You may also want to use ANALYSIS in order to find address space
+  that is NEVER accessed by your hardware or software so that these
+  areas can be INCLUDED for QEMM's use, increasing your available
+  High RAM.
+
+  WHY IS THIS NECESSARY?
+
+  This procedure may be necessary at times because some Adapter
+  ROMs and Adapter RAMs do not identify themselves in such a way as
+  to be detected properly by QEMM.  Adapter ROMs are supposed to
+  identify their length in the third byte of the ROM itself, but
+  sometimes report a smaller size.  Adapter RAM that is not active
+  at bootup time looks exactly like unoccupied address space.  QEMM
+  maps memory into unused address space between 640 and 1024K, and
+  will map over such adapter ROMs and RAMs.
+
+  Also, some special CGA video cards have two pages of video: one
+  at B800-BBFF, the second at BC00-BFFF.  QEMM may map over the
+  second page, causing a conflict if you run a program that tries
+  to use the second page.  In rare situations a program may use
+  portions of the upper address space directly.
+
+  HOW DOES ANALYSIS WORK?
+
+  The QEMM/ANALYSIS screen of MANIFEST is a cross-reference between
+  the QEMM/TYPE and QEMM/ACCESSED screens.  The TYPE screen shows
+  who QEMM thinks is using the address space:  Video, ROM, Page
+  frame, High RAM, etc.  The ACCESSED screen shows whether the
+  address space has been accessed.  The ANALYSIS screen reports
+  that address space should be excluded from QEMM's use when ALL of
+  the following conditions exist:
+
+  1)  QEMM is not itself accessing the upper address space (as it
+  will when the RAM parameter is on the QEMM386.SYS line of the
+  CONFIG.SYS.
+
+  2)  QEMM is finding that some portion of the address space is
+  being accessed.
+
+  3)  QEMM is not detecting the existence of a video card, ROM,
+  adapter RAM or ROM, or the like in this same portion of the
+  address space, but is finding it "mappable" instead.
+
+  How do I use ANALYSIS to find EXCLUDEs?
+
+  1. The first step is to determine if QEMM's Stealth ROM feature
+  is enabled.  At the DOS prompt, type QEMM and press Enter.
+
+  A report summarizing QEMM's status is displayed. If you see the
+  line Stealth Type = M or Stealth Type = F, Stealth ROM is
+  enabled; make a note of the mode being used (M or F.)
+
+  2. Use a text editor to edit your CONFIG.SYS file and type REM
+  followed by a space at the beginning of the line that starts as
+  follows:
+
+  DEVICE=C:\QEMM\QEMM386.SYS  (REM causes the line to be ignored).
+
+  The line should look something like this:
+
+  REM DEVICE=C:\QEMM\QEMM386.SYS (parameters not shown)
+
+  3. Add a new line directly below the line you just edited. What
+  the line says depends on whether Stealth ROM is enabled on your
+  system.
+
+  If you are using Stealth ROM:  Add the following line,
+  substituting the appropriate Stealth ROM letter, M or F for the x
+  in ST:x.
+
+  DEVICE=C:\QEMM\QEMM386.SYS ON MAPS=0 ST:x FSTC:Y
+
+  If you are not using Stealth ROM: Add the following line:
+
+  DEVICE=C:\QEMM\QEMM386.SYS ON MAPS=0
+
+  4. Save your CONFIG.SYS file and reboot your PC.
+
+  Now you are ready to use the program or device that has been
+  giving you trouble since you installed QEMM.  If the problem is
+  with a piece of software, run that program and access the
+  features you normally use.  If you are having trouble with a
+  particular hardware operation, perform that operation.
+
+  If you are attempting to find addresses that can be INCLUDED for
+  QEMM's use, use every piece of software that you might use during
+  the course of your workday and use as many features as possible.
+  Access every hardware device. If you use DESQview, run it but
+  then exit without running any programs inside of it.
+
+  PLEASE NOTE:  The new QEMM line you added for the Analysis
+  procedure did not include the RAM parameter. That means you no
+  longer have High RAM, so device drivers and TSRs will load low
+  and you will not have as much conventional memory to run
+  programs. We will add the RAM parameter back later.
+
+  5. Without rebooting your computer, run Manifest by typing MFT at
+  the DOS prompt.  Look at the QEMM/ANALYSIS screen.  If you see
+  any "X's" these areas must be excluded by adding an appropriate
+  EXCLUDE statement to the QEMM device line.  If you see "I's" you
+  can try to INCLUDE them.  The green "I's" that you see on the
+  QEMM/ANALYSIS screen indicate that this portion of the address
+  space has not been accessed by anyone YET and QEMM is not mapping
+  this portion of the address space.  It is quite possible that
+  this portion of the address space will be accessed later.  (As an
+  example: The portion of the system BIOS ROM that contains the
+  code for controlling the floppy drive may report that it is
+  includable until you actually use the drive.  If you INCLUDE it
+  you will have no problem until you access a floppy.) In essence
+  what Manifest is saying is "You may be able to use these upper
+  memory addresses to load drivers and TSR's.  But maybe not." If
+  you notice any problems after adding INCLUDEs, remove them one by
+  one until you determine which you can safely use.
+
+  6. Our final step is to edit the CONFIG.SYS file.  Delete the
+  word REM from the original QEMM386.SYS line.  Then use EXCLUDE
+  statements to prevent QEMM from mapping memory into addresses
+  used by your devices and/or software, as determined by the
+  ANALYSIS procedure.  If the ANALYSIS screen suggested areas to be
+  INCLUDED, add INCLUDE statements also.  If you are not sure of
+  the correct syntax to use for INCLUDE and EXCLUDE statements,
+  refer to your QEMM manual.
+
+  Delete the QEMM device line we created for our ANALYSIS, then
+  save the new CONFIG.SYS file and rerun Optimize.  (This is
+  necessary whenever you do something which alters your regions of
+  High RAM.)
+
+  CAN ANALYSIS FAIL?
+
+  Some hardware devices may use upper address space, but only
+  momentarily.  For instance, there is a Bernoulli drive that has
+  an Adapter ROM that goes in the upper address space.  When the
+  device driver for the Bernoulli Box loads it searches for itself
+  at the beginning of every 8K portion of the address space
+  beginning at C800.  If the Adapter ROM happens to be located at
+  DC00, then the device driver will access every other 4k of the
+  address space from C800 to DC00, causing Xs to appear on the
+  ANALYSIS screen every other block in this area.  These areas,
+  however, are only being used during the searching process and
+  need not be excluded except, possibly, the DC00-DEFF, where the
+  Adapter ROM of the Bernoulli actually resides.  In such a case,
+  it would be necessary to experiment with each exclude in order to
+  find out what exclusion is really needed.
+
+  Additionally, QEMM is not active while you are running Microsoft
+  Windows in its 386 Enhanced mode and the ANALYSIS process is not
+  useful for the period of time that you are in Enhanced Mode.
+
+  WHAT IS THE COST FOR EXCLUDING AN AREA OF UPPER MEMORY?
+
+  EXCLUDing a portion of the address space will cost you some
+  usable High RAM. It will not make your system malfunction in any
+  way. While you do not want to forfeit any usable High RAM by
+  excluding a larger area of upper memory than necessary, failing
+  to exclude an area used by your hardware can cause your system to
+  lock up or malfunction in some other way.
+
+  SUMMARY
+
+  QEMM does its best to identify upper memory address space that is
+  being used by your hardware and software, but is not always 100%
+  successful.  ANALYSIS is a tool to allow you to identify address
+  space between 640K and 1024K that is being used by your hardware
+  (or, in rare cases, by a piece of software) which cannot be
+  identified through the documentation accompanying the product.
+
+  ******************************************************************
+   This technical note may be copied and distributed freely as long
+    as it is distributed in its entirety and it is not distributed
+    for profit.  
+
+   Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ******************** E N D   O F   F I L E ***********************

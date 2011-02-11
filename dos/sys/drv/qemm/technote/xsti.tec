@@ -1,0 +1,193 @@
+ 
+                  QEMM's XSTI STEALTH ROM PARAMETER
+
+
+  This QEMM 7 technote is available from the following sources:
+
+  Quarterdeck Technical Support BBS:  XSTI.TEC
+                         CompuServe:  XSTI.TEC
+                              Q/FAX:  #233
+
+
+  PROBLEM:
+
+  When starting up your computer you see the following message:
+
+  QEMM386: Disabling Stealth ROM because QEMM could not locate the
+           ROM handler for INT XX"
+
+
+  POSSIBLE CAUSES:
+
+  A)  You are loading a driver before QEMM which is grabbing
+      interrupt XX.
+
+
+  B)  A ROM is loading a handler for interrupt XX into RAM.
+
+
+  C)  You are using a computer which was upgraded to an 80386 with
+      an add-in board, such as the Intel "Inboard PC."
+
+
+  SOLUTIONS:
+
+  A)  Load the driver in question after QEMM.  If it must be loaded
+      before QEMM, load HOOKROM.SYS before you load this driver.
+
+  During installation of QEMM, HOOKROM.SYS is installed in the QEMM
+  directory.  Assuming that QEMM is installed in a directory called
+  QEMM on your "C" drive, the new line would look like this:
+
+            DEVICE=C:\QEMM\HOOKROM.SYS
+
+  Though it is usually best to load device drivers after QEMM, some
+  drivers (like the ones that manage some 80386 conversion hardware)
+  must be loaded before QEMM.  These drivers can obscure information
+  that QEMM needs to enable the Stealth ROM feature.
+
+  Placed before QEMM386.SYS in the CONFIG.SYS, HOOKROM will gather
+  the necessary information for QEMM386.SYS and prevent this special
+  driver from interfering with the Stealth ROM process.
+
+
+  B)  Add the parameter "XSTI=XX" (where "XX" is the number of the
+      interrupt reported in the message) to the QEMM386.SYS line of
+      the CONFIG.SYS, then add an appropriate exclude statement to
+      keep QEMM from mapping over the portion of the address space
+      where the ROM handler for interrupt XX resides.  (See the
+      section "HOW DO I FIND THE APPROPRIATE EXCLUDE?" later in this
+      document.)
+
+      It may also be possible to reconfigure your system in such a
+      way that the ROM no longer redirects an interrupt into RAM.
+      This is the case with the Invisible Network.  (See "KNOWN USES
+      FOR XSTI" near the end of this technical bulletin.)  It is
+      also possible that a program you are trying to run, or even
+      your operating system, wants to have a particular interrupt
+      remain unStealthed. XSTI, with the appropriate exclude, is
+      necessary to get your program, or operating system, working
+      with Stealth ROM.
+
+
+  C)  Add the following parameters to the QEMM device line in your
+      CONFIG.SYS file:   XSTI=70 XSTI=74 XSTI=75 XSTI=76
+
+      A typical QEMM line would look like this:
+
+      DEVICE=C:\QEMM\QEMM386.SYS RAM ST:M XSTI=70 XSTI=74
+          XSTI=75 XSTI=76                  [all on the same line]
+
+
+  HOW DO I FIND THE "APPROPRIATE EXCLUDE?"
+
+  You find the appropriate exclude by excluding all the address
+  space occupied by ROMs, using the parameter FSTC, and doing an
+  Analysis.  The first thing you need to do is locate all your
+  ROMs.  You can do this by looking at the First Meg/Overview
+  screen of Manifest.  Those with non-Microchannel machines and VGA
+  video typically have a system ROM at F000-FFFF and a video ROM at
+  C000-C7FF.  Those with PS/2s or other Microchannel machines
+  typically have one ROM at E000-FFFF.  Add-on devices, such as
+  some disk controller cards and network cards, may also have ROMs,
+  which you must exclude as well.
+
+  A typical QEMM line for a non-Microchannel machine is:
+
+  DEVICE=C:\QEMM\QEMM386.SYS RAM ST:M XSTI=XX X=F000-FFFF X=C000-
+      C7FF FSTC   [all on the same line]
+
+  On a PS/2 or most Microchannel machines, the line will look like
+  this:
+
+  DEVICE=C:\QEMM\QEMM386.SYS RAM ST:M XSTI=XX X=E000-FFFF FSTC
+
+  In the above examples, XX is replaced with the interrupt reported
+  in the QEMM error message.
+
+  Reboot your computer with this CONFIG.SYS.  Stealth ROM should
+  work this time.  Use your computer for a while, then look at the
+  QEMM/Analysis screen of Manifest.  You will see a chart that
+  looks something like this:
+
+                      n=0123 4567 89AB CDEF
+                   0n00 OOOO OOOO OOOO OOOO
+                   1n00 OOOO OOOO OOOO OOOO
+                   2n00 OOOO OOOO OOOO OOOO
+                   3n00 OOOO OOOO OOOO OOOO
+                   4n00 OOOO OOOO OOOO OOOO
+                   5n00 OOOO OOOO OOOO OOOO
+                   6n00 OOOO OOOO OOOO OOOO
+                   7n00 OOOO OOOO OOOO OOOO
+                   8n00 OOOO OOOO OOOO OOOO
+                   9n00 OOOO OOOO OOOO OOOO
+                   An00 OOOO OOOO OOOO OOOO
+                   Bn00 OOOO OOOO OOOO OOOO
+                   Cn00 IIII IIII OOOO OOOO
+                   Dn00 OOOO OOOO OOOO OOOO
+                   En00 OOOO OOOO OOOO OOOO
+                   Fn00 IIII IIII OOII IIIO
+
+  Consulting the ANALYSIS section of your Manifest or QEMM manual,
+  you will read that an "I" indicates a portion of the address
+  space that HAS NOT been accessed and an "O" indicates a portion
+  of the address space that HAS been accessed.  You must exclude
+  that portion of the address space in the eXcluded ROMs where you
+  now see "O"s.
+
+  In this example (which presumes that the ROMs were located from
+  C000-C7FF and F000-FFFF), the appropriate exclude is "X=F800-
+  F9FF", an 8K portion of the address space.  This is the portion
+  of the address space where the ROM handler for the interrupt XX
+  resides.  Our QEMM line, with appropriate excludes, would read as
+  follows:
+
+     DEVICE=C:\QEMM\QEMM386.SYS RAM ST:M XSTI=XX X=F800-F9FF
+
+  PLEASE NOTE:  The FSTC parameter is used only during this
+  analysis process and should be removed afterward.  Because the
+  last 64 bytes of the First Meg address space (in FFFC-FFFF) is
+  still addressed directly with Stealth ROM, the last 4K piece of
+  the QEMM/Analysis screen will always have an "O" in it, whether
+  an exclude is appropriate or not.
+
+  ALSO NOTE:  This procedure IS NOT used to find INCLUDES in
+  portions of the address space NOT occupied by Stealthed ROMs.  If
+  you wish to experiment with INCLUDES (in order to gain additional
+  High RAM) you must perform a complete analysis as described in the
+  ANALYSIS section of the QEMM or Manifest manual.
+
+
+  WHAT IF THERE ARE NO "O"S?
+
+  This would mean the ROM handler for interrupt XX has been replaced
+  by a new interrupt handler, and the one in the ROM is not being
+  accessed at all.  No exclude is necessary in this case.
+
+
+  KNOWN USES FOR XSTI:
+
+     INVISIBLE NETWORK
+
+     MS-DOS 5 ON SOME ZENITH MACHINES
+
+     VIDEO ACCELERATOR DRIVERS
+     (such as SPEED_UP.SYS, RAMBIOS.SYS, FASTBIOS.SYS.)
+
+  If you are using any of these products, please refer to
+  PRODUCTS.TEC (in your QEMM\TECHNOTE directory) for additional
+  information.
+
+  All you need to know to use the XSTI parameter is contained
+  above.  A long, highly technical explanation of the above issues
+  can be found in the unabridged version of this technote which is
+  available through our standard support channels.
+
+  *****************************************************************
+           Trademarks are property of their respective owners.
+   This technical note may be copied and distributed freely as long
+    as it is distributed in its entirety and it is not distributed
+    for profit.  
+
+   Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ******************* E N D   O F   F I L E ***********************

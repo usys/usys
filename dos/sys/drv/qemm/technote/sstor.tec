@@ -1,0 +1,143 @@
+ 
+             QEMM AND SUPERSTOR DISK COMPRESSION
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  SSTOR.TEC
+                         CompuServe:  SSTOR.ZIP
+                              Q/FAX:  #249
+
+
+  Subject: Notes on using AddStor's SuperStor disk compression
+  utility package with Quarterdeck Expanded Memory Manager.
+
+  PLEASE NOTE:  The information contained in this technical
+  bulletin pertains ONLY to QEMM version 7.0.  If you require
+  information relating to earlier versions of QEMM, you should
+  obtain the longer, unabridged version of this technote which is
+  available through our standard support channels under the same
+  filename.  See CONTACT.TEC (located in your QEMM\TECHNOTE
+  directory) for information on obtaining technical bulletins.
+
+
+  QEMM's Optimize program is fully compatible with SuperStor 2.0,
+  2.04 and SuperStor Pro.  However, a few steps may have to be
+  followed before running Optimize.
+
+  1.  In order for QEMM's LOADHI.SYS to load the entire SuperStor
+      driver into upper memory, you must place a parameter at the
+      end of the SSTORDRV.SYS device line in your CONFIG.SYS file.
+      If you are using SuperStor 2.00 - 2.04, you will use the
+      /NOHIGH parameter.  If you are using SuperStor Pro, you will
+      use the /NOUMB parameter.  The lines will then read:
+
+      DEVICE=C:\SSTORDRV.SYS /NOHIGH   (versions 2.00 - 2.04)
+
+         or
+
+      DEVICE=C:\SSTORDRV.SYS /NOUMB    (SuperStor Pro)
+
+  2.  When SSTORDRV.SYS (the SuperStor device driver) is loaded into
+      upper memory, it usually takes about 75K.  If loaded into
+      conventional memory, it usually takes about 41K.  This is an
+      inherent limitation of SSTORDRV.SYS and is NOT a QEMM issue.
+
+  3.  When QEMM is installed on a system on which SuperStor is
+      already installed, it creates a QEMM directory on the
+      UNCOMPRESSED boot drive and copies pertinent QEMM files to
+      that drive.  If you do not have enough room on your
+      uncompressed drive to hold the necessary files, the
+      installation will terminate.
+
+      To rectify this, you must run Addstor's utility program SSUTIL
+      and shrink the size of the COMPRESSED disk.  To be on the safe
+      side, shrink it by a minimum of 2048K.  Although QEMM will
+      only use a portion of that disk space, you should have
+      sufficient space left over for new device drivers, temporary
+      files, or other files or programs you may need to store on the
+      UNCOMPRESSED drive.  Refer to your SuperStor manual for
+      information on using SSUTIL.
+
+  4.  If you install SuperStor on a system that already has QEMM
+      installed on it, the SuperStor installation program will
+      change the QEMM device statement from:
+
+          DEVICE=C:\QEMM\QEMM386.SYS RAM
+
+                       to
+
+          DEVICE=C:\QEMM386.SYS RAM
+
+      You MUST edit the line to once again read:
+
+          DEVICE=C:\QEMM\QEMM386.SYS RAM
+
+      If you like, you can use the editor in QEMM's QSETUP program
+      or in Manifest.
+
+  5.  If you install SuperStor after installing QEMM, you must
+      manually create a QEMM directory on the UNCOMPRESSED drive and
+      copy pertinent QEMM files from the COMPRESSED drive to the
+      UNCOMPRESSED drive.  The necessary files are:
+
+        QEMM386.SYS
+        TESTBIOS.COM
+        OPTIMIZE.COM
+        RSTRCFG.SYS
+        LOADHI.COM
+        LOADHI.SYS
+        MCA.ADL              [if a Micro Channel machine]
+        WINHIRAM.VXD
+        WINSTLTH.VXD
+        MFT.EXE
+        QDPMI.SYS            [if loaded in CONFIG.SYS]
+        DOSDATA.SYS          [if using DOS-UP]
+        DOS-UP.SYS           [if using DOS-UP]
+        QSETUP.EXE           [if you have room for it]
+
+  6.  If you enabled QEMM's DOS-UP feature prior to installing
+      SuperStor, the SuperStor installation will move the two
+      DOS-Up device lines to the wrong place in the CONFIG.SYS file.
+      The SuperStor installation program moves the QEMM386.SYS
+      device line to the top of the CONFIG.SYS file, then loads the
+      two SuperStor drivers, SSTORDRV.SYS and DEVSWAP.COM, followed
+      by DOSDATA.SYS and DOS-UP.SYS.  THIS IS WRONG.
+
+      You MUST edit your CONFIG.SYS file so that the SuperStor
+      drivers do NOT load until after the three QEMM drivers.
+      You may also be loading QEMM's QDPMI.SYS device driver in your
+      CONFIG.SYS file, but the order in which this driver loads is
+      not important.
+
+      The QEMM drivers MUST load as follows:
+
+        DEVICE=C:\QEMM\DOSDATA.SYS
+        DEVICE=C:\QEMM\QEMM386.SYS RAM [any additional parameters]
+        DEVICE=C:\QEMM\DOS-UP.SYS
+
+      with the SuperStor drivers loaded AFTER these three lines.
+
+  7.  In order to prevent confusion when running QSetup, you MUST
+      delete the QEMM386.SYS driver from the ROOT directory of both
+      the COMPRESSED and UNCOMPRESSED drives.
+
+      PLEASE NOTE:  You MUST NOT delete the QEMM386.SYS drivers from
+                    your QEMM directories.
+
+  8.  Once you have performed the above steps, you should have no
+      problem running either Optimize or QSetup with SuperStor.
+
+  ******************************************************************
+            Trademarks are property of their respective owners.
+   This technical note may be copied and distributed freely as long
+    as it is distributed in its entirety and it is not distributed
+    for profit.  
+
+   Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ************************ E N D   O F   F I L E *******************

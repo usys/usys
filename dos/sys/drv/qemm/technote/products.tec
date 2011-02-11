@@ -1,0 +1,526 @@
+
+                 PRODUCT COMPATIBILITY INFORMATION
+
+  This QEMM 7 technote is available from the following sources:
+
+  Quarterdeck Technical Support BBS:  PRODUCTS.TEC
+                         CompuServe:  PRODCT.ZIP
+                              Q/FAX:  #248
+
+
+
+  The following is a list of various hardware and software devices
+  which our Testing and Compatibility Department has determined
+  require specific excludes or parameters in order to be compatible
+  with QEMM and/or Stealth ROM.
+
+
+  PLEASE NOTE:  When an entry states that excludes within a certain
+                area are needed, you can use QEMM's ANALYSIS
+                procedure to determine the exact areas that need to
+                be excluded from QEMM's use.  See Chapter 9 of your
+                QEMM manual for details.
+
+
+                              HARDWARE
+
+
+  ACER 1120SX:
+
+  This system needs exclusions in the F000-FFFF area if you are
+  using the Stealth ROM feature.  On the particular systems that
+  Quarterdeck tested, the parameters X=F300-F3FF and X=FA00-FAFF
+  were needed with Stealth ROM.  Your system may require different
+  exclusions.  In addition, the Acer 1120sx may need X=C600-C7FF
+  on the QEMM device line even without Stealth ROM.
+
+
+  ADAPTEC 1542C:
+
+  If you are using this disk controller and also have floppy disk
+  drives or hard disk drives that are still controlled by the
+  system ROM (or any other ROM), then you will need excludes in
+  the F000-FFFF region if you use the Stealth ROM feature.
+
+
+  ADAPTEC ASPI4DOS:
+
+  If the ASPI4DOS.SYS device driver is loaded before QEMM386.SYS,
+  you may need to exclude up to 12K of the F000-FFFF range when
+  using QEMM's Stealth function.  This problem does not occur if
+  ASPI4DOS is loaded after QEMM, but in this case QEMM will use 2K
+  of conventional memory for a disk buffer to prevent bus-mastering
+  problems when ASPI4DOS loads high.  For more information on bus-
+  mastering controllers, see BUS-MAST.TEC in your QEMM\TECHNOTE
+  directory.
+
+  ATI LOCAL BUS VIDEO CARDS:
+
+  Some ATI local bus video cards may not work properly with the
+  Stealth ROM feature unless you use the X=C000-C7FF parameter.
+  A smaller exclude in this region may also solve the problem.
+
+
+  ATI VGA WONDER:
+
+  This graphics card works well with the page frame at C000 when
+  the Stealth ROM mapping method (ST:M) is in effect. QEMM places
+  the page frame at C000 by default when ST:M is enabled.  If ST:M
+  is enabled and the page frame is not at C000, it is likely that
+  some obstruction is preventing QEMM from safely putting the frame
+  at this address.  In this case, you may need to exclude part of
+  the C000-C7FF area.
+
+
+  DIAMOND SPEEDSTAR:
+
+  If you have the Stealth ROM feature enabled, you may need the
+  XST=C000 parameter on the QEMM386.SYS device line in order to
+  use this video card's utilities.  (Some of this card's high-
+  resolution modes may require the EXCLUDE=B000-B7FF parameter,
+  with or without Stealth.)  Some revisions of this video card may
+  require X=C000-C1FF to run with the Stealth ROM feature even if
+  you do not use the card's utilities.
+
+
+  DMA BUFFER TOO SMALL:
+
+  PROBLEM:  QEMM displays a message which tells you to increase
+            the size of the DMA buffer.
+
+  If a device which uses DMA (Direct Memory Access), such as a
+  tape backup, performs DMA transfers larger than the current size
+  of the DMA buffer, QEMM will display a message indicating that
+  you must increase the size of the buffer.  The message will inform
+  you how large the buffer must be, and you will need to add a
+  DMA=xx parameter to the QEMM386.SYS line in your CONFIG.SYS file
+  ((with xx indicating the size you want to make the buffer.)
+
+
+  IBM PS/2 MODEL L40SX:
+
+  This laptop needs the following excludes in order to work with
+  ST:M:   X=E000-E0FF  X=E200-E3FF  X=E600-E6FF.   The ST:F method
+  requires no excludes.  The Suspend/Resume feature works on this
+  system automatically.
+
+
+  IBM TOKEN RING CARD ON A PS/2:
+
+  PROBLEM:  On a PS/2 with a Token-Ring card and QEMM installed,
+            conventional memory ends at 576K rather than 640K.
+
+  A Token-Ring network card has both an adapter RAM and ROM in
+  upper memory, either 8 or 16K in size.  The default addresses for
+  the RAM and ROM are D800 and CC00, respectively.  This default
+  configuration may not allow room in upper memory for the EMS page
+  frame, especially on PS/2 systems.  If the page frame does not fit
+  in upper memory, QEMM will place the page frame in the last 64K of
+  conventional memory, decreasing the memory in which programs can
+  run.  Beginning with QEMM 7.0, a message is posted during boot up
+  if the page frame has been placed in conventional memory.
+
+  You can resolve this problem by using your PS/2 reference
+  diskette to move the Token-Ring adapter RAM and ROM to one end
+  or the other of available upper memory.  The idea is to create
+  a contiguous 64K area for the page frame rather than having your
+  upper memory addresses broken up into small unusable regions.
+  Moving both RAM and ROM as low as possible in the C000 area is
+  usually a good choice.
+
+  If you use QEMM's Stealth ROM feature, the page frame will
+  usually remain in upper memory even with the Token-Ring card
+  hogging the address space because Stealth ROM clears the area of
+  the ROMs between E000 and FFFF.  However, in order to get the
+  maximum memory available, you should still make the contiguous
+  free areas in upper memory as large as possible by moving the
+  adapter RAM and ROM to different locations.
+
+  When you use the Stealth ROM mapping method (ST:M) the default
+  Token-Ring configuration will force the page frame to go to EC00,
+  whereas QEMM would normally try to maximize memory by placing the
+  page frame at C000.  You can put the page frame at C000 by using
+  the reference diskette to move the Adapter RAM and ROMs out of
+  the C000-CFFF range. In this case, the best places to put the
+  Token-Ring adapter RAM and ROM are probably at the beginning of
+  the D000 area, as close to each other as possible.
+
+
+  INVISIBLE NETWORK:
+
+  If you use the boot ROM on the Invisible Network card, it loads
+  32K of code into the top of the conventional memory address
+  space and grabs interrupt 13.  A much better solution than to
+  use XSTI=13 and an appropriate exclude is to disable the ROM
+  on the network card and load IS2BIOS instead.  This will give you
+  32K of conventional memory (since IS2BIOS can be loaded high)
+  and you will not have the network card's ROM breaking up your
+  upper memory address space.
+
+
+  MICRO CHANNEL MACHINES:
+
+  You must load the HOOKROM.SYS program (found in your QEMM
+  directory) BEFORE you load QEMM386.SYS in your CONFIG.SYS file in
+  order to use the XST=E000 parameter with IBM PS/2 machines with
+  Micro Channel architecture (and possibly with some other Micro
+  Channel machines.)  If you are using QEMM's DOS-Up feature, you
+  would load DOSDATA.SYS as the first line of your CONFIG.SYS file,
+  followed by HOOKROM.SYS, then QEMM386.SYS.  If you are not using
+  DOS-Up, then HOOKROM.SYS would be the first line in your
+  CONFIG.SYS, followed by QEMM386.SYS.  For more information on
+  using HOOKROM on a PS/2, refer to XSTI.TEC (located in your
+  QEMM\TECHNOTE directory.)
+
+
+  PLUS IMPULSE/HARDCARD II:
+
+  These hard drives may need the XST parameter applied to their
+  ROM(s) when using Stealth. The default location for a Hardcard II
+  ROM, for example, is C800. In this case adding XST=C800 to the
+  QEMM386.SYS device line may be necessary.  If you are unsure of
+  the location of your Hardcard II or Impulse disk ROM, consult the
+  documentation that accompanied your drive.
+
+
+  PSI HYPERSTOR 816/1600 HARD DISK CONTROLLER:
+
+  Some versions of this controller may require that the page frame
+  be located at the beginning of the controller's ROM (which is
+  often at C800.)  A small exclusion in the F000-FFFF range may
+  also be necessary.  Adding the exclusion X=FE00-FFFF to the QEMM
+  line may resolve problems with this controller.
+
+
+  SETUP PROGRAMS, SETUP HOTKEYS:
+
+  On some machines it is possible to access the computer's setup
+  program any time by pressing a hotkey.  Other machines provide
+  software programs for system configuration.  On many of these
+  systems you must exclude some portion of the F000-FFFF range
+  in order to use these programs when QEMM's Stealth ROM feature
+  is enabled.  ("Hotkey" setups usually work without exclusions if
+  you are using the ST:F feature.)  The easiest way to deal with
+  this problem is to prevent QEMM from loading on the few occasions
+  when you need to access your system setup program.  If you prefer
+  to sacrifice High RAM areas in order to run the system setup with
+  Stealth ROM, you can use QEMM's Analysis procedure to determine
+  the areas you must exclude, providing that a reboot is not forced
+  when exiting the setup program.
+
+  If your setup program reboots the system upon exit, you will
+  have to resort to trial-and-error testing to find the necessary
+  excludes in the F000-FFFF area.
+
+
+  STB 800/16 VGA CARD:
+
+  This graphics card works well with the page frame at C000 when
+  the Stealth ROM mapping method (ST:M) is in effect.  QEMM places
+  the page frame at C000 by default when ST:M is enabled.  If ST:M
+  is enabled and the page frame is not at C000, it is likely that
+  some obstruction is preventing QEMM from putting the frame there
+  safely.  In this case, you may need to exclude a portion of the
+  C000-C7FF area.
+
+
+  TOSHIBA LAPTOPS:
+
+  A feature of various Toshiba laptop computers is a pop-up menu
+  that displays information on the status of the computer's
+  battery.  In order for this pop-up menu to work when the computer
+  is in Virtual 8086 mode (that is, when QEMM is providing expanded
+  memory or high RAM) a TSR called T386.EXE must be run.  This tiny
+  program (and its accompanying doc file, T386.DOC) are included on
+  the QEMM 7.02 diskettes.
+
+
+  TOSHIBA 4400SXC:
+
+  If you use the battery pop-up feature of this system, you may need the
+  QEMM parameters X=F400-F7FF and X=FC00-FFFF. You may be able to narrow
+  these excludes somewhat. (The T386.EXE file mentioned in the previous
+  section may be needed for the battery pop-up feature to work.)
+
+
+  TOSHIBA 5100:
+
+  This computer is incompatible with the Stealth ROM mapping
+  method (ST:M.) The Stealth ROM frame method (ST:F) will work
+  fine.  OPTIMIZE will automatically detect this incompatibility
+  and choose ST:F on these machines.
+
+
+  ULTRASTOR DISK CONTROLLER
+
+  If you have an UltraStor SCSI disk controller and you are using 
+  QEMM's DOS-Up feature and you see a "device not found" message 
+  during bootup, you may be able to fix this problem with 
+  Quarterdeck's ULTRAFIX.SYS driver. To obtain this driver, please   
+  contact Quarterdeck or download the driver from Quarterdeck's BBS. 
+  See CONTACT.TEC in the \QEMM\TECHNOTE directory for information on 
+  contacting Quarterdeck.
+  
+  
+  ZENITH PC's:
+
+  With some versions of DOS, you need the parameter XSTI=18 in
+  order to print on a Zenith system when Stealth ROM is enabled.
+  You will also need a small 4K exclusion somewhere in the F000-FFFF
+  range.  X=F500-F5FF works on some systems.
+
+
+  ZENITH Z-NOTE 325L LAPTOP:
+
+  This system should be used with the ST:F parameter.  The ST:M
+  parameter requires a number of excludes on this system, and
+  therefore gives no benefit over ST:F.
+
+
+                             SOFTWARE
+
+
+  1DIR PLUS:
+
+  Some versions of this program need the QEMM parameter UFP:N when
+  Stealth is in effect if 1DIR Plus is using EMS.  Another solution
+  is to configure 1DIR Plus so that it does not put its stacks in
+  the EMS page frame.  (See the 1DIR Plus manual for details.)
+
+
+  ALLCLEAR:
+
+  This charting software may need an exclusion in the C000-C7FF
+  region if you use its View Chart or Print Preview options with
+  Stealth ROM.
+
+
+  AVERY LABEL PRO:
+
+  Some versions of this software put video garbage on the screen
+  when the Stealth ROM feature is enabled unless you use the
+  X=F000-F0FF parameter.
+
+
+  GEOWORKS ENSEMBLE:
+
+  As of version 1.2, Geoworks is incompatible with QEMM's Stealth
+  ROM feature if Geoworks Ensemble is set up to use expanded (EMS)
+  memory.  If you set up Geoworks Ensemble to use extended (XMS)
+  and conventional memory, it will work with Stealth ROM.  See the
+  accompanying documentation for details on configuring Geoworks
+  to use XMS and conventional memory.  (As of this writing, the
+  recently released GEOWORKS v2.0 has not been tested to determine
+  whether this information applies to that version, as well.)
+
+
+  GLYPHIX:
+
+  Some versions of the font program Glyphix need the QEMM parameter
+  UFP:N when Stealth is in effect if Glyphix is using EMS.
+
+
+  LOTUS 1-2-3:
+
+  PROBLEM:  Lotus 1-2-3 reports that "123 cannot start because the
+            driver set is invalid."
+
+  If you get this message you are probably using QEMM's VIDRAM
+  feature.  VIDRAM works with DOS text-based programs, but does
+  not allow EGA or VGA graphics. 1-2-3 is checking your graphics
+  card's capabilities and VIDRAM is telling it that no graphics
+  are allowed.
+
+  If you run 1-2-3's INSTALL program and make a driver set with no
+  graphics entry, then 1-2-3 will work.  The best way is to use
+  1-2-3 INSTALL's "Advanced Options" and "Modify Current Driver
+  Set" selections.  Then select the "Graph Display" item.  Press
+  the Del key on the driver that is currently selected.  Then press
+  the "Esc" key and use "Save Changes" to save the driver set with
+  a different name (we suggest 123VID.)  Then when you want to use
+  1-2-3 with VIDRAM, type 123 123VID at the DOS prompt and the
+  correct video driver will be used.
+
+  DESQview users may want to install a second version of 1-2-3 on
+  the DESQview menu. The second version would include 123VID as a
+  command line parameter to the 123 command.
+
+
+  MIRROR:
+
+  MIRROR is written by Central Point Software and packaged with MS-
+  and IBM-DOS version 5 and 6.  MIRROR is used to recover deleted
+  files.  MIRROR first makes a backup copy of the your FATs (File
+  Allocation Tables), then loads a resident portion of itself that
+  tracks files as they are deleted in order to expedite their
+  recovery.  The file tracking feature is enabled by using the
+  "/Tx" switch (where "x" is the letter of the drive to be
+  monitored) to the MIRROR command line.
+
+  The copy of the FAT(s) that MIRROR makes may be too large to
+  load into available High RAM. (This data cannot be spread over
+  multiple High RAM regions.)  If this happens when MIRROR loads,
+  it will report that it has failed to perform this function.
+  However, the undelete tracking feature may have installed
+  successfully.  Type LOADHI at the DOS prompt to make sure that
+  MIRROR loaded successfully.
+
+  If there is insufficient High RAM to perform the first function
+  of MIRROR above 640K, but there is enough High RAM to perform
+  MIRROR's second function (the resident portion of MIRROR
+  requires only 6.4K of memory), you may load MIRROR low once
+  without the "/Tx" switch (to perform MIRROR's first function.)
+  Then load MIRROR high with the "/Tx" switch in order to load its
+  resident portion above 640K and make a successful copy of the
+  FAT.
+
+
+  NORTON ANTI-VIRUS:
+
+  Norton Anti-Virus version 2.00 is known to interfere with the
+  ability of LOADHI.COM to load the command processor.  It also
+  interferes with resident programs that allocate upper memory
+  themselves.  Beginning with QEMM 7.02, Optimize will disable the
+  DOS-UP feature that loads the command processor high if it detects
+  NAV version 2.00.  There is no workaround for the second problem
+  other than upgrading your software to NAV 2.1 or higher, which is
+  the recommended solution for both situations.
+
+
+  NORTON BACKUP:
+
+  If you frequently change your configuration from Stealth ROM
+  enabled to Stealth ROM disabled, some versions of Norton Backup
+  may require that you exclude X=FE00-FFFF and that you reconfigure
+  the backup program.
+
+
+  ORACLE AND VCPI:
+
+  Oracle is a VCPI-compliant program, starting with version 2.1.34
+  of the SQLPME.EXE file. You may want to contact Oracle to find
+  out the status of the VCPI support of your version. It is also
+  important to choose the Oracle configuration option (machine
+  type J) that tells Oracle that it is running on a VCPI system.
+
+
+  PCSA:
+
+  PCSA's EMS loaders (DMNETHLD and EMSLOAD) do not work if Stealth
+  ROM is enabled.  The QEMM386.SYS parameter XST=F000 may solve the
+  problem when it occurs.  Some DEPCA cards may fail with the PCSA
+  software and ST:M unless you place the page frame at the starting
+  address of the DEPCA's card's 16K ROM.
+
+
+  PRINTQ:
+
+  You should use this print spooler's /LSX parameter to make it
+  use extended memory rather than expanded memory if you are using
+  Stealth ROM.
+
+
+  REPEAT PERFORMANCE:
+
+  Like other keyboard-enhancement programs that create a new type-
+  ahead buffer, the Repeat Performance keyboard-enhancing program
+  malfunctions if loaded above 63K.  As a result, it cannot be
+  loaded high with all of its features enabled.  However, RP.SYS
+  will load high if you use its BUFFERS=OFF parameter, which
+  disables Repeat Performance's type-ahead buffer.
+
+
+  SPACEMANAGER:
+
+  If your are using SpaceManager's SuperMount feature, DOS 6.0 
+  and QEMM's Stealth ROM feature, your PC may hang at bootup time. 
+  (If you want to find out if you are using SuperMount, look for the 
+  SMOUNT or SMOUNT.EXE command in your AUTOEXEC.BAT file.) To fix 
+  the bootup problem, add the following parameter to the QEMM386.SYS 
+  device line in your CONFIG.SYS file: DBF=n (where n is a number; 
+  1 and 2 are commonly-used values). For information on the DBF
+  parameter, see DISKBUFFRAME in Chapter 7 of the QEMM manual.
+
+
+  SIDEKICK PLUS:
+
+  SideKick Plus will not work with Stealth ROM unless it is
+  prevented from using EMS.  One workaround is to use QEMM's EMS.COM
+  program to temporarily allocate all EMS before SKPLUS is loaded,
+  then use EMS.COM again to free your machine's EMS memory after
+  loading SKPLUS.
+
+
+  SUPER PC-KWIK:
+
+  When Super PC-Kwik is using expanded memory and you are using
+  Stealth DoubleSpace and do not have StealthROM enabled, you must
+  use the Super PC-Kwik parameter, EMSMapSaves=Always, which forces
+  Super PC-Kwik to make the necessary EMS calls to be compatible
+  with Stealth DoubleSpace.
+
+  VENTURA PUBLISHER PROFESSIONAL:
+
+  When QEMM's Stealth ROM feature is enabled and you have the line
+  STACKS=0,0 in your CONFIG.SYS file, Ventura Professional Version
+  2 will not operate properly.  Removing the STACKS=0,0 statement
+  should solve the problem.  DR DOS 6 does not use hardware
+  interrupt stacks; as a result, you cannot use DR DOS 6 with
+  Ventura Professional 2 if you are using Stealth ROM.  Ventura
+  Professional Version 3 does not put its stacks in the EMS page
+  frame and works properly with Stealth ROM.
+
+  Ventura Publisher 2 will not work properly if the EMS page frame
+  is located at an address higher than E000.  To find out where
+  your page frame is located, type QEMM at the DOS prompt.  If you
+  are using a page frame, you will see its address listed.  If the
+  address is higher than E000, type QEMM again and look at the list
+  of areas and sizes.  Find the first High RAM area below E000 that
+  is at least 64K in size and jot down its starting address, then
+  add the FRAME=xxxx parameter to the QEMM line, replacing xxxx
+  with the address you wrote down (e.g., FRAME=D000).
+
+
+  VIDEO ACCELERATOR DRIVERS:
+
+  SPEED_UP.SYS is a driver that comes with the Orchid Prodesigner
+  video card. It makes a copy of the video ROM in RAM in order to
+  speed up your video.  If loaded after QEMM on a system with
+  Stealth ROM enabled, it refuses to load, complaining that someone
+  else has taken Interrupt 10.  If loaded before QEMM on the same
+  system, Stealth ROM will be disabled because QEMM cannot find the
+  ROM handler for Interrupt 10.
+
+  You can solve both of these problems with XSTI=10.  No exclusion
+  is necessary because the video ROM is no longer being used.
+  Speed_up.sys can then be loaded after QEMM and (and can be loaded
+  into upper memory.)  However, we strongly recommend that you NOT
+  load SPEED_UP.SYS, RAMBIOS.SYS, FASTBIOS.SYS, or any similar
+  driver.  Using SPEED-UP.SYS costs you 36K of memory.  Instead use
+  QEMM's ROM parameter, producing the SAME effect but using NO
+  address space between 0-1024K.
+
+
+  VP PLANNER:
+
+  Some versions of VP Planner spreadsheet need the parameter UFP:N
+  when Stealth is in effect if VP Planner is using EMS.
+
+
+  XTRADRIVE:
+
+  IIT's XTRADRIVE disk compression utility ships with a disk cache
+  that is not compatible with QEMM's Stealth ROM feature.  For
+  information on using XTRADRIVE with QEMM, see XTRADRV.TEC in your
+  QEMM\TECHNOTE directory.
+
+
+  ******************************************************************
+            Trademarks are property of their respective owners.
+   This technical note may be copied and distributed freely as long
+    as it is distributed in its entirety and it is not distributed
+    for profit.  
+
+   Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ************************ E N D   O F   F I L E *******************
+

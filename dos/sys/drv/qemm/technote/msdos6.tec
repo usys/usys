@@ -1,0 +1,230 @@
+
+               MS-DOS 6 and Quarterdeck Products
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.
+
+  Quarterdeck Technical Support BBS:  MSDOS6.TEC
+                         CompuServe:  MSDOS6.ZIP
+                              Q/FAX:  #166
+
+
+  Subject: A discussion of MS-DOS version 6.0 and Quarterdeck
+  products.
+
+
+  1.  IS MS-DOS 6 COMPATIBLE WITH MY QUARTERDECK PRODUCTS?
+
+  Absolutely!  There are no known incompatibilities between MS DOS
+  6.0 and Quarterdeck's QEMM, DESQview or DESQview/X.
+
+  2. AS A QEMM USER, WHAT INFORMATION DO I NEED TO INSTALL DOS 6?
+
+  You are already running the most effective memory management
+  system available for the IBM-compatible computer.  So, if you are
+  already using QEMM:
+
+  a. Run the SETUP program from the DOS 6 installation diskette and
+  follow the instructions on the screen.
+
+  b. Install any of the new DOS 6 utilities that you desire.
+
+  c. Run QEMM's OPTIMIZE to load those drivers into Upper Memory.
+
+  If you should desire to experiment with Microsoft DOS 6's
+  MemMaker (the program that attempts to provide more memory), we
+  can recommend a couple of safeguards.  MemMaker will remove ALL
+  the QEMM commands from your CONFIG.SYS and AUTOEXEC.BAT files
+  (with the exception of DOSDATA.SYS and DOS-UP.SYS, which you
+  would have to remove manually.)  We are confident that you will
+  want to return to Quarterdeck's QEMM, so we urge you to save a
+  copy of your CONFIG.SYS and AUTOEXEC.BAT files.  Before you begin
+  to experiment, copy these files from the root directory to some
+  other directory or to floppy diskette. This will allow you to
+  restore them easily.
+
+  Next, be aware that even if you save the configuration created by
+  MemMaker, you can usually reverse its changes by running MEMMAKER
+  /UNDO.  If the final screen of the MemMaker process is NOT a
+  numerical breakdown of how MemMaker got you more memory (and
+  every test that we have run says it will not be), select the
+  default exit by pressing the <ENTER> key.  Do NOT press F3 to
+  save the current MemMaker configuration.
+
+  It may also be helpful to know that MemMaker does NOT handle
+  CALLed batch files, while Quarterdeck's Optimize does.  While
+  MemMaker deletes QEMM commands from the AUTOEXEC.BAT and
+  CONFIG.SYS, it leaves them in the Optimized, CALLed batch files.
+  These would have to be removed manually.
+
+  If NO changes have been made since the last time that you
+  Optimized your system, you could also run UNOPT.BAT. UNOPT is a
+  batch file, created by Optimize, that returns your system to the
+  condition it was in before the most recent Optimize.  If you have
+  Optimized more than once, this may not remove the LOADHI commands.
+
+  3.  ARE ANY OF MY QUARTERDECK PRODUCTS AFFECTED BY DOUBLESPACE?
+
+  The most talked-about feature of Microsoft DOS 6 is DoubleSpace.
+  When you install DoubleSpace, the following line is added to your
+  CONFIG.SYS file:
+
+         DEVICE=C:\DOS\DBLSPACE.SYS /MOVE
+
+  DoubleSpace REQUIRES that DBLSPACE.SYS be loaded in order for any
+  memory manager to load DBLSPACE.BIN (the driver that provides
+  access to any DoubleSpace-compressed drives) into upper memory.
+
+  QEMM includes a feature called "Stealth DoubleSpace" which moves
+  the DoubleSpace driver out of conventional or upper memory and
+  maps it into the expanded memory Page Frame whenever it is
+  needed.  By using Stealth DoubleSpace you save approximately 41K
+  of memory.  If DoubleSpace is installed on your system when you
+  install QEMM 7 the following line will be added to your
+  CONFIG.SYS file:
+
+          DEVICE=C:\QEMM\ST-DBL.SYS
+
+  If you install DoubleSpace AFTER installing QEMM 7, you should
+  run QEMM's QSETUP program (by typing QSETUP at the DOS prompt.)
+  QSETUP will remove the DBLSPACE.SYS line in your CONFIG.SYS and
+  replace it with the ST-DBL.SYS line shown above.
+
+  PLEASE NOTE:  With the release of MS-DOS 6.2, Microsoft made
+  changes to DoubleSpace which made it incompatible with versions of
+  ST-DBL.SYS that shipped with versions of QEMM prior to 7.03.
+
+  The Stealth DoubleSpace feature, like the Stealth ROM feature,
+  requires the EMS page frame to work.  If you choose to leave
+  ST-DBL.SYS in your CONFIG.SYS file without a page frame, you can
+  use Optimize to load the DoubleSpace driver into upper memory.
+
+  DESQview or DESQview/X users should be aware that DBLSPACE.EXE
+  detects the presence of DESQview and refuses to run.  This program
+  is used mainly for the creation and maintenance of DoubleSpace
+  drives.
+
+  Quarterdeck has a program called NODESQ.COM that can be run in a
+  DESQview window, before a program that detects DESQview.  NODESQ
+  defeats the DESQview detection of DESQview-aware applications,
+  like DBLSPACE.EXE.  You can add NODESQ.COM (available from the
+  Quarterdeck BBS) and run DBLSPACE.EXE (as is the case for most of
+  the DESQview-sensitive DOS 6 programs), but you should see that
+  all DoubleSpace drives are mounted before entering a multitasking
+  environment and you should not mount drives using DBLSPACE.EXE
+  inside of DESQview.  This may make working with DoubleSpaced
+  floppies slightly awkward.
+
+  4.  HOW CAN I RESTORE MY QEMM CONFIGURATION AFTER MEMMAKER HAS
+      REMOVED QEMM FROM MY CONFIG.SYS AND AUTOEXEC.BAT FILES?
+
+  The steps that you must follow in order to return to QEMM after
+  running MemMaker depend on whether you have:
+
+  1. Not yet completed MemMaker;
+  2. Just finished running MemMaker for the first time;
+  3. Run MemMaker more than once   OR
+     made numerous post-MemMaker changes to your configuration.
+
+  For the Number 1's who have not yet completed MemMaker:
+
+  When MemMaker completes and DOES NOT provide a better
+  configuration than the one you already had, it will tell you
+  "Your computer's memory was optimally configured before you ran
+  MemMaker".  At this juncture you can press <ENTER> to restore
+  your original configuration or F3 to save the MemMaker
+  configuration.  Your choice at this time will be <ENTER>.  Your
+  existing QEMM configuration will be restored.
+
+  For the Number 2's who just completed MemMaker:
+
+  If you followed our advice and made copies of your QEMM Optimized
+  CONFIG.SYS and AUTOEXEC.BAT you can now just copy them back. If
+  you did not, you may be able to recover your configuration by
+  using DOS 6's MEMMAKER /UNDO command.
+
+  This is not possible if you have deleted the backup copies of the
+  AUTOEXEC.BAT and CONFIG.SYS files that MemMaker puts in the same
+  directory as MEMMAKER.EXE.  These files are named AUTOEXEC.UMB and
+  CONFIG.UMB (and sometimes SYSTEM.UMB; this is a copy of your MS
+  Windows SYSTEM.INI file).  It is also not possible to restore the
+  QEMM information and remove all the MemMaker information if you
+  have run MemMaker MORE than ONCE.
+
+  If for some reason MEMMAKER /UNDO does not restore your QEMM
+  configuration, follow the instructions in the next section
+  intended for Number 3's.
+
+  For the Number 3's who made further changes after MemMaker:
+
+  If you ran Memmaker but are unable to restore your system with
+  /UNDO (or have made extensive changes to your CONFIG.SYS and
+  AUTOEXEC.BAT files since running MemMaker) type QSETUP from the
+  DOS prompt.  QEMM's QSETUP program will remove HIMEM.SYS and
+  EMM386.EXE from your CONFIG.SYS file and replace them with a
+  QEMM386.SYS device line.  Once QSETUP has enabled the options you
+  desire, run QEMM's Optimize.
+
+  WILL I HAVE ANY PROBLEMS WITH DESQVIEW OR DESQVIEW/X?
+
+  MS-DOS 6 utilities are DESQview-aware and, if necessary, will post
+  a message reminding you that you are currently multitasking.
+
+  VSAFE, a resident virus protection program, can be loaded in XMS
+  (23K conventional, 23K XMS) or EMS (6.5K conventional, 64K EMS)
+  before DESQview loads. If you do this you CANNOT ALWAYS pop it up
+  over DESQview, as DESQview will appear to lose control over the
+  keyboard.  (VSAFE is up.  You just can't see it.  Hitting ESC will
+  make it go away.)  If VSAFE is forced into Conventional memory
+  (44K) it will pop up inside of DESQview.  VSAFE cannot be unloaded
+  while inside of DESQview, if it was loaded before DESQview.
+
+  THE DOS 6 INTERACTIVE BOOT PROCESS:
+
+  DOS 6 now has the ability to build menus of configurations in the
+  CONFIG.SYS and AUTOEXEC.BAT. This is accomplished by building
+  "blocks" in the CONFIG.SYS, and having the name of the block
+  selection that you make on boot passed to the AUTOEXEC.BAT as an
+  environment variable -%config%. The use of the environment
+  variable, for IF's and GOTO's, will then process a particular
+  portion of the AUTOEXEC.BAT file that is appropriate to that
+  portion of the CONFIG.SYS.
+
+  DOS 6 MULTIPLE CONFIGURATIONS AND QEMM:
+
+  Multiple configurations (as implemented via the CONFIG.SYS
+  blocks) have to be MemMakered one configuration at a time.
+  Unlike MemMaker, QEMM's Optimize program handles multiple
+  configurations with ease.  When you run Optimize, it will detect
+  any multiple configurations you have set up and will post a
+  message prompting you to choose the CONFIG.SYS configuration you
+  want to Optimize.
+
+  When you use multiple configurations, instead of placing /R:n
+  parameters on the QEMM386.SYS and LOADHI lines, Optimize will
+  place /RF (/RESPONSEFILE) parameters.  The /RF parameter directs
+  QEMM386.SYS and the LOADHI programs to look in a resource file
+  called LOADHI.RF that Optimize has created in the \QEMM directory.
+  LOADHI.RF contains instructions on how your drivers and TSRs
+  should be loaded.
+
+  6. WHAT ELSE IS QUARTERDECK DOING FOR MS-DOS 6?
+
+  Quarterdeck's commitment to adding functionality to DOS, and DOS-
+  based programs, has kept our products at the forefront of memory
+  management and multitasking technology.  With each new version of
+  DOS comes an opportunity for Quarterdeck to design new features
+  and offer the DOS user an even greater implementation of the
+  world's most widely used operating system.  Rest assured that
+  Quarterdeck intends to continue this pattern.
+
+  ****************************************************************
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ****************** E N D   O F   F I L E ***********************

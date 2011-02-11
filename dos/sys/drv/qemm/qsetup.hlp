@@ -1,0 +1,687 @@
+                        ÿþçHelp for QEMM Setup  
+
+  QEMM Setup provides an easy way to enable and disable various 
+  QEMM options. QEMM Setup also gives you hints about using QEMM 
+  and lets you view information on several technical subjects. QEMM
+  Setup provides help every step of the way--you can read on-screen 
+  information about any option before you decide to change it. For 
+  more information about QEMM Setup, select one of the following:
+     
+            1 = What QEMM Setup Does               1äWHAT
+            2 = How to Use QEMM Setup              2äHOW
+            3 = Summary of QEMM Setup Menu Options 3äSUMMARY
+           
+                ÿþèType the number of a Help section or
+             ÿþèpress PgUp or PgDn to scroll through Help
+                        ÿþçWhat QEMM Setup Does
+
+  QEMM Setup makes it easy to enable or disable QEMM's optional 
+  features, as well as add or delete QEMM's fine-tuning and 
+  troubleshooting parameters. QEMM Setup also provides you with 
+  hints on using QEMM and lets you view the QEMM READ.ME file for 
+  late-breaking information and technotes covering a variety 
+  of technical issues.  QEMM Setup can also assist you in 
+  troubleshooting any problems that might occur.
+
+  QEMM Setup gives you help every step of the way.  When you select 
+  an option from a menu, you will see an explanation of what the 
+  option does. If you still have questions, just ask for help by 
+  pressing F1. If a topic has multiple help screens, you can press 
+  PgDn and PgUp to scroll through the help screens. 
+                       ÿþçHow to Use QEMM Setup
+
+  To choose a Setup option, type its letter or use the arrow keys 
+  to highlight the option and press Enter. When you choose an item 
+  from the menu, a screen appears giving you information about the 
+  item.  
+
+  Also, at the bottom of each screen you will see a list of the    
+  keys you can use on that screen.
+
+                   ÿþçSummary of QEMM Setup Options
+
+  ÿþèReview or change QEMM parametersÿþæ - lets you view or modify the 
+  current settings of certain QEMM device driver parameters. When 
+  you choose this item, you will see a list of the different 
+  options you can review and/or modify.
+
+  ÿþèEnable or disable DPMI hostÿþæ - lets you enable or disable 
+  QEMM's DOS Protected Mode Interface (QDPMI) for programs that 
+  need DPMI services to run (e.g., Microsoft's C/C++ Development 
+  System for Windows version 7, Borland's C/C++ version 3).
+             ÿþçSummary of QEMM Setup Options (Continued)
+
+  ÿþèEnable or Disable DOS-Upÿþæ - lets you fully enable, partially 
+  enable or disable the QEMM feature that loads selected parts of 
+  DOS into upper memory. By using DOS-Up, you can free up 7K-70K 
+  of conventional memory for running DOS programs.
+
+  ÿþèEnable or disable Stealth DoubleSpaceÿþæ - lets you enable or 
+  disable the QEMM feature that hides MS-DOS 6's DoubleSpace 
+  device driver, freeing 40K of RAM. This option displays only if
+  you are using the MS-DOS DoubleSpace disk compressor.
+             ÿþçSummary of QEMM Setup Options (Continued)
+
+  ÿþèSpecify Microsoft Window directoryÿþæ - lets you specify the 
+  directory used by MS Windows (this option displays only if you
+  have Windows). This option makes a slight change to the Windows
+  SYSTEM.INI configuration file to ensure that Windows runs 
+  optimally with QEMM. Be sure to select this if you install 
+  Windows after installing QEMM.
+
+  ÿþèView QEMM hints, technotes and READ.MEÿþæ - gives suggestions for 
+  getting the best use of QEMM and information on a wide
+  variety of technical issues related to QEMM.  The READ.ME file 
+  gives late-breaking information not included in the manual.
+ 
+             ÿþçSummary of QEMM Setup Options (Continued)
+
+  ÿþèEdit the proposed CONFIG.SYSÿþæ - lets you view and edit the 
+  proposed CONFIG.SYS file. Your proposed CONFIG.SYS file 
+  contains any changes you may have made using QEMM Setup.
+
+  ÿþèEdit the proposed AUTOEXEC.BATÿþæ - lets you view and edit the 
+  proposed AUTOEXEC.BAT file. Your proposed AUTOEXEC.BAT file 
+  contains any changes you may have made using QEMM Setup.
+  
+  ÿþèRestore original configurationÿþæ - restores your CONFIG.SYS file 
+  as it was before you made any changes in QEMM Setup. This
+  selection will appear only if you have used QEMM Setup to make
+  changes to your configuration.   
+             ÿþçSummary of QEMM Setup Options (Continued)
+
+  ÿþèSave configuration and quitÿþæ - saves your CONFIG.SYS and 
+  AUTOEXEC.BAT files, including any changes you have made using
+  QEMM Setup.
+
+  ÿþèQuit without modifying configurationÿþæ - exits the QEMM Setup 
+  program without saving your CONFIG.SYS and AUTOEXEC.BAT files. 
+  Any changes you have made using the QEMM Setup program will be 
+  abandoned.
+
+
+
+                  ÿþè<<End of general help section>>
+
+                        ÿþçHelp: QEMM Features 
+
+  Choose R on this screen if you want to review or change any QEMM 
+  parameters or features, or get more information about QEMM's
+  options.  Also, choose R if you want to disable a feature that
+  the Install program enables by default.  (You may also run the 
+  QSETUP program to review or change QEMM's options anytime after 
+  this installation.)  
+
+  Below is a description of various features that QEMM may enable:
+
+  ÿþèDOS-Upÿþæ frees up 7K-70K of conventional memory (depending on
+  your configuration and DOS version) by moving parts of DOS into 
+  upper memory. By using DOS-Up, you will have more conventional  
+  memory for your programs.
+                     ÿþçQEMM Features (Continued)
+
+  If you use DESQview or DESQview/X and DOS version 5 or 6, you 
+  will probably get more memory in DESQview windows by removing the
+  DOS=HIGH line that QEMM Setup adds to your CONFIG.SYS file.  You
+  can remove DOS=HIGH as follows (you may want to jot down the 
+  keys to press in the steps below):
+    
+   1. Press ÿþèRÿþæ to change QEMM options. You will see a menu.
+   2. Press ÿþèUÿþæ to select "Enable or disable DOS-Up."
+   3. At the DOS-Up screen, press ÿþèPÿþæ to select "Partial." 
+   4. At the DOS-Up Options screen, press ÿþèHÿþæ to change 
+      DOS=HIGH to No.
+   5. Press ÿþèSÿþæ to select "Save Configuration and Quit."
+                     ÿþçQEMM Features (Continued)
+
+  You need ÿþèQDPMIÿþæ if you are running a DOS-extended program 
+  that requires DPMI (such as Microsoft's C/C++ Development System 
+  for Windows v7, Borland's C/C++ v3, and Intel's Code Builder Kit 
+  v1.1).  Not loading the QEMM DPMI program saves about 2K of High 
+  RAM.  This feature may enable DESQview and DESQview/X users to
+  run some Microsoft Windows applications in Windows standard mode 
+  in DESQview or DESQview/X, even though the applications normally 
+  run only in 386 enhanced mode.
+
+  ÿþèStealth DoubleSpaceÿþæ saves about 40K of memory by moving
+  MS-DOS 6's DoubleSpace driver outside of the first megabyte of 
+  memory. This selection appears only if you are using DoubleSpace. 
+  If Stealth Doublespace is disabled, the DoubleSpace driver takes 
+                     ÿþçQEMM Features (Continued)
+
+  up 43K of High RAM or conventional memory.  You should not use 
+  Stealth DoubleSpace if you are using Vertisoft's SPACEMANager.
+ 
+  If you have programs, utilities or drivers that use expanded 
+  memory (EMS), you will need an ÿþèEMS page frameÿþæ. You also 
+  need the page frame if you want to use QEMM's memory-saving 
+  Stealth ROM or Stealth DoubleSpace features. If you want to see a 
+  list of programs that use expanded memory, choose R, then H to 
+  view QEMM hints, then 6 for a discussion of the page frame.
+
+                       ÿþçHelp: QEMM Parameters
+
+  This menu lets you review or change the parameters on the 
+  QEMM386.SYS device driver line in the CONFIG.SYS file.  For 
+  more information about an option listed on the screen, type the  
+  option's letter or use the arrow keys to move the highlight bar 
+  to the option and press the Enter key. 
+
+  You will see a screen describing the parameter.  If a parameter 
+  has an abbreviation, it is listed in parentheses at the top of 
+  the screen.  If you want more information about the parameter
+  press F1 for help.  Press PgDn and PgUp to scroll through help.
+
+  Type E to edit the QEMM device driver line directly, A to accept
+  the changes you have made, or the Esc key to cancel your changes
+                 ÿþçHelp: QEMM Parameters (Continued)
+
+  and return to the main menu.  The PgUp and PgDn keys show you
+  QEMM options on previous and following screens.
+  
+  Note: If you are using an optional parameter file, parameters in 
+        that file will not be changed.
+
+            ÿþçHelp: Fill Upper Memory with RAM - RAM
+
+  The RAM parameter creates High RAM in the upper memory area. When 
+  High RAM is present, you can load TSRs, device drivers and parts 
+  of DOS into upper memory.  By loading these items into upper 
+  memory, you will have more conventional memory available for DOS 
+  programs. 
+
+  The default QEMM installation places the RAM parameter on the 
+  QEMM386.SYS line in the CONFIG.SYS file.
+
+                ÿþçHelp: Copy ROMs with RAM - ROM
+
+  If your system does not already speed up ROMs by copying them 
+  into faster RAM, the ROM parameter may speed up some system 
+  operations, particularly writes to the screen by programs that 
+  use BIOS or DOS video calls (like DOS's COMMAND.COM).  
+
+  The ROM parameter does diminish QEMM's memory pool by the amount 
+  of memory taken up by your ROMs - usually about 96K.  
+
+  Note that floppy disk drives may malfunction on a few systems if 
+  the ROM code that controls the floppy disk drives is speeded up 
+  by the ROM parameter.
+
+  ÿþçHelp: Do not Stealth a particular ROM - EXCLUDESTEALTH (XST)
+
+  If you give the starting address of a ROM on this screen, QEMM 
+  Setup will place the XST=xxxx parameter on the QEMM386.SYS line
+  in your CONFIG.SYS file, causing QEMM not to Stealth that ROM. 
+ 
+  You should tell QEMM not to Stealth a particular ROM only when 
+  attempting to solve problems with the Stealth ROM feature.  If 
+  possible, it is usually more memory-efficient to solve Stealth 
+  ROM problems with the EXCLUDE parameter than with the 
+  EXCLUDESTEALTH parameter.  See the STEALTH.TEC technote in the 
+  \QEMM\TECHNOTE directory for details on how to troubleshoot 
+  Stealth ROM problems.
+            ÿþçDo Not Stealth a Particular ROM (Continued) 
+
+  You can get the starting addresses of all Stealthed ROMs from the 
+  Manifest QEMM Overview screen.  In general, video ROMs are 
+  located at C000 (or at E000 on Micro Channel systems); system 
+  ROMs at F000.  If you have a disk ROM (many systems do not), it
+  will generally be located at an address between C800 and E000.
+
+         ÿþçHelp: Reclaim Unused Shadow Memory - SHADOWRAM (SH)
+
+  By default, QEMM recovers unused shadow memory on systems where 
+  QEMM recognizes the type of shadow memory in use.  This feature 
+  typically adds about 192K of RAM to QEMM's memory pool.  
+  Manifest's QEMM Memory screen will include a Shadow RAM row if 
+  QEMM is reclaiming shadow memory on your system.
+
+  On some systems with unusual types of shadow memory, QEMM may
+  have a problem reclaiming the unused portion.  A common symptom
+  is continual rebooting when QEMM loads, although other symptoms
+  can occur.  Disabling the shadow memory feature is a common
+  troubleshooting technique.  When you do so, QEMM Setup adds
+  the SH:NONE parameter to the QEMM386.SYS device line.  For more 
+  information, see SHADOWRAM in Chapter 7 of the manual.
+
+              ÿþçHelp: Find ROM holes - ROMHOLES (RH)
+
+  If you are not using Stealth ROM, QEMM tries to find unused areas 
+  in the system ROM (between F000 and FFFF) that can be used for 
+  High RAM or expanded memory mapping.  If you choose N on this 
+  screen, QEMM Setup disables this feature by putting the RH:N 
+  parameter on the QEMM386.SYS device line.
+
+  The most common reason to disable this feature is to troubleshoot 
+  floppy disk problems or other problems with QEMM on your system.
+  If the RH:N parameter solves your problem, it may be more 
+  memory-efficient to use the EXCLUDE parameter on a section of
+  the system ROM instead of using the RH:N parameter.  For more
+  information, see the description of the ROMHOLES parameter in 
+  Chapter 7 of the manual.
+
+ ÿþçHelp: Enable suspend/resume laptop support - SUSPENDRESUME (SUS)
+
+  Suspend/Resume is a feature built into many laptop and notebook 
+  systems that allows you to run the computer on low power when it 
+  is not in use and to restore the system to its previous state 
+  when you return to it.  Without special support, many systems 
+  will not return properly from a low power state if a 386 memory 
+  manager such as QEMM is active.
+
+  If you choose No on this screen, QEMM can automatically support 
+  the Suspend/Resume feature on a few known systems.  
+
+  If your system has a Suspend/Resume feature that is not working 
+  properly with QEMM installed, choose Yes on this screen to have 
+          ÿþçEnable Suspend/Resume Laptop Support (Continued)
+
+  QEMM Setup place the SUS parameter on the QEMM386.SYS line in
+  the CONFIG.SYS file.  This parameter makes QEMM search for the
+  hardware interrupt that Suspend/Resume is using.
+
+  If your Suspend/Resume feature still does not work after you have 
+  rebooted with the SUSPENDRESUME parameter, you can try explicitly 
+  telling QEMM how to support Suspend/Resume by placing the number 
+  of a hardware interrupt in the field on this QEMM Setup screen.  
+  QEMM Setup will then specify QEMM386.SYS's SUS:xx parameter, 
+  where xx is the hardware interrupt number.  2, D, 72, 73, and 77
+  are the numbers most likely to be used by the Suspend/Resume 
+  feature.  Consult your system's manual or the manufacturer for
+  more information on the correct number to use.
+
+            ÿþçHelp: Reclaim Top Memory - TOPMEMORY (TM)
+
+  By default, QEMM reclaims unused top memory on Compaqs and other
+  systems where QEMM recognizes the presence of top memory.  This
+  feature typically adds 256K to 384K of RAM to QEMM's memory pool.  
+  Manifest's QEMM Memory screen will include a Top Memory row if 
+  QEMM is reclaiming top memory on your system.
+
+  If QEMM has a problem reclaiming top memory on your system, you
+  may experience a hang or reboot when QEMM386.SYS loads. If you
+  choose not to reclaim top memory, QEMM Setup adds the TM:N
+  parameter to the QEMM386.SYS device line.  For more information,
+  see the TOPMEMORY parameter in Chapter 7 of the manual.
+
+                    ÿþçHelp: Edit QEMM Device Line  
+
+  If the QEMM parameters do not fit in the visible field on screen, 
+  an arrow at the left or right of the field indicates the presence 
+  of off-screen parameters. The field will scroll when you use the 
+  arrow keys or type.
+
+              ÿþçHelp: Set Size and Type of Disk Buffer 
+                 ÿþçDISKBUF (DB) & DISKBUFFRAME (DBF)
+
+  QEMM can intercept all disk reads and writes with the DB=xx 
+  parameter (Type=D).  This type of disk buffering eliminates 
+  problems with bus-mastering hard disks, but with a penalty in 
+  disk performance.  
+
+  Alternately, QEMM can intercept only disk reads and writes into 
+  and out of the page frame with the DBF=xx parameter (Type=F). 
+  This type of buffering may resolve conflicts between some 
+  expanded memory-using disk utilities and Stealth. 
+            ÿþçSet Size and Type of Disk Buffer (Continued)
+
+  If you let QEMM try to determine whether you need a disk buffer, 
+  it will create a 2K "DISKBUF-type" buffer if it detects a bus-
+  mastering conflict with the drive from which QEMM loads (Type=A). 
+
+  You can also prevent QEMM from creating a disk buffer even if it 
+  thinks you need one (Type=N). 
+
+  If you choose type D or F, you can set the size of the disk 
+  buffer.  A bigger buffer uses more memory but may improve disk
+  performance.  2 and 10 are commonly used values.
+
+           ÿþçHelp: Relocate Extended BIOS Data Area (XBDA)
+
+  By default, QEMM moves the extended BIOS data area (XBDA) into 
+  High RAM unless it detects that you have a Suspend/Resume 
+  feature, or unless you place the SUSPENDRESUME (SUS) parameter on
+  the QEMM386.SYS line in CONFIG.SYS.  In these last cases, QEMM 
+  moves the XBDA into low conventional memory so that the 
+  Suspend/Resume feature will work.
+
+  If the XBDA remains at the top of conventional memory, it will 
+  prevent video filling or the use of VIDRAM and will decrease the 
+  size of windows in DESQview and DESQview/X.  Moving the XBDA into 
+  High RAM lets VIDRAM and video filling work, increases the size 
+  of windows in DESQview & DESQview/X, and saves 1K of conventional 
+            ÿþçRelocate Extended BIOS Data Area (Continued)
+
+  memory.  Moving the XBDA to low memory does not save conventional 
+  memory but gives all the other benefits listed above.
+
+  You should choose N on this screen if you have a system or a 
+  program that expects the XBDA to be at the top of conventional 
+  memory.  The symptom of this problem is usually a system crash, 
+  which can occur at boot time or later.  Choosing L gives most of 
+  the benefits of moving the XBDA, and so is a less drastic way to 
+  try to solve your XBDA-related problem than choosing N.  You can 
+  choose H (to save 1K of conventional memory) if QEMM is loading 
+  your XBDA low. If you do this on a laptop PC that has a 
+  Suspend/Resume feature, Suspend/Resume may or may not work 
+  properly.
+            ÿþçRelocate Extended BIOS Data Area (Continued)
+
+  To find out where your XBDA is loaded, see Manifest's First Meg 
+  BIOS Data screen.  If the third line on this screen does not say 
+  "0E: Extended BIOS Segment," then you do not have an XBDA.  
+
+  If you do have an XBDA, check the four-digit hexadecimal address 
+  of the XBDA.  If this address is 9FC0, then the XBDA has not been 
+  moved at all.  If the address starts with 0 or 1, the XBDA has 
+  been moved to low conventional memory.  If the address starts 
+  with a letter (A through F), then the XBDA is in High RAM.
+
+               ÿþçHelp: Reserve Video Area for VIDRAM
+              ÿþçVIDRAMEGA (VREGA) & VIDRAMEMS (VREMS)
+
+  When you invoke VIDRAM with the VIDRAM ON command, you extend 
+  conventional memory for DOS text-based programs. However, you 
+  cannot use EGA or VGA graphics while VIDRAM is on. If you have an 
+  EGA/VGA color system, VIDRAM can usually increase the size of 
+  conventional memory by 64K. 
+
+  If you choose G on this screen, the VREGA parameter will be 
+  added to the QEMM386.SYS device driver line.  This parameter 
+  prevents QEMM from creating High RAM in unused video areas, and 
+  allows VIDRAM ON to extend conventional memory by 96K instead of 
+  64K, though the total amount of High RAM on your system will 
+  usually decrease by 32K.
+             ÿþçReserve Video Area for VIDRAM (Continued)
+
+  If you are a DESQview user, and you want to extend conventional 
+  memory in all DESQview windows, you should choose M on this 
+  screen to activate the VREMS parameter.  Without the VREMS 
+  parameter, programs that run in DESQview in expanded memory 
+  windows will not get the benefits of VIDRAM.  Like VREGA, VREMS 
+  will cause VIDRAM to extend conventional memory by 96K instead of 
+  64K, at the cost of 32K of High RAM.
+
+  You can also choose M if you are a DESQview/X user, and you have 
+  DESQview/X set up to use 8514a graphics. In this case all your 
+  DESQview/X windows will be extended by 96K, and you will still be 
+  able to use 8514a graphics.  If, however, you plan to run 
+             ÿþçReserve Video Area for VIDRAM (Continued)
+ 
+  programs inside DESQview/X that use EGA or VGA graphics (instead 
+  of 8514a graphics), you must choose N and forego the use of 
+  VIDRAM.
+  
+  For more information on VIDRAM see Chapter 6 of the QEMM manual. 
+  For more information on the VIDRAMEGA and VIDRAMEMS parameters,
+  see Chapter 7.
+
+
+    ÿþçHelp: Remove or Set Address of Page Frame - FRAME (FR)
+
+  The EMS page frame is a 64K area, usually in upper memory, used 
+  by device drivers, TSRs and applications to access expanded 
+  memory. QEMM also uses the page frame to enable its Stealth ROM 
+  and Stealth DoubleSpace features. 
+
+  The AUTO selection tells QEMM to choose the page frame address 
+  based on your system configuration. The NONE selection eliminates 
+  the page frame--this will disable Stealth features and make 
+  expanded memory unavailable for programs. If you do not use 
+  Stealth or programs that use EMS, eliminating the page frame will
+  make 64K of upper memory addresses available for High RAM. 
+          ÿþçRemove or Set Address of Page Frame (Continued)
+
+  You can also specify the starting segment address of the page 
+  frame if a different location will consolidate two smaller High 
+  RAM regions into one large one, or if you need to place the page 
+  frame at the starting address of one of your ROMs to make the ROM 
+  work with the Stealth ROM feature.  However, you should not set 
+  the page frame address if you do not know how to avoid conflicts 
+  between the page frame and ROM, adapter RAM, or video ROM.
+
+   ÿþçHelp: Stealth System and Video ROMs - STEALTHROM (ST)
+
+  The Stealth ROM feature can typically free 48-115K of upper
+  memory addresses which can then be used for High RAM or 
+  expanded memory mapping.  
+ 
+  If you select M (Stealth Mapping), QEMM Setup will add the ST:M
+  parameter to the QEMM386.SYS device line; this instructs
+  Stealth to use its mapping method, which frees the most upper 
+  memory addresses.  If you select F (Stealth Frame), QEMM Setup
+  will add the ST:F parameter; this instructs Stealth to use the 
+  frame method, which frees less upper memory but is compatible 
+  with more ROMs than the mapping method is.  QEMM Setup will not
+  implement the Stealth ROM feature if you type O for Stealth Off.  
+             ÿþçStealth System and Video ROMs (Continued)
+ 
+  QEMM offers to enable Stealth ROM during the installation 
+  process or the Optimize process if it sees that you need 
+  additional High RAM.  If you use DESQview or DESQview/X, 
+  you should use the Stealth ROM feature even if QEMM has not 
+  enabled it for you.  
+
+  If you ever encounter problems with Stealth ROM, see the 
+  STEALTH.TEC technote in the \QEMM\TECHNOTE directory.
+
+                ÿþçHelp: Set Up QEMM for Troubleshooting
+
+  If you wish to troubleshoot a particular problem, you can setup 
+  QEMM for troubleshooting. When you enable the troubleshooting 
+  parameters, QEMM Setup will place the following nine parameters 
+  on the QEMM386.SYS line in CONFIG.SYS: 
+
+        ÿþèDB=2 SH:NONE TM:N TR:N CF:N FILL:N MR:N RH:N XBDA:N. 
+
+  These are not the only QEMM386.SYS parameters that can solve 
+  problems, but they are the easiest to try as part of a one-step 
+  troubleshooting process.  If your problem goes away after you 
+  enable the troubleshooting parameters, you should try eliminating 
+  the parameters one by one until you find the parameter that 
+             ÿþçSet Up QEMM for Troubleshooting (Continued) 
+
+  solved the problem, then take all the other troubleshooting 
+  parameters off the QEMM386.SYS line.  Be sure to reboot whenever 
+  you add or delete parameters. See Chapter 7 of the QEMM manual 
+  for more information on the individual parameters.
+
+                    ÿþçHelp: WINDOWS and QEMM Setup 
+
+  QEMM Setup looks for Microsoft Windows on your hard disk so that 
+  it can add the statement SystemROMBreakPoint=false to the 386Enh 
+  section of the Windows SYSTEM.INI file. 
+
+  This enables QEMM to use the F000-FFFF region (usually occupied 
+  by the System ROM) for High RAM or expanded memory mapping when 
+  Windows is in 386 enhanced mode.
+
+  If you already have this statement in your SYSTEM.INI file, QEMM 
+  Setup will not change SYSTEM.INI.
+
+                            ÿþçHelp: QDPMI 
+
+  This selection lets you enable or disable the DOS Protected Mode 
+  Interface for programs that support DPMI (e.g., Microsoft's C/C++
+  Development System for Windows version 7, Borland's C/C++ version
+  3, and Intel's Code Builder Kit version 1.1).  QDPMI may enable 
+  DESQview and DESQview/X users to run some MS Windows applications 
+  in Windows standard mode in DESQview or DESQview/X, even though 
+  the applications normally run only in 386 enhanced mode. 
+
+  If you choose Y, QEMM Setup will place the QDPMI.SYS line in your 
+  CONFIG.SYS file.  QDPMI.SYS takes less than 2K of memory, and 
+  can be loaded into High RAM.  If you choose N, QEMM will not 
+  provide DPMI services. Protected-mode programs that are VCPI 
+  clients will run under QEMM even if QDPMI is not loaded.
+                        ÿþçHelp: DPMI Swap Size 
+
+  DPMI Swap Size specifies how much disk space should be reserved 
+  for a virtual memory swapfile for a DPMI application.
+
+  The advantage of specifying a bigger swapfile is that more 
+  virtual memory will be available to DPMI programs.  It is 
+  particularly important to have a large swapfile if you have a
+  low-memory system and a memory-hungry DPMI application.  The
+  disadvantage of specifying a bigger swapfile is that more of your 
+  hard disk may be used up by your DPMI program.  
+
+  Note that QDPMI does not use any of your hard disk for a swapfile 
+  until the DPMI program requests the memory, and the swapfile 
+  grows as needed up to the maximum size that you set.
+
+                        ÿþçHelp: DOS-Up Feature 
+  
+  The DOS-Up feature takes parts of DOS that would normally remain 
+  in conventional memory and moves them into upper memory. If you 
+  are using the DOS=HIGH command that is part of DOS 5 and DOS 6, 
+  DOS-Up acts on the parts of DOS that are not affected by 
+  DOS=HIGH.
+
+  For information on using DOS-Up with DR DOS 6, see the technote
+  DRDOS6.TEC in the \QEMM\TECHNOTE directory. You can view this 
+  technote using a text editor. You can also view technotes by 
+  using the selection "View QEMM hints, technotes and READ.ME" on
+  the QEMM Setup menu.
+                     ÿþçDOS-Up Feature (Continued) 
+
+  DOS-Up makes three changes to your CONFIG.SYS file. DOSDATA.SYS, 
+  which loads at the beginning of the CONFIG.SYS, prepares the 
+  system for DOS-Up.  DOS-UP.SYS loads the DOS kernel, data, and 
+  resources into High RAM.  And your SHELL statement is modified so 
+  that LOADHI.COM can put COMMAND.COM in upper memory. If you have 
+  no SHELL statement, DOS-Up creates one for you.
+
+  Parts of DOS that can be moved out of conventional memory are: 
+
+  ÿþèDOS resourcesÿþæ (FILES, BUFFERS, FCBS, STACKS, LASTDRIVE). The
+  amount of memory that these resources take up varies with your 
+  configuration.  See Manifest's DOS Overview screen for details.
+                     ÿþçDOS-Up Feature (Continued) 
+
+  ÿþèCOMMAND.COMÿþæ (the DOS command processor).  Its size varies in 
+  different versions of DOS.  It is normally smaller than 5K.
+
+  ÿþèDOS dataÿþæ (the parts of the DOS kernel that are not moved out
+  of conventional memory by the DOS=HIGH statement).  If you are
+  using DOS=HIGH, these parts will be around 5.5K in size. If you 
+  are not using DOS=HIGH, these parts will be considerably larger; 
+  they are normally around 41K.
+
+  ÿþèDOS=HIGHÿþæ is a statement in CONFIG.SYS that tells DOS to load
+  much of itself into the HMA (the High Memory Area--the first 64K 
+  of extended memory).  This option is available only if you are 
+  using DOS 5 or 6 (and is not available for DR DOS 6 users).
+                     ÿþçDOS-Up Feature (Continued) 
+
+  The amount of DOS that moves into the HMA with DOS=HIGH depends 
+  on your configuration, but it is generally more than 40K.  
+
+  The most common reason not to enable the DOS=HIGH feature is if 
+  you run a program that uses the HMA more efficiently than DOS, 
+  like DESQview or DESQview/X. By eliminating the DOS=HIGH 
+  statement in CONFIG.SYS you may be able to have more available 
+  memory inside DESQview and DESQview/X windows.  For information 
+  on maximizing the memory inside DESQview and DESQview/X windows, 
+  select "View QEMM hints and tips and READ.ME" on the QEMM Setup 
+  menu. When the next menu displays, select "QEMM and DESQview or
+  DESQview/X."
+
+                 ÿþçHelp: Stealth DoubleSpace Feature 
+
+  QEMM can use its Stealth technology to move the DoubleSpace 
+  driver entirely out of conventional and upper memory, making it 
+  appear in the EMS page frame when it is needed.  This saves about 
+  40K that would otherwise use up space in conventional memory or 
+  upper memory.  
+
+  If you enable Stealth DoubleSpace, QEMM Setup will place the 
+  ST-DBL.SYS driver in your CONFIG.SYS file to relocate the 
+  DoubleSpace driver.  ST-DBL.SYS uses about 3K and can be loaded 
+  high.  Optimize will add the necessary command to load this driver
+  high if there is room for it in upper memory.
+
+              ÿþçHelp: Multiple CONFIG.SYS Configurations
+
+  QEMM Setup has detected that your CONFIG.SYS file contains 
+  multiple configuration paths.  Because the QEMM386.SYS device
+  driver may be in more than one of these paths, you need to tell 
+  QEMM Setup which path to modify, in the event that you decide to 
+  make changes to a QEMM386.SYS device line.  
+
+  You can choose any of the configuration paths listed on screen, 
+  or you can choose C to create a new configuration path based on 
+  one of your existing QEMM386.SYS configuration paths.  If you 
+  choose C, QEMM Setup will prompt you for the existing path, and 
+  then for a name for the new path that it has created.  The name 
+  can be up to 32 characters long and can consist of more than one 
+  word.  After you create a new configuration path, you should 
+           ÿþçMultiple CONFIG.SYS Configurations (Continued)
+
+  run Optimize and select the new configuration path.
+
+  If you choose C, and if your AUTOEXEC.BAT file uses the "GOTO 
+  %CONFIG%" statement to branch to different labels, you may want 
+  to modify your AUTOEXEC.BAT to customize it for the new 
+  configuration path that you have created.  By default, QSETUP 
+  modifies AUTOEXEC.BAT (if necessary) to make sure that the new 
+  configuration path and the existing one that it was based on will 
+  execute the same commands in AUTOEXEC.BAT.  
+
+                      ÿþçHelp: HIMEM.SYS and QEMM
+
+  QEMM Setup has detected the XMS memory manager HIMEM.SYS in 
+  your CONFIG.SYS file.  QEMM is, among other things, an XMS 
+  manager, and so you should normally tell QEMM Setup to remove 
+  HIMEM to save the memory that it uses (typically 1-3K).  If you 
+  leave HIMEM in your CONFIG.SYS, QEMM will still be able to 
+  control all the system's memory and function normally.  
+
+  The one instance in which you might leave HIMEM in the CONFIG.SYS 
+  is if your system contains more than 16 megabytes of memory, and 
+  your version of HIMEM knows how to find all the memory even 
+  though the system does not report it through standard BIOS calls 
+  (Compaqs with over 16MB of RAM are the most notable example).  
+                   ÿþçHIMEM.SYS and QEMM (Continued)
+
+  In this case, HIMEM should be loaded before QEMM386.SYS, which 
+  can allocate all the system's memory from HIMEM.  If you have a 
+  Compaq with over 16MB of RAM, use the HIMEM.EXE driver provided 
+  by Compaq and be sure to add the /ABOVE16 parameter to the device
+  driver line.  If you have MS-DOS 6, you can alternatively use 
+  DOS's HIMEM.SYS without a parameter.  Without such a version of 
+  HIMEM, QEMM will only find all the memory on the system if you 
+  add the USERAM=xxxx-yyyy parameter with an appropriate address 
+  range to the QEMM386.SYS line in CONFIG.SYS.
+
+                   ÿþçHelp: QEMM Setup Complete
+
+  QEMM Setup has made changes to your CONFIG.SYS file that may 
+  require that you run the Optimize program. Optimize is a program 
+  that determines how to load TSRs, device drivers and selected 
+  parts of DOS into upper memory. 
+
+  Optimize analyzes the memory requirements of device drivers and 
+  TSRs that you are loading from CONFIG.SYS, AUTOEXEC.BAT and any 
+  batch files called by AUTOEXEC.BAT. Then, Optimize determines the 
+  most efficient way to load items into High RAM by testing all 
+  possible locations (there can be thousands or millions of 
+  possibilities). The object is to free up as much conventional 
+  memory as possible for your DOS programs. If you are using QEMM's 
+                  ÿþçQEMM Setup Complete (Continued)
+
+  DOS-Up feature, Optimize also experiments with different ways of 
+  loading parts of DOS into upper memory.
+
+  If you type O, QEMM Setup will start the Optimize process 
+  immediately.  If you hit Enter, you will exit QEMM Setup without 
+  running Optimize; you can then run Optimize manually by typing 
+  OPTIMIZE.  If you do not run Optimize before rebooting the system, 
+  you may see LOADHI error messages when you next boot, and some 
+  of your TSRs and drivers may either load low or malfunction.
+
+               ÿþçHelp is not available for this option.
+
+                      Press F1 for help index.
+                      Press Escape to continue.
+

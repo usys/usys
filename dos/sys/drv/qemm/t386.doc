@@ -1,0 +1,50 @@
+
+                                   T386.EXE
+
+
+WHAT IT IS:          T386.EXE is a program for Toshiba laptop computers which
+                     allows the PopUp menu to appear when QEMM is installed
+                     and enabled.  T386 works with all versions of QEMM and
+                     many Toshiba laptops.
+
+
+WHY IT IS NEEDED:    Toshiba's PopUp menu will not appear if the computer is
+                     in Virtual 8086 mode unless the expanded memory manager
+                     calls itself "T386". The computer is always in Virtual
+                     8086 mode when expanded memory is in use or high RAM has
+                     been created.  Therefore, when QEMM is performing these
+                     services you will not be able to access the PopUp menu.
+                     The T386 program makes QEMM appear to be named T386 and
+                     allows the menu to work properly.
+
+
+HOW TO USE IT:       To invoke the program, simply type:
+
+                             T386
+
+                     at the DOS command prompt.  You may also load T386 in
+                     your AUTOEXEC.BAT file.  The program can be loaded into
+                     upper memory by typing:
+
+                             LOADHI T386
+
+                     at the DOS command prompt.  If T386 is loaded in your
+                     AUTOEXEC.BAT file, it can be loaded high with Optimize.
+
+
+HOW TO UNLOAD:       You can remove T386 from memory (even if it is loaded
+                     into upper memory) by typing:
+
+                             T386 R
+
+                     at the DOS command prompt.  You can load T386 more than
+                     once with no adverse effects other than wasting a bit of
+                     memory.  Typing "T386 R" removes one instance of T386.
+                     If you have inadvertently loaded it more than once, type
+                     the command once to remove each instance.  Typing the
+                     command when T386 is NOT loaded in memory is not harmful.
+
+
+T386.EXE and T386.DOC are Copyright (c) 1990-94 by Quarterdeck Office Systems.
+
+*** End of File ***

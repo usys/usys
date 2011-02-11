@@ -1,0 +1,847 @@
+ 
+            Exception #13 Advanced Troubleshooting
+
+
+  This QEMM 7 technote is an abridged version of a technical
+  bulletin that is available through our standard support channels.
+  The information contained in this version pertains ONLY to QEMM
+  version 7.0.  If you need information relating to earlier versions
+  of QEMM you can obtain the unabridged version from the following
+  sources:
+
+  Quarterdeck Technical Support BBS:  EX13FLOW.TEC
+                         CompuServe:  EX13FL.ZIP
+                              Q/FAX:  #232
+
+
+  Subject: A step-by-step, flowchart-like procedure for solving
+  problems that generate Exception #12 or Exception #13 error
+  messages.
+
+
+  YES, this document IS long.  PLEASE do not be intimidated by its
+  length, as you will only need to refer to portions of it.
+
+  PLEASE NOTE:  Unless otherwise indicated, all references to the
+  80386 processor apply to any 386 OR HIGHER processor.
+  ----------------------------------------------------------------
+  Exception errors occur when your 80386 or higher processor
+  receives an invalid instruction.  QEMM has been designed to
+  capture these exception errors and display them to you.  If you
+  were using a 386 computer WITHOUT QEMM, the same error would
+  occur but your system would very likely hang as a result with no
+  warning.  If you are interested in a detailed, technical
+  explanation of Exception Errors, refer to our technical bulletin
+  EXCEPT13.TEC.  You do not need an in-depth knowledge of the
+  causes of such errors, however, in order to deal with them.
+  ----------------------------------------------------------------
+  This technical note will help you troubleshoot and fix most
+  Exception #13 problems.  We have included an example scenario for
+  you to follow in order to make this technote as "user friendly"
+  as possible.  This troubleshooting procedure will take several
+  steps to complete and you will be instructed to skip ahead to
+  different sections depending on the results of previous steps.
+  PLEASE FOLLOW ALL INSTRUCTIONS CAREFULLY.  At the end of each
+  step you will see three question marks (???) followed by a
+  question.  The answer to each question determines the next step
+  you must follow.
+
+  This Technote follows the same EXACT procedures our technical
+  support staff uses to troubleshoot Exception #13 problems with
+  QEMM.
+
+  EXAMPLE Exception #13 PROBLEM SCENARIO:  "I've installed QEMM and
+  have run the OPTIMIZE program to load my TSRs and device drivers
+  into High RAM.  I'm running a scanner program from my network
+  drive (drive F:).  I get into the scanner program without a
+  problem, but every time I start scanning I get an 'Exception #13'
+  error and my system crashes."
+
+  SCENARIO ASSUMPTIONS:  QEMM has been loaded onto the local C:
+  drive and QEMM is installed in the C:\QEMM subdirectory.
+
+                             (STEP 1)
+
+       TRY TO RECREATE THE PROBLEM WITHOUT QEMM INSTALLED
+       --------------------------------------------------
+  QEMM will report an Exception #13 error message regardless of the
+  cause of the error.  We need to reboot your system WITHOUT QEMM
+  and try to recreate the problem to determine if QEMM is involved.
+  If QEMM is NOT loaded on your system and the software STILL has
+  problems, then QEMM is not involved with the error and you will
+  need to consult the documentation or contact the makers of the
+  software that is making your system crash.
+
+  ??? Does your program need expanded memory in order to operate
+  properly? If so, please go to STEP 2.  (Otherwise proceed with
+  this STEP). Proceed with this step if you are uncertain if your
+  program uses expanded memory.
+
+  We will need to reboot your computer without QEMM loaded.  To
+  accomplish this, hold down the <Alt> key immediately after you
+  hear a beep on bootup.  QEMM will post a message telling you to
+  press <Escape> to unload QEMM, or any other key to continue with
+  QEMM. Press <Escape> to bypass the loading of QEMM.  If you are
+  using the DOS-UP feature from QEMM version 7.0 you will first see
+  a message asking if you want to unload DOSDATA.  Press <Escape> to
+  unload DOSDATA, then hold down the <Alt> key again until you see
+  the message telling you to press <Escape> to unload QEMM.  Once
+  your computer has rebooted without QEMM, try to recreate the
+  Exception #13 problem.
+
+  ??? If you do not have enough memory to run your program, go to
+  STEP 2.
+
+  ??? If the problem still exists, go to STEP B.
+
+  ??? If the problem goes away, go to STEP 2.
+
+                             (STEP 2)
+
+          QUICK-FIX TROUBLESHOOTING PARAMETERS FOR QEMM
+          ---------------------------------------------
+  This second step is intended for the advanced QEMM user who is
+  familiar and comfortable with editing and adding parameters to
+  the QEMM386.SYS line of the CONFIG.SYS file.  If you are not
+  familiar with this process, please skip ahead to STEP 3 now,
+  where you will be given examples about how to edit and add
+  parameters to QEMM.
+
+  If the following two scenarios do not apply to your Exception #13
+  problem or do not help RESOLVE the problem, then please go to
+  STEP 3 (the next step) and remove the parameters specified below.
+
+  Scenario #1:  If, when your machine crashes, you notice that the
+  video text or graphics is altered (you see a blank screen, part
+  of the screen is altered, strange lines are displayed across the
+  screen, the colors change) add the following parameters to the
+  end of the QEMM386.SYS line of the CONFIG.SYS file:
+
+     X=A000-C7FF VF:N VR:N
+
+  Scenario #2:  If, when your machine crashes, you notice that the
+  hard disk (or floppy disk or CD-ROM) is being accessed, add the
+  following parameters to the end of the QEMM386.SYS line of the
+  CONFIG.SYS file:
+
+     X=F000-FFFF  X=C800-CFFF  DB=4  ROM
+
+  (If you already had the ROM parameter at the end of the
+  QEMM386.SYS line, then REMOVE it from the QEMM386.SYS line at
+  this time.  If the scenario #2 parameters resolve your problem,
+  try removing the X=C800-CFFF parameter. (Keep the other 3
+  parameters for now.)  If the problem now occurs, then put back
+  the X=C800-CFFF parameter.  Next try removing DB=4.  If the
+  problem does not reoccur, you do not need that parameter.  If it
+  does, then you do need it.
+
+  If the above parameters eliminated the problem, refer to the
+  instructions in STEP 6 to narrow down the areas of High RAM that
+  must be excluded and reclaim as much High RAM as possible.
+
+                             (STEP 3)
+
+            DETERMINING THE FREQUENCY OF THE PROBLEM
+            ----------------------------------------
+  Troubleshooting Exception #13 errors can be difficult if the
+  problem occurs infrequently -- for instance, every couple of
+  days/weeks with no discernable pattern.  In order to troubleshoot
+  ANY problem, you must be able to reproduce it.  Otherwise, how
+  can you know it is fixed when you fix it?
+
+  If the Exception #13 error occurs every time you run a particular
+  application or you have been experiencing Exception #13 errors
+  regularly with a given application, then we can attempt to
+  troubleshoot the problem systematically. If the problem occurs
+  frequently, please go to STEP 4. If the problem is not frequent,
+  you must try to determine a pattern by which you can recreate the
+  error on a frequent basis and then proceed with this technote.
+
+  PLEASE NOTE:  Crashes which occur infrequently are usually
+  hardware related problems.  These random crashes cannot be
+  resolved by reconfiguring or removing QEMM.
+
+                             (STEP 4)
+
+             DETERMINING WHETHER STEALTH ROM IS INVOLVED
+             -------------------------------------------
+
+  In version 6.00 of QEMM, Quarterdeck introduced the Stealth ROM
+  feature which can create nearly 100K more High RAM than earlier
+  versions (or up to 115K more on PS/2 systems.)  The Stealth ROM
+  feature is invoked with the parameter ST:M or ST:F on the
+  "DEVICE=C:\QEMM\QEMM386.SYS ..." line of your CONFIG.SYS file
+  (located in the root directory of your bootup drive).  Your
+  Exception #13 problem may be related to the Stealth ROM feature
+  of QEMM, if you are using it. Check your CONFIG.SYS file for the
+  ST:M or ST:F parameter.
+
+  ??? If the QEMM386.SYS line DOES NOT have the ST:M or ST:F
+  parameter, go on to STEP 5.
+
+  If you are using Stealth ROM, we need to remove all Stealth-
+  related parameters (ST:M, ST:F, XST=, XSTI=, DBF=, FSTC, FRAME=)
+  to test whether Stealth ROM is involved with your Exception #13
+  problem.  Here is an example:
+
+  DEVICE=C:\QEMM\QEMM386.SYS R:1 RAM ROM X=D000-D3FF ST:M XST=C000
+                                                     <---delete-->
+
+  Edit your CONFIG.SYS file and remove the Stealth-related
+  parameter(s), then rerun Optimize.  Once Optimize completes,
+  try to recreate the Exception #13 error.
+
+  ??? If the problem still exists, please go to STEP 5.
+
+  ??? If the problem goes away, it was due to a conflict with
+  Stealth ROM. At this point you should refer to our technical
+  bulletin STEALTH.TEC, a troubleshooting guide for Stealth-related
+  problems. This technote was installed in your QEMM\TECHNOTE
+  directory when you installed QEMM 7.
+
+                             (STEP 5)
+
+      DETERMINING THE MEMORY LOCATION OF THE EXCEPTION #13 ERROR
+      ----------------------------------------------------------
+  The memory address at which the Exception #13 error occurred may
+  give us a clue as to what is causing the problem.  The following
+  is an example of an Exception #13 error message:
+
+     QEMM: Exception #13 at C9F6:0173.       <---------------------
+     Error code: 0000
+     AX=240A BX=0000 CX=0000 DX=0000 SI=0000 DI=0000 BP=0001
+     DS=29F6 ES=29F6 SS=29F6 SP=D4F9 Flags=7202
+     Instruction: 6F 72 20 72 65 61 64 69 6E 67 20 2E 53 59 4D
+     Do you want to (T)erminate the program, (R)eboot,
+     or disable QEMM and try to (C)ontinue?
+
+  We are only concerned with the first line which gives us the
+  address at which the error occurred.   The address is always
+  represented by four digits followed by a colon and four more
+  digits. (XXXX:YYYY)  In this case the address is C9F6:0173.  We
+  are only concerned with the XXXX number (in our example C9F6).
+
+  ??? If the Hexadecimal number of XXXX is in the range from:
+
+    0000 through 9999  go to STEP 7.
+    A000 through FFFE  go to STEP 6.
+    FFFF               go to STEP 7.
+
+                             (STEP 6)
+
+                    AVOIDING HIGH RAM CONFLICTS
+                    ---------------------------
+  Exception #13 errors in the range from A000 up to FFFE are
+  located in the upper memory area between 640K and 1024K.  They
+  are usually caused by one of the following:
+
+     The first situation involves a bus-mastering device (usually a
+     SCSI drive controller or network card) which conflicts with
+     areas of High RAM. Some of these devices come with a driver
+     (called a VDS driver) written by the manufacturer.  VDS
+     drivers prevent memory conflicts between bus-mastering devices
+     and memory managers.
+
+     The second situation relates to conflicts between QEMM and an
+     adapter ROM (or RAM) which are both trying to use the same
+     memory addresses.  For example:  If you have a network card
+     that takes up 16K of memory and QEMM fails to detect this,
+     QEMM will create High RAM in the SAME memory location the
+     network card is using.  If your software then tries to access
+     the network card, the network ROM/RAM code will not be found.
+     (Instead, your software will try to execute the contents of
+     the High Ram area, into which another program may be loaded,
+     causing your machine to crash.)
+
+  Adding the following two parameters to the QEMM386.SYS device
+  line in of your CONFIG.SYS file can help in either case:
+
+  1)  DB=4  [This parameter can solve problems with bus-mastering
+  hard drive controller cards.  It will not help if the bus-
+  mastering device is something OTHER than a hard drive controller.
+  In such cases your only recourse is to obtain a VDS driver from
+  the manufacturer.]
+
+     NOTE:  Beginning with version 7.0, QEMM (by default) creates a
+     2K disk buffer (the equivalent of adding DB=2 to the QEMM
+     line) when it detects a bus-mastering hard drive controller.
+     There are situations under which such a device will not be
+     detected, however.
+
+   2)  Use one of the following:
+
+     'X=A000-AFFF' if the error occurs in the range of A000-AFFF or
+     'X=B000-BFFF' if the error occurs in the range of B000-BFFF or
+     'X=C000-CFFF' if the error occurs in the range of C000-CFFF or
+     'X=D000-DFFF' if the error occurs in the range of D000-DFFF or
+     'X=E000-EFFF' if the error occurs in the range of E000-EFFF or
+     'X=F000-FFFF' if the error occurs in the range of F000-FFFF
+
+  Here is an EXAMPLE of what your QEMM device line looks like:
+
+     DEVICE=C:\QEMM\QEMM386.SYS RAM AROM=C800-CBFF
+
+  Using the EXAMPLE Exception #13 memory address from the last
+  STEP, (at C9F6), we will edit the line as follows:
+
+     DEVICE=C:\QEMM\QEMM386.SYS RAM AROM=C800-CBFF DB=4 X=C000-CFFF
+
+  Save the CONFIG.SYS file.  Now reboot your machine and try to
+  recreate the Exception #13 problem.
+
+  ??? If the problem still exists, go to STEP 7.
+
+  ??? If the problem goes away, try removing the DB=4 parameter
+  from the QEMM386.SYS line.  If your machine crashes, then
+  obviously you need this parameter.  You may want to contact the
+  manufacturer of the bus-mastering device to inquire about a VDS
+  driver, which is a preferable solution.  For a detailed
+  description of VDS drivers and bus-mastering devices, refer to
+  BUS-MAST.TEC technote.  (See STEP 4 for information on obtaining
+  technical bulletins.)
+
+  Next try removing the X=C000-CFFF parameter (remember, the 'C' is
+  an example. You may be using 'A','B','D','E', or 'F' instead.  If
+  your machine crashes, then obviously you need this parameter.  If
+  so, we will try to narrow down this area (which is 64K, a
+  significant amount of memory) in order to create as much High RAM
+  as possible.
+
+  The best way to determine which area(s) should be excluded is to
+  run QEMM's Analysis procedure.  For a detailed description of
+  Analysis, refer to chapter nine of your QEMM manual or see our
+  technical bulletin EXCLUDE.TEC.  Once you have performed an
+  Analysis of your system and determined which area(s) need to be
+  excluded, you should rerun Optimize.
+
+                             (STEP 7)
+
+                CREATE A CLEAN ENVIRONMENT FOR QEMM
+                -----------------------------------
+  To determine whether QEMM is involved in the problem, we must
+  create a clean environment by removing ALL lines from the
+  CONFIG.SYS and AUTOEXEC.BAT files which are not necessary to
+  create problem.
+
+  First, make back-up copies of your CONFIG.SYS and AUTOEXEC.BAT
+  files (which are located in the root directory) because we are
+  going to modify these files. At the DOS prompt type:
+
+     1) C:
+     2) CD\
+     3) COPY CONFIG.SYS CONFIG.OLD
+     4) COPY AUTOEXEC.BAT AUTOEXEC.OLD
+
+  Now edit your CONFIG.SYS file so that only the lines that are
+  ABSOLUTELY necessary to recreate the Exception #13 error remain.
+  You need the QEMM386.SYS line and the FILES= line as a minimum,
+  but you should delete every other line unless it is ABSOLUTELY
+  needed to recreate the problem.
+
+     The following is an example CONFIG.SYS file for our example:
+
+     #1   DEVICE=C:\QEMM\QEMM386.SYS RAM AROM=C800-CBFF
+      2   DEVICE=C:\UTIL\CACHE.SYS
+     #3   FILES=25
+      4   BUFFERS=30
+     #5   DEVICE=C:\QEMM\LOADHI.SYS /R:2 C:\SCAN\SCANNER.SYS 256
+      6   DEVICE=C:\DOS\ANSI.SYS
+      7   DEVICE=C:\FAXING\FAX.SYS
+     #8   SHELL=C:\COMMAND.COM /P /E:768
+     #9   DEVICE=C:\QEMM\LOADHI.SYS /R:3 C:\NETW\NETWORK.SYS
+      10  STACKS=0,0
+
+  The # indicates lines which are ABSOLUTELY necessary to include
+  in the CONFIG.SYS file in order to recreate the example problem.
+  At this time you may want to refer to the example problem
+  scenario located on the first page of this technote.)
+
+     line  1) We NEED the QEMM driver to recreate the problem.
+     line  2) A disk cache IS NOT necessary to recreate the
+              problem.
+     line  3) We NEED to include the FILES= statement.
+     line  4) The BUFFERS statement IS NOT needed.
+     line  5) The scanner IS part of our problem.
+     line  6) ANSI.SYS IS NOT needed to recreate the problem.
+     line  7) The fax board has NOTHING to do with the problem.
+     line  8) The SHELL= statement tells DOS where the command
+              processor is.
+     line  9) We NEED to log on to the network to run the scanner
+              program.
+     line 10) The Stacks statement IS NOT necessary.
+
+  If you are not sure if a line is absolutely necessary in your
+  CONFIG.SYS or AUTOEXEC.BAT files, check your DOS manual or the
+  documentation that came with your hardware and software for
+  information.
+
+     This leaves our CONFIG.SYS with:
+
+          DEVICE=C:\QEMM\QEMM386.SYS RAM AROM=C800-CBFF
+          FILES=25
+          DEVICE=C:\QEMM\LOADHI.SYS /R:2 C:\SCAN\SCANNER.SYS 256
+          SHELL=C:\COMMAND.COM /P /E:768
+          DEVICE=C:\QEMM\LOADHI.SYS /R:3 C:\NETW\NETWORK.SYS
+
+  Since you ran QEMM's OPTIMIZE program, some of your device
+  drivers are loaded into upper memory.  For now we want these
+  drivers loaded low, as some drivers behave incorrectly when
+  loaded high.
+
+     DEVICE=C:\QEMM\LOADHI.SYS /R:2 C:\SCAN\SCANNER.SYS 256
+            <------delete--------->
+
+  Boost the FILES= to at least 40, and our final CONFIG.SYS looks
+  like:
+
+          DEVICE=C:\QEMM\QEMM386.SYS RAM AROM=C800-CBFF
+          FILES=40
+          DEVICE=C:\SCAN\SCANNER.SYS 256
+          SHELL=C:\COMMAND.COM /P /E:768
+          DEVICE=C:\NETW\NETWORK.SYS
+
+  (Your CONFIG.SYS may only need the QEMM386.SYS and FILES=40 line.
+  Do not be concerned if your CONFIG.SYS is not 5 lines long.)
+
+  Save the CONFIG.SYS, and now we will modify your AUTOEXEC.BAT
+  file.  The following is an example AUTOEXEC.BAT file for our
+  example:
+
+         ECHO OFF
+         PATH C:\;C:\DOS;C:\UTILS;C:\EDITOR;F:\SCANNER;
+         C:\QEMM\LOADHI C:\UTIL\FASTKEYB
+         PROMPT $P$G
+         C:\QEMM\LOADHI /R:1 C:\NETW\LOGIN
+         SET TEMP=F:\WINDOWS\TEMP
+         FAXSETUP 125
+
+  The only lines we need to keep are the PATH, PROMPT, and NETWORK
+  LOGIN.
+
+     This leaves our AUTOEXEC.BAT follows:
+
+          PATH C:\;C:\DOS;C:\UTILS;C:\EDITOR;F:\SCANNER;
+          PROMPT $P$G
+          C:\QEMM\LOADHI /R:1 C:\NETW\LOGIN
+
+  Again, some of our device drivers are loaded high as a result of
+  Optimize.  We need to remove the LOADHI information from these
+  lines.
+
+     C:\QEMM\LOADHI /R:1 C:\NETW\LOGIN
+     <----delete------->
+
+     This leaves our final AUTOEXEC.BAT with:
+
+          PATH C:\;C:\DOS;C:\UTILS;C:\EDITOR;F:\SCANNER;
+          PROMPT $P$G
+          C:\NETW\LOGIN
+
+  (Your AUTOEXEC.BAT may only need the PATH and PROMPT lines.  Do
+  not be concerned if your AUTOEXEC.BAT is not 3 or more lines
+  long.)
+
+  Save the AUTOEXEC.BAT file.  Now reboot your machine and try to
+  recreate the Exception #13 problem.
+
+  ??? If the problem still exists, go to STEP 8.
+
+  ??? If the problem goes away, go to STEP C.
+
+                             (STEP 8)
+
+                   MODIFY THE QEMM386.SYS LINE
+                   ---------------------------
+  Now we will modify your QEMM386.SYS line in the CONFIG.SYS file
+  by adding parameters (and possibly removing some of the
+  parameters that are already on the line) to avoid POSSIBLE
+  conflicts involving QEMM.   Modify the line as follows:
+
+  DEVICE=C:\QEMM\QEMM386.SYS X=A000-C7FF X=F000-FFFF FILL:N TM:N
+       CF:N SH:NONE DB=4
+
+  DO NOT ADD THE RAM PARAMETER TO THIS LINE.
+
+  PLEASE NOTE:  ALL parameters are typed ON THE SAME LINE, not on
+  two lines as they appear in our document.
+
+  ??? If you are using the Stealth ROM parameter (ST:M or ST:F), DO
+  NOT include Stealth ROM at this time.  BUT make a note of it, as
+  you will add this parameter back to the QEMM386.SYS line in STEP
+  14.  You will also want to remove any Stealth-related parameters
+  you may be using at this time: XST=, XSTI=, DBF=, FSTC, FRAME=.
+
+  If your QEMM386.SYS line previously contained a parameter to
+  EXCLUDE an area of memory such as EXCLUDE= or X= or AROM= or
+  ARAM=, you should also add this parameter to the end of the
+  QEMM386.SYS line.  DO NOT add any INCLUDE= or I= parameters, even
+  if you previously used them.  In our example, we previously had
+  the AROM=C800-CBFF parameter.  Adding this parameter to the above
+  DEVICE line gives us the following QEMM line:
+
+  DEVICE=C:\QEMM\QEMM386.SYS X=A000-C7FF X=F000-FFFF FILL:N TM:N
+       CF:N SH:NONE DB=4 AROM=C800-CBFF
+
+  (AGAIN, these parameters all go on one line.)
+
+  Save the new CONFIG.SYS file and reboot your machine.  Try to
+  recreate the Exception #13 problem.
+
+  ??? If the problem still exists, go to STEP 9
+
+  ??? If the problem goes away, go to STEP 12.
+
+                             (STEP 9)
+
+         TRY TO RECREATE THE PROBLEM WITHOUT QEMM INSTALLED
+         --------------------------------------------------
+  In order to determine whether QEMM is responsible for your
+  problem we need to run your software without QEMM loaded.  If
+  your program uses expanded memory, then another memory manager
+  (such as the ones that come with DOS 5/6 or Windows) must be
+  loaded in place of QEMM.
+
+  ??? Does your program need expanded memory in order to operate
+  properly? If so, please go to STEP 10.  (Otherwise proceed with
+  this STEP).
+
+  Reboot your machine without QEMM.  To disable QEMM temporarily,
+  hold down the <Alt> key immediately after you hear a beep on
+  bootup.  QEMM will post a message telling you to press <Escape>
+  to unload QEMM, or any other key to continue with QEMM. Press
+  <Escape>, and run your Setup program.  If you are using the DOS-
+  UP feature from QEMM version 7.0 you will first see a message
+  asking if you want to unload DOSDATA.  Press <Escape> to unload
+  DOS-UP, then hold down the <Alt> key again until you see the
+  message telling you to press <Escape> to unload QEMM.    Once
+  your system has rebooted without QEMM, try to recreate the
+  Exception #13 problem.
+
+  ??? If the problem still exists, go to STEP B.
+
+  ??? If the problem goes away, go to STEP A.
+
+                              (STEP 10)
+
+          USE ANOTHER EXPANDED MEMORY MANAGER INSTEAD OF QEMM
+          ---------------------------------------------------
+  The problem you are having may be related to the use of expanded
+  memory, in which case the result would be the same regardless of
+  which memory manager you use.  If your system has problems with
+  another expanded memory manager loaded, then your program has a
+  problem with expanded memory in general and QEMM is not to blame
+  for the crashes you have been experiencing.  If this is the case,
+  you should contact the publisher of your program for information
+  on using it with an expanded memory manager.
+
+  You probably have either DOS 5 or DOS 6 and you may have
+  Microsoft Windows as well.  All of these come with an expanded
+  memory manager.  Loaded together, HIMEM.SYS and either EMM386.SYS
+  or EMM386.EXE provide services similar to those provided by QEMM.
+  We will now modify your CONFIG.SYS to use these drivers instead
+  of QEMM and try to recreate the problem.  First, make a backup
+  copy of the "clean environment" version of CONFIG.SYS file by
+  entering the following 3 commands at the DOS prompt:
+
+     1) C:
+     2) CD\
+     3) COPY CONFIG.SYS CONFIG.Q
+
+  HIMEM.SYS and EMM386.EXE are probably in your \DOS, \WINDOWS, or
+  root directory.  We will assume they are in the \DOS directory.
+  Edit the CONFIG.SYS file as follows:
+
+     DEVICE=C:\DOS\HIMEM.SYS
+     DEVICE=C:\DOS\EMM386.EXE ON 4096   [Use a lower number if your
+     FILES=40                            system has less than four
+     DEVICE=C:\SCAN\SCANNER.SYS 256      megs of RAM]
+     SHELL=C:\COMMAND.COM /P /E:768
+     DEVICE=C:\NETW\NETWORK.SYS
+
+  Save the CONFIG.SYS, reboot, and try to recreate Exception #13
+  problem.
+
+  ??? If the problem still exists, then go to STEP B.
+
+  ??? If the problem goes away, go to STEP 11.
+
+                            (STEP 11)
+
+          CONFIGURE QEMM SIMILARLY TO THE OTHER DRIVERS
+          ---------------------------------------------
+  Now we want to configure QEMM to emulate HIMEM and EMM386.
+  MANIFEST can provide the information we need.  Reboot your
+  computer and type the following:
+
+     CD\QEMM
+     MFT
+
+  Tap the DOWN-ARROW key once to view the First Meg/Overview
+  screen.  The box in the center of the screen looks something like
+  this:
+
+     Memory Area   Size   Description
+     0000 - 003F     1K   Interrupt Area
+     0040 - 004F   0.3K   BIOS Data Area
+     0050 - 006F   0.5K   System Data
+     0070 - 0FB0    61K   DOS
+     0FB1 - 21F8    73K   Program Area
+     21F9 - 9FFF   504K   [Available]
+     Conventional memory ends at 640K
+     A000 - AFFF    64K   VGA Graphics
+     B000 - B7FF    32K   Unused
+     B800 - BFFF    32K   VGA Text
+     C000 - C7FF    32K   Video ROM
+     C800 - CFFF    32K   Unused
+     D000 - DFFF    64K   Page Frame       <---------------------
+     E000 - EFFF    64K   Unused
+     F000 - FFFF    64K   System ROM
+
+  We will use the QEMM parameter FRAME= to place the Page Frame at
+  the same memory address used by EMM386.  In our example, the Page
+  Frame begins at D000. Hit the ESCAPE key twice to exit MANIFEST
+  and type the following commands at the DOS prompt:
+
+     C:
+     CD\
+     REN CONFIG.SYS CONFIG.M   [Saves the CONFIG.SYS w/other
+     drivers]
+     COPY CONFIG.Q CONFIG.SYS  [Brings back the STEP-8 CONFIG.SYS]
+
+  Add the following parameters to your QEMM device line:
+
+     VF:N VR:N TR:N LD:Y XBDA:N MR:N RH:N VDS:N FRAME=XXXX
+
+  Replace XXXX with the starting address of the Page Frame as set
+  up by EMM386. In our example, this is FRAME=D000.
+
+  The QEMM386.SYS line for our EXAMPLE now looks like this:
+
+  DEVICE=C:\QEMM\QEMM386.SYS X=A000-C7FF X=F000-FFFF FILL:N
+      TM:N CF:N SH:NONE AROM=C800-CBFF NV NVR NTR LD NX NR NRH
+      NOVDS FRAME=XXXX
+
+  (These parameters all go on the same line.)
+
+  Reboot and try to recreate the Exception #13 problem.
+
+  ??? If the problem still exists , then go to STEP A.
+
+  ??? If the problem goes away, then go to STEP 12.
+
+                             (STEP 12)
+
+                    CREATING HIGH RAM FOR QEMM
+                    --------------------------
+  We have properly configured QEMM without High RAM to work with
+  your program. Now add the RAM parameter back to the QEMM386.SYS
+  line in your CONFIG.SYS to create High RAM.
+
+  Reboot your machine and try to recreate the Exception #13
+  problem.
+
+  ??? If the problem reoccurs, then go to STEP 13.
+
+  ??? If the problem does not occur, then proceed below:
+
+  At this point we want to recover as much high RAM as possible.
+  Edit the QEMM device line and delete the following parameters
+  from the QEMM device line in your CONFIG.SYS file ONE AT A TIME.
+
+       X=A000-C7FF, X=F000-FFFF, and CF:N
+
+  Each time you remove a parameter, save the revised CONFIG.SYS and
+  reboot the machine, then try to recreate the problem.  If
+  removing a parameter does not cause the problem to reoccur, then
+  you DO NOT need that parameter.   Try the other two to determine
+  whether you need them.
+
+  ??? If the problem still does not occur and you WERE using the
+  Stealth ROM feature (ST:M or ST:F) go to STEP 14.
+
+  ??? If the problem still does not occur and you WERE NOT using
+  the Stealth ROM feature (ST:M or ST:F) go to STEP C.
+
+                              (STEP 13)
+
+                   ELIMINATING HIGH RAM CONFLICTS
+                   ------------------------------
+  A conflict appears to exist between one of your adapters and
+  QEMM.  QEMM is not recognizing that your adapter is using upper
+  memory addresses and is mapping memory into the same space.  We
+  will exclude all High RAM areas to test this.  If it is the case,
+  we will systematically narrow down the area that needs to be
+  excluded.  At the DOS prompt type the following to start
+  MANIFEST:
+
+     CD\QEMM
+     MFT
+
+  Tap the DOWN-ARROW key once to see the First Meg/Overview screen.
+  The box in the center of the screen will look something like
+  this:
+
+     Memory Area   Size   Description
+     0000 - 003F     1K   Interrupt Area
+     0040 - 004F   0.3K   BIOS Data Area
+     0050 - 006F   0.5K   System Data
+     0070 - 0FB0    61K   DOS
+     0FB1 - 21F8    73K   Program Area
+     21F9 - 9FFF   504K   [Available]
+     Conventional memory ends at 640K
+     A000 - AFFF    64K   VGA Graphics
+     B000 - B7FF    32K   Unused
+     B800 - BFFF    32K   VGA Text
+     C000 - C7FF    32K   Video ROM
+     C800 - CFFF    32K   High RAM       <------------
+     D000 - DFFF    64K   Page Frame
+     E000 - EFFF    64K   High RAM       <------------
+     F000 - FFFF    64K   System ROM
+
+  We want to exclude these areas of high RAM.  For our example we
+  would add the following to the QEMM device line:
+
+     X=C800-CFFF  X=E000-EFFF
+
+  Add an EXCLUDE statement for each area of high RAM you see in the
+  First Meg Overview screen.  Save the CONFIG.SYS file, reboot the
+  machine, and try to recreate the problem.
+
+  ??? If the problem occurs, then go to STEP A.
+
+  ??? If the problem goes away, you have a memory conflict and we
+  must now narrow down the address range in upper memory that is
+  causing the conflict. This will allow you to recover as much High
+  RAM as possible. In our example the areas of high RAM are
+  comprised of six different 16K areas: C800-CBFF, CC00-CFFF, E000-
+  E3FF, E400-E7FF, E800- EBFF, EC00-EFFF. To narrow down the area,
+  we use the X= parameter, trying all six of these combinations,
+  one at a time.  Most likely, you will need only one of the
+  exclusions.  In some cases, however, you may need to exclude more
+  than a 16K block.
+
+  ??? Once you have determined the area that needs excluding, if
+  you WERE using Stealth ROM (ST:M or ST:F) go to STEP 14.
+
+  ??? Once you have determined the area that needs excluding, if
+  you WERE NOT using Stealth ROM (ST:M or ST:F) go to STEP C.
+
+                             (STEP 14)
+
+               ADDING THE STEALTH ROM PARAMETER BACK
+               -------------------------------------
+  We have configured QEMM with High RAM to work with your program.
+  We will now add Stealth ROM (and any Stealth-related parameters)
+  to the QEMM device line. Reboot your machine and try to recreate
+  the problem.
+
+  ??? If the problem still does not occur, then go to STEP C.
+
+  ??? If the problem does reoccur, then your Exception #13 problem
+  is due to a conflict with Stealth ROM.  You should refer to our
+  Stealth ROM troubleshooting technical note (STEALTH.TEC) for
+  further help. This technote can be found in your QEMM\TECHNOTE
+  directory.
+
+  Once you have resolved the Stealth-related problem go to STEP C.
+  ------------------------------------------------------------------
+
+
+                           (STEP - A)
+
+  Your problem requires further investigation.  Please call our
+  Technical Support line at (310) 392-9701 for further assistance.
+  We will be happy to help out.   When you call, please have the
+  following information at hand:
+
+  1)  Your original CONFIG.SYS and AUTOEXEC.BAT
+      (now CONFIG.OLD and AUTOEXEC.OLD)
+  2)  CONFIG.SYS     (QEMM386.SYS and FILES=)
+  3)  AUTOEXEC.BAT   (PATH and PROMPT)
+  4)  CONFIG.Q       (If you have gone thru STEP 10)
+  50  CONFIG.M       (If you have gone thru STEP 11)
+
+  Be sure to mention that you have been using EX13FLOW.TEC.
+
+                            (STEP - B)
+
+  The program in question has problems EVEN WHEN QEMM IS NOT
+  LOADED.  QEMM is not responsible for the system crashes you are
+  experiencing.  You should consult the documentation or contact
+  the makers of the resident program or driver which is making your
+  system crash.
+
+                            (STEP - C)
+
+  CONGRATULATIONS!  You have successfully configured QEMM and your
+  program to work together.  Enter the following six commands at
+  the DOS prompt:
+
+     C:
+     CD\
+     RENAME AUTOEXEC.BAT AUTOEXEC.Q
+     COPY CONFIG.SYS CONFIG.Q
+     COPY CONFIG.OLD CONFIG.SYS     [Brings back your original
+     file.]
+     COPY AUTOEXEC.OLD AUTOEXEC.BAT [Brings back your original
+     file.]
+
+  Edit the CONFIG.SYS file and replace the original QEMM386.SYS
+  line with the one you have created by using this technote (now in
+  CONFIG.Q) and make sure FILES= at least 40.  Reboot the machine
+  and try to recreate the Exception #13 crash.
+
+  ??? If the problem no longer occurs, it is solved.
+
+  ??? If the problem now occurs, then go to STEP D.
+
+                            (STEP - D)
+
+  Since your problem does not occur with the stripped down
+  CONFIG.SYS and AUTOEXEC.BAT but does occur with a full CONFIG.SYS
+  and AUTOEXEC.BAT file, there is a command line in one of these
+  files that is causing the Exception #13 problem.  To determine
+  which file the command line is in, we will bring back the
+  AUTOEXEC.BAT (Path and Prompt) that we created in STEP 7:
+
+     Enter the following 4 commands at the DOS prompt:
+
+             C:
+             CD\
+             COPY AUTOEXEC.BAT AUTOEXEC.OLD
+             COPY AUTOEXEC.Q AUTOEXEC.BAT
+
+  Reboot your machine and try to recreate the Exception #13 crash.
+
+  ??? If the problem still exists, than we know that the command
+  line giving us a problem is located in the CONFIG.SYS file.  If
+  the problem goes away, the command line is in the original
+  AUTOEXEC.BAT file.
+
+  Now you must systematically determine which command line is
+  giving you trouble.  Try deleting one line at a time (if you have
+  a long CONFIG.SYS or AUTOEXEC.BAT file try deleting 2-3 lines at
+  a time) until you find out which line is causing the problem.
+  When you finally determine which line it is:
+
+  1) If the device driver or TSR is loaded into High RAM, use the
+  procedure in STEP 7 to load it low and see if this corrects the
+  problem.
+
+  2) Read the manual or call the technical support for the product
+  which you are loading to determine where the problem might lie.
+
+  3) Some TSR's and device drivers can be configured to use
+  conventional memory, XMS, EMS, or a combination of these.  See
+  how it is currently configured and try the other options.
+
+  4) You may need to permanently remove that line.
+
+  ******************************************************************
+          Trademarks are property of their respective owners.
+  This technical note may be copied and distributed freely as long
+   as it is distributed in its entirety and it is not distributed
+   for profit.  
+
+  Copyright (C) 1993-1994 by Quarterdeck Office Systems.
+  ******************* E N D   O F   F I L E ************************

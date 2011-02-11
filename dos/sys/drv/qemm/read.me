@@ -1,0 +1,203 @@
+                 QEMM Version 7.04 - READ.ME File
+
+  This file includes tips to help you get the most out of QEMM and
+  last-minute information that did not make it into the manual. If
+  you want to print this file for future reference, be sure you are
+  in the QEMM directory and type "COPY READ.ME PRN:" at the DOS
+  prompt.
+
+
+                       DPMS.EXE AND OPTIMIZE
+
+  Novell's driver DPMS.EXE provides management services for the
+  Novell DPMS (DOS Protected Mode Services) specification, which
+  lets DOS programs reduce their conventional memory overhead by
+  moving parts of their code and data into extended memory.
+  DPMS.EXE ships with Novell DOS 7 and with other programs,
+  including Stacker 4.0.  Early versions of DPMS.EXE cannot be
+  loaded into upper memory by any memory manager--DPMS will post an
+  error message and refuse to load if it sees that it is loading in
+  upper memory.
+
+  Depending on your version of DPMS.EXE, you may find that DPMS.EXE
+  posts an error and refuses to load after you install QEMM or run
+  the Optimize program.  If you see that DPMS.EXE is not loading on
+  your system, you should use your word processor to create a file
+  in the QEMM directory called OPTIMIZE.EXC, containing the single
+  line:
+
+        DPMS
+
+  If you already have an OPTIMIZE.EXC file, you should add the above
+  line to the end of the existing file.  This will keep Optimize
+  from trying to load DPMS.EXE high, and will let the DPMS driver
+  load successfully in conventional memory.  For more information on
+  the OPTIMIZE.EXC file, see Chapter 3, "Excluding TSRs or Device
+  Drivers from Optimize," in the QEMM manual.
+
+
+         IMPORTANT INFORMATION ABOUT STEALTH DOUBLESPACE
+  
+  MS-DOS 6 includes a program called DoubleSpace that you can use
+  to compress the data on your hard drive and floppy disks so they
+  will hold more data. QEMM's Stealth DoubleSpace feature saves you
+  about 40K of memory by moving the DoubleSpace device driver out
+  of conventional or upper memory and mapping it into the EMS page
+  frame whenever it is needed. Stealth DoubleSpace is fully
+  compatible with MS-DOS versions 6.0 through 6.2.
+
+  The following information replaces the section entitled
+  "Improving Disk Performance When Using Stealth DoubleSpace" on
+  page 54 of the QEMM manual.
+
+  There can be potential conflicts if QEMM's Stealth DoubleSpace
+  and Stealth ROM features are both enabled. To prevent problems,
+  Stealth DoubleSpace automatically creates a 1K disk buffer on
+  systems where the Stealth ROM feature is active.  Stealth
+  DoubleSpace does not automatically create this buffer if QEMM is
+  already doing its own buffering (see the DISKBUF and DISKBUFFRAME
+  parameters in Chapter 7 of the QEMM manual).
+
+  Stealth DoubleSpace's disk buffer can slow down disk access
+  time.  If your disk performance seems slower, you may
+  be able to improve it by increasing the size of the disk buffer.
+  A larger disk buffer will use more conventional memory or High
+  RAM (depending on where ST-DBL.SYS is loaded). To enlarge the
+  Stealth DoubleSpace disk buffer, edit your CONFIG.SYS file and 
+  add the DB:x parameter at the end of the ST-DBL.SYS device line, 
+  where x is the desired buffer size in K. A buffer size of 4K 
+  should virtually eliminate speed degradation (at the expense of 3 
+  additional K of memory).
+
+  You can also force Stealth DoubleSpace to create or not to
+  create its disk buffer by using the parameter DB:Y (to create the
+  buffer) or DB:N (not to create the buffer) on the ST-DBL.SYS
+  device line.  There is normally no reason to use DB:Y; ST-DBL.SYS
+  should automatically create the buffer if needed. If you 
+  do not need the buffer, you can speed up disk access time and 
+  free up 1K of memory by using the DB:N parameter. DB:N can be 
+  useful in the following circumstances:
+
+  - Some disk caches make Stealth DoubleSpace's disk buffering
+    unnecessary.  If you are using a disk cache, you might use 
+    DB:N if you do not access your DoubleSpace drive before the 
+    cache is loaded.  If you boot from the DoubleSpace drive, you 
+    should not use DB:N because the DoubleSpace drive will probably 
+    be accessed before the cache is loaded.
+
+  - If you are using Stealth ROM, but hard disk functions are not
+    being Stealthed, you can use DB:N.  This may be the case if you
+    use the QEMM386.SYS parameter XSTI=13, or if you use the
+    XST=xxxx parameter on the ROM that manages hard disk access.
+    These parameters are only for troubleshooting problems 
+    related to Stealth ROM; do not use them just to be able to use 
+    ST-DBL.SYS's DB:N parameter.
+
+  You can configure some disk caches to use expanded memory. If 
+  Stealth DoubleSpace detects a disk cache using expanded 
+  memory, it will automatically create a 1K disk buffer 
+  specifically designed to make Stealth DoubleSpace work with EMS-
+  using disk caches. If you have an EMS-using cache that fails 
+  when it starts, or your system freezes when ST-DBL.SYS loads, 
+  Stealth DoubleSpace may not be detecting the EMS-using disk 
+  cache.  In this case, you should force Stealth DoubleSpace to 
+  create the necessary disk buffer by adding the parameter 
+  EXPCACHE:Y to the ST-DBL.SYS device line in CONFIG.SYS.  Because 
+  the disk buffer may cause a slowdown in disk access time, you can 
+  create a larger disk buffer to speed up disk access time by using 
+  EXPCACHE:x, where x is the desired buffer size in K. A 
+  larger disk buffer will use more conventional memory or High RAM 
+  (depending on where ST-DBL.SYS is loaded). A buffer size of 4K 
+  should virtually eliminate speed degradation (at the expense of 3 
+  additional K of memory).  If you want to force Stealth 
+  DoubleSpace not to create the disk buffer, you can use the 
+  parameter EXPCACHE:N.
+
+  Stealth DoubleSpace is fully compatible with Vertisoft's
+  SPACEManager version 1.51 and later.  To use Stealth DoubleSpace
+  with versions of SPACEMANager earlier than 1.51, you must add 
+  the VS:Y parameter to the QEMM386.SYS device line in CONFIG.SYS.  
+  For information on the VS:Y parameter, see VCPISHARE in Chapter 7 
+  of the QEMM manual.
+    
+                    QEMM SETUP--CHECK IT OUT!
+
+  QEMM has a new feature called QEMM Setup that lets you quickly 
+  and easily make changes to QEMM.  QEMM Setup also contains
+  valuable information about getting the best use of QEMM and using
+  QEMM with different hardware, software and versions of DOS, as
+  well as troubleshooting information. To start QEMM Setup, 
+  just type QSETUP.
+
+                  STEALTH AND THE EMS PAGE FRAME
+
+  QEMM's Stealth ROM and Stealth DoubleSpace features depend on 
+  the existence of an EMS page frame. QEMM installation normally 
+  sets up a page frame in upper memory. If you want to use the 
+  Stealth features, you must do nothing that would eliminate or
+  reduce the size of the page frame (i.e., do not use the 
+  parameters EMS:N; FRAMELENGTH=0, 1, 2 or 3; or FRAME=NONE on the 
+  QEMM386.SYS device line in CONFIG.SYS).
+
+                       TROUBLESHOOTING QEMM
+
+  You will find general troubleshooting information in Appendix A
+  of the QEMM manual. There are also several technical bulletins
+  included in the \QEMM\TECHNOTE directory on your hard drive.
+  These "technotes" cover a variety of issues, such as Exception 13
+  messages and using QEMM with Microsoft Windows, Stacker and
+  other programs. For information on the technotes, see Appendix B
+  of the QEMM manual.  You can view the technotes from the QSETUP 
+  program or with a text editor or viewer.
+
+                       COMPATIBILITY ISSUES
+
+  QEMM is compatible with most popular hardware and software. 
+  Although compatibility problems are rare, we have compiled a 
+  list of hardware and software that require parameters, excludes, 
+  etc. when used with QEMM.  If you have problems with a program or 
+  your system after installing QEMM, see the text file PRODUCTS.TEC
+  in the \QEMM\TECHNOTE directory for information on resolving 
+  compatibility issues.  You can view the file from the QSETUP 
+  program or with a text editor or viewer.
+
+              QEMM AND DISK COMPRESSION SOFTWARE
+
+  QEMM now automatically supports Stacker versions 2.0 - 4.0,
+  SuperStor 2.0 and 2.04, and SuperStor Pro.  If you use one of
+  these disk compressors, see the appropriate technote file:
+  STACKER3.TEC, STACKER4.TEC or SSTOR.TEC, located in the
+  QEMM\TECHNOTE directory.  You can view them from the QSETUP
+  program or from within your favorite text editor or viewer.
+
+  If you are using XtraDrive, see the technote file XTRADRV.TEC.
+
+
+                 MS-DOS 6 MULTIPLE CONFIGURATIONS
+
+  MS-DOS 6 gives you the ability to create multiple CONFIG.SYS and
+  AUTOEXEC.BAT blocks and choose from the various configurations
+  at boot up.  QEMM 7's Install, Optimize, and QSETUP programs
+  support this feature by letting you choose the configuration 
+  to modify. For more information on running Optimize while 
+  using multiple configurations, see the text file MSDOS6.TEC in 
+  the QEMM\TECHNOTE directory.  You can view it from the QSETUP 
+  program or with a text editor or viewer.
+
+                  QEMM WITH DR DOS 6 OR NOVELL DOS 7
+
+  For information on optimally configuring DR DOS 6 or Novell DOS 7
+  with QEMM 7, see the file DRDOS6.TEC or NOVELL7.TEC in the
+  QEMM\TECHNOTE directory. You can view these files from the QSETUP
+  program or with a text editor or viewer.
+
+
+                         CORRECTIONS TO MANUAL
+
+  The technotes DBLDISK.TEC and WIN31.TEC, listed in Appendix B as
+  included in the QEMM\TECHNOTE directory, are no longer shipped
+  with QEMM.  For information on Windows 3.1, see WINFLOW.TEC in the
+  \QEMM\TECHNOTE directory; for information on DoubleDisk, contact
+  Quarterdeck to receive DBLDISK.TEC.
+
+                     << End of READ.ME >>

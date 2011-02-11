@@ -1,0 +1,8 @@
+
+# OPTIMIZE: 11/07/:7 at 19:21:44
+# The Setup Phase is running at 19CA:0000 (103K)
+# Quarterdeck's Memory Manager line:
+# DEVICE=C:\QEMM\QEMM386.SYS RAM
+
+# Device line after the Setup Phase:
+# DEVICE=C:\QEMM\QEMM386.SYS RAM ARAM=D000-DFFF GS:C:\QEMM\LOADHI.OPT LB:AA
