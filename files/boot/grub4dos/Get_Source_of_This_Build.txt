@@ -1,11 +1,13 @@
 Get the source code of this build by using anonymous svn in this way:
 
-svn co -r 63 svn://svn.gna.org/svn/grub4dos/trunk grub4dos
+svn co -r 139 http://grub4dos-chenall.googlecode.com/svn/trunk grub4dos
 
-or in this way:
+and then apply the patch against revision 139 you just downloaded:
 
-svn co -r 63 http://svn.gna.org/svn/grub4dos/trunk grub4dos
+cd grub4dos
 
-and now you may "cd grub4dos" and do a "make" to compile.
+patch -p0 < ../grub4dos_r139.diff
 
-			
+and now you may do a "make" to compile.
+
+				

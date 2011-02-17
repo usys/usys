@@ -1,0 +1,66 @@
+#default 1
+debug off
+
+find --set-root /boot/usys.id
+fontfile /boot/fonts/cnfont
+color green/black white/blue white/black black/black
+#splashimage /boot/load/deepin.xpm.gz
+
+title  启动 XR-DOS v0.1
+    #find --set-root /boot/images/xrdos.img
+    map --mem /boot/images/xrdos.img (fd0)
+    map --floppies=1
+    map --hook
+    chainloader (fd0)+1
+    rootnoverify (fd0)
+
+
+title  启动 矮人DOS工具箱
+	#find --set-root /boot/images/ardos.img
+    map --mem /boot/images/ardos.img (fd0)
+    map --floppies=1
+    map --hook
+    chainloader (fd0)+1
+    rootnoverify (fd0)
+	
+title  启动 Hiren's DOS v13.1
+map --mem /boot/images/hirendos.gz (fd0)
+map --hook
+chainloader (fd0)+1
+rootnoverify (fd0)
+
+
+title  其他 ……
+	configfile /boot/menu.lst
+
+title ──────────────────────────────────
+clear
+title  启动本机硬盘的 WINDOWS NT/2003/XP 系统
+map (hd0) (hd0)
+map (hd0) (hd1)
+root (hd0,0)
+chainloader (hd0,0)+1
+boot
+rootnoverify (hd0,0)
+chainloader +1
+clear
+title  启动本机硬盘上 VISTA 系统(如果存在)
+find --set-root /bootmgr
+chainloader /bootmgr
+clear
+title  从第二硬盘启动系统
+fallback 6
+root (hd0,1)
+chainloader +1
+title  从光驱启动系统
+cdrom --init
+map --hook
+chainloader (cd0)
+boot
+title ──────────────────────────────────
+clear
+title  重启计算机
+reboot
+clear
+title  关闭计算机
+halt

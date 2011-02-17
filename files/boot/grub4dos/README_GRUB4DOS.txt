@@ -2660,7 +2660,7 @@ RAW default to 1. If RAW=0, `int15/ah=87h' will be used to access memdrives.
 
 RD default to 0x7F which is a floppy. If the RAM DRIVE is a hard drive image
 (with partition table in the first sector), you should set RD >= 0x80 and RD
-< 0xFF.
+< 0xA0.If the RAM DRIVE is a cdrom image, you should set 0xA0<= RD <= 0xff.
 
 	map --rd-base=ADDR
 
@@ -2758,6 +2758,20 @@ Examples:
 
 	is64bit && default 0
 	is64bit || default 1
+
+2010-11-04
+	Add new operators "|", ">" , ">>"
+Usage:
+	command1 | command2
+
+	command > file
+	or
+	command >> file
+
+Node: The file must already exist, GRUB4DOS can not create file or change the file size.
+Examples:
+	cat /test.txt > /abcd.txt
+
 
 ******************************************************************************
 ***          Three new commands is64bit, errnum and errorcheck             ***
@@ -2948,6 +2962,7 @@ grldr as boot file.
 You may also want to load a different menu.lst for different client. GRUB4DOS
 will scan the following location for configuration file:
 
+	[/mybootdir]/menu.lst
 	[/mybootdir]/menu.lst/01-88-99-AA-BB-CC-DD
 	[/mybootdir]/menu.lst/C000025B
 	[/mybootdir]/menu.lst/C000025
@@ -2966,7 +2981,7 @@ mybootdir=tftp.
 
 If none of the above files is present, grldr will use its embeded menu.lst.
 
-This is a menu.lst to illstrate how to use files from the tftp server.
+This is a menu.lst to illustrate how to use files from the tftp server.
 
 	title Create ramdisk using map
 	map --mem (pd)/floppy.img (fd0)
@@ -3289,9 +3304,12 @@ will not produce bifurcate drives.
 GRLDR can be used as the PXE boot file on a remote/network server. The (pd)
 device is used to access files on the server. When GRLDR is booted through
 network, it will use its preset menu as the config file. However, you may use
-a "pxe detect" command, which acts the same way as PXELINUX:
+a "pxe detect" command, which acts this way:
 
-    * First, it will search for the config file using the hardware type (using
+    * First, it will search for the config file "menu.lst" in the same dir as
+      grldr.
+
+    * Second, it will search for the config file using the hardware type (using
       its ARP type code) and address, all in hexadecimal with dash separators;
       for example, for an Ethernet (ARP type 1) with address 88:99:AA:BB:CC:DD
       it would search for the filename 01-88-99-AA-BB-CC-DD. 
@@ -3304,16 +3322,17 @@ a "pxe detect" command, which acts the same way as PXELINUX:
       88:99:AA:BB:CC:DD and the IP address 192.0.2.91, it will try following
       files (in that order): 
 
-       /mybootdir/menu.lst/01-88-99-AA-BB-CC-DD
-       /mybootdir/menu.lst/C000025B
-       /mybootdir/menu.lst/C000025
-       /mybootdir/menu.lst/C00002
-       /mybootdir/menu.lst/C0000
-       /mybootdir/menu.lst/C000
-       /mybootdir/menu.lst/C00
-       /mybootdir/menu.lst/C0
-       /mybootdir/menu.lst/C
-       /mybootdir/menu.lst/default
+       /mybootdir/menu.lst
+       /mybootdir/menu/01-88-99-AA-BB-CC-DD
+       /mybootdir/menu/C000025B
+       /mybootdir/menu/C000025
+       /mybootdir/menu/C00002
+       /mybootdir/menu/C0000
+       /mybootdir/menu/C000
+       /mybootdir/menu/C00
+       /mybootdir/menu/C0
+       /mybootdir/menu/C
+       /mybootdir/menu/default
 
 You cannot directly map an image file on (pd). You must map it in memory using
 the --mem option. For example,
@@ -3758,6 +3777,8 @@ Address		Length		Description
 0000:829C	4 (DWORD)	saved_partition (current root partition)
 0000:82A0	4 (DWORD)	saved_drive (current root drive)
 0000:82A4	4 (DWORD)	no_decompression (no auto gunzip)
+0000:82A8	8 (QWORD)	part_start (start sector of last partition)
+0000:82B0	8 (QWORD)	part_length (total sectors of last partition)
 
 Note 1: Filesize can be initialised/modified by using "cat --length=0 FILE".
 Note 2: You should not write these variables by hand(should read only).
@@ -3862,3 +3883,223 @@ requires the right geometry in the partition table and BPB. Windows/Linux may
 also require it, since the boot process could run in real-mode.
 
 
+******************************************************************************
+***                            Version numbering                           ***
+******************************************************************************
+
+Now we append a letter 'a', 'b', 'c' or 'p' to the version number(e.g., 0.4.5).
+So the version will become 0.4.5a, 0.4.5b, 0.4.5c, 0.4.5 or 0.4.5p.
+
+'a' - alpha test. unstable, especially when there are known bugs.
+'b' - beta test. the developers think it has no bugs and want a widely testing.
+'c' - release candidate.
+''(nothing) - official release.
+'p' - patched versions to the official release.
+
+
+******************************************************************************
+***                          Running User Programs                         ***
+******************************************************************************
+
+From 0.4.5 on, user programs can be developed for running under grub4dos. The
+executable program file must end with the 8-byte grub4dos EXEC signature:
+
+		0x05, 0x18, 0x05, 0x03, 0xBA, 0xA7, 0xBA, 0xBC
+
+The executable must have no relocations, and the entry point is at the very
+beginning of the file, just like a DOS .com file(but the grub4dos executable
+is 32-bit).
+
+Here is a sample file echo.c:
+
+/*================ begin echo.c ================*/
+
+/*
+ * compile:			
+
+gcc -nostdlib -fno-zero-initialized-in-bss -fno-function-cse -fno-jump-tables -Wl,-N -fPIE echo.c
+
+ * disassemble:			objdump -d a.out
+ * confirm no relocation:	readelf -r a.out
+ * generate executable:		objcopy -O binary a.out b.out
+ *
+ * and then the resultant b.out will be grub4dos executable.
+ */
+
+/*
+ * This is a simple ECHO command, running under grub4dos.
+ */
+
+int i = 0x66666666;	/* this is needed, see the following comment. */
+
+/* gcc treat the following as data only if a global initialization like the
+ * above line occurs.
+ */
+
+/* a valid executable file for grub4dos must end with these 8 bytes */
+asm(".long 0x03051805");
+asm(".long 0xBCBAA7BA");
+/* thank goodness gcc will place the above 8 bytes at the end of the b.out
+ * file. Do not insert any other asm lines here.
+ */
+
+int
+main()
+{
+        void *p = &main;
+
+	return
+	/* the following line is calling the grub_sprintf function. */
+	((int (*)(char *, const char *, ...))((*(int **)0x8300)[0]))
+	/* the following line includes arguments passed to grub_sprintf. */
+		(0, p - (*(int *)(p - 8)));
+}
+
+/*================  end  echo.c ================*/
+
+0x8300 is a pointer to the grub4dos system funtions(API). The system_functions
+variable is defined in asm.S.
+
+More function can use in user programs:
+	http://grubutils.googlecode.com/svn/trunk/src/include/grub4dos.h
+note: After 2010-11-16 version of grub4dos,you can use like below.
+/////////////////echo.c start///////////////////////////////////////////////
+#define sprintf ((int (*)(char *, const char *, ...))((*(int **)0x8300)[0]))
+
+#define printf(...) sprintf(NULL, __VA_ARGS__)
+int i = 0x66666666;
+asm(".long 0x03051805");
+asm(".long 0xBCBAA7BA");
+int main(char *arg,int flags)
+{
+
+	return printf("%s\n",arg);
+}
+/////////////////echo.c end/////////////////////////////////////////////////
+
+******************************************************************************
+***                      Map options added by Karyonix                     ***
+******************************************************************************
+
+(from boot-land.net) Karyonix's note:
+
+map --add-mbt= option to be used with --mem. If =0 master boot track will not
+	be added automatically.
+map --top option to be used with --mem. map --mem will try to allocate memory
+	at highest available address.
+map --mem-max=, map --mem-min options to be used before map --mem. Allow user
+	to manually limit range of address that map --mem can use.
+
+safe_parse_maxint_with_suffix function parses K,M,G,T suffix after number.
+
+
+******************************************************************************
+***                 Graphics mode 6A: 800x600 with 16 colors               ***
+******************************************************************************
+
+Graphics mode now has 2 possibilities, one is the default 640x480 mode, and the
+other is 800x600 mode.
+
+To enter 800x600 mode, follow this way:
+
+1. Be sure you are in console text mode. You may execute "terminal console".
+2. Set graphics mode to 0x6A by using command "graphicsmode 0x6A".
+3. Enter graphics mode. You may execute command "terminal graphics".
+
+To return to 640x480 mode, follow this way:
+
+1. Be sure you are in console text mode. You may execute "terminal console".
+2. Set graphics mode to 0x12 by using command: "graphicsmode 0x12".
+3. Enter graphics mode. You may execute command "terminal graphics".
+
+****************************************************************************** 
+*****			GRUB4DOS variable support			 *****
+****************************************************************************** 
+
+From now we supports variables, the same usage of MSDOS. 
+
+commands: 
+	set [/p] [/a|/A] [/l|/u] [VARIABLE=[STRING]]
+	variable specifies the variable name (up to 8 characters). 
+	string Specifies a string assigned to the variable (up to 512 characters.) 
+
+SET command without parameters will display the current variables. 
+
+with "=",if the string is empty.
+	set myvar= 
+Will delete the variable myvar
+
+Show the name has been used for all variable. For example: 
+	set ex_ 
+Will display all variables beginning with ex_, returns 0 if no match. 
+
+Note:	1. the same of MSDOS.
+	   a full line of command will be conducted before the implementation of variable substitution. 
+	2. Variable names must beginning with letter or "_".
+	   Otherwise you will not be able to access your variables.
+	3. See the previous description for length limit. 
+	3. To reset all used variable enter command "set *"
+
+the new command if
+	if [/I] [NOT] STRING1==STRING2 [COMMAND]
+	if [NOT] exist VARIABLE|FILENAME [COMMAND]
+
+	STRING1==STRING2
+	   Specifies a true condition if the specified text strings match.
+	COMMAND
+	   Specifies the command to carry out if the condition is met.
+	/I
+	   if specified, says to do case insensitive string compares.
+	NOT
+	   Specifies that should carry out the command only if the condition is false.
+
+Example: 
+	1. To determine whether strings are equal, and not case sensitive. 
+		if /i test==%myvar% echo this is a test
+	2. To determine the character is empty.
+		if %myvar%#==# echo variable myvar not defined.
+Usage example: 
+	1. Displays a string including the variable. 
+		echo myvar=%myvar% 
+	2. Using a variable instead of command. 
+		set print = echo 
+		%print% This a test.
+	3. You can use a "^" to stop extended, example 
+		echo %myvar^% 
+	  Or 
+		echo %my^var% 
+	  Will be displayed %myvar% rather than the extended character after myvar. 
+Note: We only deal the ^ between the symbols %%. 
+
+****************************************************************************** 
+*****			GRUB4DOS batch scripting support		 ***** 
+****************************************************************************** 
+
+The new version supports running a batch script,It very like MS-DOS batch.
+Yes!you needn't to learn a new language.
+
+Example of a simple script: 
+	========= GRUB4DOS BATCH SCRIPT START =============================== 
+	!BAT #Note: The file header !BAT is necessary to identify this is a batch
+	echo %0 
+	echo Your type:%1 %2 %3 %4 %5 %6 %7 %8 %9 
+	call :Label1 This is a test string 
+	goto :label2 
+	:Label1 
+	echo %1 %2 %3 %4 %5 %6 %7 %8 %9 
+	goto :eof 
+	:Label2 
+	echo end of batch script. 
+	========= GRUB4DOS BATCH SCRIPT END =============================== 
+
+Some differences: 
+	1. Batch will stop when an error occurs. 
+	2. Use command "exit 1",if you need to stop a running batch script.
+	3. %9 refers to all the remaining parameters. 
+	5. extensions
+		%~d0	expands %0 to a drive letter.e.g: (hd0,0) ,()
+		%~p0	expands %0 to a path only
+		%~n0	expands %0 to a file name only
+		%~xI	expands %0 to a file extension only
+	6.In below site you can find some script.
+	  http://chenall.net/post/tag/grub4dos/
