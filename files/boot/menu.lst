@@ -32,7 +32,7 @@ title --------------------------------------------------------------------
 
 title Boot XRDOS
     #find --set-root /boot/images/xrdos.img
-    map --mem /boot/images/xrdos.img (fd0)
+    map --mem /boot/images/xrdos.gz (fd0)
     map --floppies=1
     map --hook
     chainloader (fd0)+1
@@ -40,7 +40,7 @@ title Boot XRDOS
 
 title Boot ARDOS
 	#find --set-root /boot/images/ardos.img
-    map --mem /boot/images/ardos.img (fd0)
+    map --mem /boot/images/ardos.gz (fd0)
     map --floppies=1
     map --hook
     chainloader (fd0)+1

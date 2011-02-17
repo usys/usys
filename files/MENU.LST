@@ -7,8 +7,8 @@ color green/black white/blue white/black black/black
 #splashimage /boot/load/deepin.xpm.gz
 
 title  启动 XR-DOS v0.1
-    #find --set-root /boot/images/xrdos.img
-    map --mem /boot/images/xrdos.img (fd0)
+    #find --set-root /boot/images/xrdos.gz
+    map --mem /boot/images/xrdos.gz (fd0)
     map --floppies=1
     map --hook
     chainloader (fd0)+1
@@ -16,8 +16,8 @@ title  启动 XR-DOS v0.1
 
 
 title  启动 矮人DOS工具箱
-	#find --set-root /boot/images/ardos.img
-    map --mem /boot/images/ardos.img (fd0)
+	#find --set-root /boot/images/ardos.gz
+    map --mem /boot/images/ardos.gz (fd0)
     map --floppies=1
     map --hook
     chainloader (fd0)+1
